@@ -1,0 +1,134 @@
+"use client";
+
+import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { User, ArrowRight, Check } from "lucide-react";
+
+function SentinelIcon() {
+  return (
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+      <path
+        d="M15 2C9.477 2 5 6.477 5 12c0 5.523 10 18 10 18S25 17.523 25 12C25 6.477 20.523 2 15 2Z"
+        stroke="#004d40"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+      <circle cx="15" cy="12" r="3.5" stroke="#004d40" strokeWidth="1.8" />
+    </svg>
+  );
+}
+
+function GoogleIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <path
+        d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908C16.658 14.252 17.64 11.926 17.64 9.2z"
+        fill="#4285F4"
+      />
+      <path
+        d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"
+        fill="#34A853"
+      />
+      <path
+        d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z"
+        fill="#FBBC05"
+      />
+      <path
+        d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 7.293C4.672 5.163 6.656 3.58 9 3.58z"
+        fill="#EA4335"
+      />
+    </svg>
+  );
+}
+
+const GUEST_CAN = ["Browse prices", "View flyers", "Use barcode scanner"];
+
+export default function SignInPage() {
+  function handleGoogle() {
+    signIn("google", { callbackUrl: "/onboarding" });
+  }
+
+  function handleGuest() {
+    window.location.href = "/";
+  }
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-[#0f1416] flex flex-col items-center justify-center px-6">
+      <div className="w-full max-w-sm">
+        {/* Logo + heading */}
+        <div className="flex flex-col items-center mb-8">
+          <div className="w-16 h-16 rounded-[22px] bg-[#00E5C3] flex items-center justify-center mb-5 shadow-[0_4px_24px_rgba(0,229,195,0.25)]">
+            <SentinelIcon />
+          </div>
+          <h1 className="text-[24px] font-medium text-[#111] dark:text-[#e8e8e8] mb-2">
+            Welcome to Sentinel
+          </h1>
+          <p className="text-[14px] text-[#aaa] text-center leading-relaxed max-w-[260px]">
+            Track grocery prices, get alerts, and plan smarter trips across St.
+            John's stores.
+          </p>
+        </div>
+
+        {/* Google */}
+        <button
+          onClick={handleGoogle}
+          className="w-full py-[14px] px-4 border border-[#e0e0e0] dark:border-[#2e3538] rounded-[14px] flex items-center justify-center gap-2.5 text-[14px] font-medium text-[#111] dark:text-[#e0e0e0] bg-white dark:bg-[#1e2528] hover:bg-[#fafafa] dark:hover:bg-[#242b2e] transition-colors active:scale-[0.98] mb-4"
+        >
+          <GoogleIcon />
+          Continue with Google
+        </button>
+
+        {/* Divider */}
+        <div className="flex items-center gap-3 mb-4">
+          <div className="flex-1 h-px bg-[#e0e0e0] dark:bg-[#2e3538]" />
+          <span className="text-[12px] text-[#bbb]">or</span>
+          <div className="flex-1 h-px bg-[#e0e0e0] dark:bg-[#2e3538]" />
+        </div>
+
+        {/* Guest CTA */}
+        <button
+          onClick={handleGuest}
+          className="w-full py-[12px] rounded-[14px] text-[14px] font-medium text-[#888] dark:text-[#666] hover:text-[#555] dark:hover:text-[#999] flex items-center justify-center gap-2 transition-colors border border-[#f0f0f0] dark:border-[#1e2528] hover:border-[#e0e0e0] dark:hover:border-[#2e3538] mb-5 active:scale-[0.98]"
+        >
+          <User size={15} />
+          Continue as guest
+          <ArrowRight size={14} />
+        </button>
+
+        {/* Guest feature callout */}
+        <div className="bg-[#fafafa] dark:bg-[#161b1e] rounded-xl p-3.5 mb-6 border border-[#f0f0f0] dark:border-[#1e2528]">
+          <p className="text-[11px] font-medium text-[#aaa] uppercase tracking-[0.5px] mb-2.5">
+            Guests can
+          </p>
+          <div className="flex flex-col gap-1.5 mb-2.5">
+            {GUEST_CAN.map((item) => (
+              <div key={item} className="flex items-center gap-2">
+                <Check size={12} className="text-[#00b89e] shrink-0" />
+                <span className="text-[12px] text-[#777] dark:text-[#888]">
+                  {item}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="text-[11px] text-[#bbb] leading-relaxed">
+            Sign in to unlock watchlists, alerts, grocery lists, AI Chef, and
+            your pantry.
+          </p>
+        </div>
+
+        {/* Legal */}
+        <p className="text-[11px] text-[#ccc] dark:text-[#555] text-center leading-relaxed px-2">
+          By continuing you agree to our{" "}
+          <Link href="/terms" className="text-[#00b89e] hover:underline">
+            Terms of Service
+          </Link>{" "}
+          and{" "}
+          <Link href="/privacy" className="text-[#00b89e] hover:underline">
+            Privacy Policy
+          </Link>
+          .
+        </p>
+      </div>
+    </div>
+  );
+}

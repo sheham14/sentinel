@@ -1,0 +1,703 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+    provider = "prisma-client"
+    output   = "./generated"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+// ──────────────────────────────────────────────
+// ENUMS
+// ──────────────────────────────────────────────
+
+enum UserRole {
+    consumer
+    moderator
+    store_admin
+}
+
+enum ConsentType {
+    terms_of_service
+    marketing_email
+    price_alerts
+    pattern_analysis
+}
+
+enum NotificationType {
+    price_drop
+    reply
+    store_announcement
+    weekly_digest
+}
+
+enum DigestFrequency {
+    immediate
+    daily
+    weekly
+    none
+}
+
+enum ProductCategory {
+    dairy
+    meat_seafood
+    produce
+    bakery_bread
+    frozen
+    pantry_dry_goods
+    snacks_candy
+    beverages
+    household
+    personal_care
+    baby
+    pet
+    deli_prepared
+    health_wellness
+    seasonal
+    other
+}
+
+enum PriceSource {
+    manual
+    scraper
+    crowdsourced
+}
+
+enum PriceReportStatus {
+    pending
+    verified
+    rejected
+    expired
+}
+
+enum PriceReportVerificationMethod {
+    dual_corroboration
+    ai_photo_extraction
+    manual_review
+}
+
+enum ScrapeRunStatus {
+    running
+    completed
+    failed
+}
+
+enum PostType {
+    tip
+    find
+    question
+    watch_out
+    discussion
+    store_announcement
+    price_drop
+    weekly_flyer
+}
+
+enum ContentFlagReason {
+    spam
+    misinformation
+    harassment
+    off_topic
+    inappropriate
+}
+
+enum ContentFlagStatus {
+    pending
+    reviewed_removed
+    reviewed_kept
+    dismissed
+}
+
+// ──────────────────────────────────────────────
+// CORE TABLES
+// ──────────────────────────────────────────────
+
+model User {
+    id               String    @id @default(cuid())
+    email            String    @unique
+    emailVerified    DateTime? @map("email_verified")
+    name             String?
+    image            String?
+    role             UserRole  @default(consumer)
+    stripeCustomerId String?   @unique @map("stripe_customer_id")
+
+    // Store admin scoping
+    managedStoreId String? @map("managed_store_id")
+    managedStore   Store?  @relation("StoreAdmin", fields: [managedStoreId], references: [id])
+
+    // PIPEDA compliance
+    deletedAt           DateTime? @map("deleted_at")
+    anonymizedAt        DateTime? @map("anonymized_at")
+    deletionRequestedAt DateTime? @map("deletion_requested_at")
+
+    // Notification preferences (inline — see Section 6 rationale)
+    emailNotifications Boolean         @default(true) @map("email_notifications")
+    pushNotifications  Boolean         @default(false) @map("push_notifications")
+    marketingOptIn     Boolean         @default(false) @map("marketing_opt_in")
+    digestFrequency    DigestFrequency @default(weekly) @map("digest_frequency")
+
+    // Onboarding
+    onboardingCompleted Boolean @default(false) @map("onboarding_completed")
+
+    // Timestamps
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    // Relations
+    accounts         Account[]
+    sessions         Session[]
+    lists            List[]
+    pantryItems      PantryItem[]
+    watchlists       Watchlist[]
+    alerts           Alert[]
+    consentLogs      ConsentLog[]
+    featureUsages    FeatureUsage[]
+    priceReports     PriceReport[]
+    posts            Post[]
+    comments         Comment[]
+    reactions        Reaction[]
+    contentFlags     ContentFlag[]
+    priceSubmissions PriceHistory[]       @relation("PriceSubmitter")
+    preferredStores  UserPreferredStore[]
+
+    @@index([email])
+    @@index([role])
+    @@index([deletedAt])
+    @@index([stripeCustomerId])
+    @@map("users")
+}
+
+model UserPreferredStore {
+    id        String   @id @default(cuid())
+    userId    String   @map("user_id")
+    storeId   String   @map("store_id")
+    createdAt DateTime @default(now()) @map("created_at")
+
+    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+    store Store @relation(fields: [storeId], references: [id])
+
+    @@unique([userId, storeId])
+    @@index([userId])
+    @@map("user_preferred_stores")
+}
+
+// NextAuth.js required tables
+model Account {
+    id                String  @id @default(cuid())
+    userId            String  @map("user_id")
+    type              String
+    provider          String
+    providerAccountId String  @map("provider_account_id")
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? @db.Text
+    session_state     String?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+    @@map("accounts")
+}
+
+model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique @map("session_token")
+    userId       String   @map("user_id")
+    expires      DateTime
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("sessions")
+}
+
+model VerificationToken {
+    identifier String
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
+    @@map("verification_tokens")
+}
+
+model PantryItem {
+    id        String    @id @default(cuid())
+    userId    String    @map("user_id")
+    productId String?   @map("product_id") // linked canonical product if matched
+    name      String // "eggs", "olive oil", "pasta"
+    quantity  Decimal?  @db.Decimal(10, 3)
+    unit      String? // "dozen", "ml", "g"
+    addedFrom String    @default("manual") @map("added_from")
+    // "manual" | "list_checkout" | "receipt_scan"
+    expiresAt DateTime? @map("expires_at") // optional expiry tracking
+    createdAt DateTime  @default(now()) @map("created_at")
+    updatedAt DateTime  @updatedAt @map("updated_at")
+
+    user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    product Product? @relation(fields: [productId], references: [id])
+
+    @@index([userId])
+    @@index([productId])
+    @@map("pantry_items")
+}
+
+// ──────────────────────────────────────────────
+// STORES AND PRODUCTS
+// ──────────────────────────────────────────────
+
+model Store {
+    id              String    @id @default(cuid())
+    chain           String // "walmart" | "loblaws" | "metro" | "sobeys" | "dollarama"
+    name            String // "Walmart Supercentre - Mount Pearl"
+    address         String?
+    city            String?
+    province        String?
+    postalCode      String?   @map("postal_code")
+    latitude        Decimal?  @db.Decimal(10, 7)
+    longitude       Decimal?  @db.Decimal(10, 7)
+    logoUrl         String?   @map("logo_url")
+    websiteUrl      String?   @map("website_url")
+    isActive        Boolean   @default(true) @map("is_active")
+    createdAt       DateTime  @default(now()) @map("created_at")
+    updatedAt       DateTime  @updatedAt @map("updated_at")
+    portalEnabled   Boolean   @default(false) @map("portal_enabled")
+    portalEnabledAt DateTime? @map("portal_enabled_at")
+
+    // Relations
+    storeProducts    StoreProduct[]
+    flyers           Flyer[]
+    scrapeRuns       ScrapeRun[]
+    admins           User[]               @relation("StoreAdmin")
+    preferredByUsers UserPreferredStore[]
+
+    @@index([chain])
+    @@index([city, province])
+    @@index([isActive])
+    @@map("stores")
+}
+
+model Product {
+    id           String           @id @default(cuid())
+    name         String // canonical normalised name
+    brand        String?
+    category     ProductCategory? // "dairy", "produce", "snacks", etc.
+    subcategory  String?
+    barcode      String?          @unique // UPC/EAN if known
+    unitSize     String?          @map("unit_size") // "500g", "1L", "6 pack"
+    unitMeasure  String?          @map("unit_measure") // "g" | "ml" | "kg" | "L" | "unit"
+    unitQuantity Decimal?         @map("unit_quantity") @db.Decimal(10, 3) // 500, 1000, 6
+    imageUrl     String?          @map("image_url")
+    description  String?          @db.Text
+    isActive     Boolean          @default(true) @map("is_active")
+    createdAt    DateTime         @default(now()) @map("created_at")
+    updatedAt    DateTime         @updatedAt @map("updated_at")
+
+    // Relations
+    storeProducts     StoreProduct[]
+    watchlists        Watchlist[]
+    recipeIngredients RecipeIngredient[]
+    listItems         ListItem[]
+    pantryItems       PantryItem[]
+
+    @@index([name])
+    @@index([barcode])
+    @@index([category])
+    @@index([brand])
+    @@index([name, brand]) // composite for search
+    @@map("products")
+}
+
+model StoreProduct {
+    id               String    @id @default(cuid())
+    storeId          String    @map("store_id")
+    productId        String    @map("product_id")
+    storeSku         String?   @map("store_sku")
+    storeProductName String?   @map("store_product_name") // store's own name for this product
+    scrapeUrl        String?   @map("scrape_url")
+    currentPrice     Decimal?  @map("current_price") @db.Decimal(10, 2)
+    isSale           Boolean   @default(false) @map("is_sale")
+    saleEndDate      DateTime? @map("sale_end_date")
+    lastScrapedAt    DateTime? @map("last_scraped_at")
+    extractionFailed Boolean   @default(false) @map("extraction_failed")
+    isActive         Boolean   @default(true) @map("is_active")
+    createdAt        DateTime  @default(now()) @map("created_at")
+    updatedAt        DateTime  @updatedAt @map("updated_at")
+
+    // Relations
+    store          Store           @relation(fields: [storeId], references: [id])
+    product        Product         @relation(fields: [productId], references: [id])
+    priceHistory   PriceHistory[]
+    priceReports   PriceReport[]
+    storeInventory StoreInventory?
+
+    @@unique([storeId, productId])
+    @@index([storeId])
+    @@index([productId])
+    @@index([lastScrapedAt])
+    @@index([extractionFailed])
+    @@map("store_products")
+}
+
+model PriceHistory {
+    id             String   @id @default(cuid())
+    storeProductId String   @map("store_product_id")
+    price          Decimal  @db.Decimal(10, 2)
+    isSale         Boolean  @default(false) @map("is_sale")
+    source         String   @default("manual") @map("source") // "manual" | "scraper" | "crowdsourced"
+    submittedBy    String?  @map("submitted_by") // user ID for crowdsourced
+    scrapedAt      DateTime @default(now()) @map("scraped_at")
+    createdAt      DateTime @default(now()) @map("created_at")
+
+    // Relations
+    storeProduct StoreProduct @relation(fields: [storeProductId], references: [id])
+    submitter    User?        @relation("PriceSubmitter", fields: [submittedBy], references: [id])
+
+    @@index([storeProductId, scrapedAt(sort: Desc)]) // PRIMARY query index
+    @@index([scrapedAt]) // for retention cleanup
+    @@index([source]) // filter by source type
+    @@map("price_history")
+}
+
+model Watchlist {
+    id           String   @id @default(cuid())
+    userId       String   @map("user_id")
+    productId    String   @map("product_id")
+    targetPrice  Decimal? @map("target_price") @db.Decimal(10, 2)
+    notifyOnDrop Boolean  @default(true) @map("notify_on_drop")
+    notifyOnRise Boolean  @default(false) @map("notify_on_rise") // optional price alert threshold
+    createdAt    DateTime @default(now()) @map("created_at")
+
+    user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    product Product @relation(fields: [productId], references: [id])
+
+    @@unique([userId, productId])
+    @@index([userId])
+    @@index([productId])
+    @@map("watchlists")
+}
+
+model Alert {
+    id        String           @id @default(cuid())
+    userId    String           @map("user_id")
+    type      NotificationType
+    channel   String           @default("email") // "email" | "push"
+    payload   Json
+    sentAt    DateTime?        @map("sent_at")
+    batchId   String?          @map("batch_id") // groups batched notifications
+    createdAt DateTime         @default(now()) @map("created_at")
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId, createdAt(sort: Desc)])
+    @@index([batchId])
+    @@index([sentAt])
+    @@map("alerts")
+}
+
+model Flyer {
+    id         String   @id @default(cuid())
+    storeId    String   @map("store_id")
+    title      String
+    imageUrl   String   @map("image_url")
+    pdfUrl     String?  @map("pdf_url")
+    validFrom  DateTime @map("valid_from")
+    validUntil DateTime @map("valid_until")
+    createdAt  DateTime @default(now()) @map("created_at")
+
+    store Store @relation(fields: [storeId], references: [id])
+
+    @@index([storeId, validUntil(sort: Desc)])
+    @@index([validFrom, validUntil]) // "current flyers" query
+    @@map("flyers")
+}
+
+// ──────────────────────────────────────────────
+// SHOPPING AND RECIPES
+// ──────────────────────────────────────────────
+
+model Household {
+    id        String   @id @default(cuid())
+    name      String
+    createdBy String   @map("created_by")
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    lists List[]
+
+    @@map("households")
+}
+
+model List {
+    id          String   @id @default(cuid())
+    userId      String   @map("user_id")
+    householdId String?  @map("household_id") // null in V1 — Phase 3 household sharing
+    name        String   @default("My List")
+    isDefault   Boolean  @default(false) @map("is_default")
+    createdAt   DateTime @default(now()) @map("created_at")
+    updatedAt   DateTime @updatedAt @map("updated_at")
+
+    user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+    household Household? @relation(fields: [householdId], references: [id])
+    items     ListItem[]
+
+    @@index([userId])
+    @@index([householdId])
+    @@map("lists")
+}
+
+model ListItem {
+    id        String   @id @default(cuid())
+    listId    String   @map("list_id")
+    productId String?  @map("product_id") // null if free-text entry
+    name      String // display name (from product or user-typed)
+    quantity  Decimal  @default(1) @db.Decimal(10, 3)
+    unit      String? // "kg", "lbs", "pack", "bunch", or null
+    notes     String?  @db.Text
+    isChecked Boolean  @default(false) @map("is_checked")
+    sortOrder Int      @default(0) @map("sort_order")
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    list    List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+    product Product? @relation(fields: [productId], references: [id])
+
+    @@index([listId, sortOrder])
+    @@map("list_items")
+}
+
+model Recipe {
+    id           String   @id @default(cuid())
+    title        String
+    description  String?  @db.Text
+    imageUrl     String?  @map("image_url")
+    sourceUrl    String?  @map("source_url")
+    prepTime     Int?     @map("prep_time") // minutes
+    cookTime     Int?     @map("cook_time") // minutes
+    servings     Int?
+    instructions String?  @db.Text // markdown or plain text
+    isActive     Boolean  @default(true) @map("is_active")
+    createdAt    DateTime @default(now()) @map("created_at")
+    updatedAt    DateTime @updatedAt @map("updated_at")
+
+    ingredients RecipeIngredient[]
+
+    @@index([title])
+    @@map("recipes")
+}
+
+model RecipeIngredient {
+    id         String   @id @default(cuid())
+    recipeId   String   @map("recipe_id")
+    productId  String?  @map("product_id") // linked canonical product if matched
+    name       String // "chicken breast", "olive oil"
+    quantity   Decimal? @db.Decimal(10, 3)
+    unit       String? // "g", "ml", "cups", "tbsp"
+    notes      String? // "diced", "room temperature"
+    isOptional Boolean  @default(false) @map("is_optional")
+    sortOrder  Int      @default(0) @map("sort_order")
+
+    recipe  Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+    product Product? @relation(fields: [productId], references: [id])
+
+    @@index([recipeId])
+    @@index([productId])
+    @@map("recipe_ingredients")
+}
+
+// ──────────────────────────────────────────────
+// AI AND USAGE
+// ──────────────────────────────────────────────
+
+model FeatureUsage {
+    id       String   @id @default(cuid())
+    userId   String   @map("user_id")
+    feature  String // "recipe_ask" | "price_normalisation" | etc.
+    usedAt   DateTime @default(now()) @map("used_at")
+    metadata Json? // token count, latency, etc.
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId, feature, usedAt]) // rate limit check query
+    @@index([usedAt]) // analytics and cleanup
+    @@map("feature_usage")
+}
+
+// ──────────────────────────────────────────────
+// AUTH AND COMPLIANCE
+// ──────────────────────────────────────────────
+
+model ConsentLog {
+    id          String      @id @default(cuid())
+    userId      String      @map("user_id")
+    consentType ConsentType @map("consent_type")
+    consented   Boolean
+    ipAddress   String?     @map("ip_address")
+    userAgent   String?     @map("user_agent") @db.Text
+    createdAt   DateTime    @default(now()) @map("created_at")
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId, consentType])
+    @@index([createdAt])
+    @@map("consent_logs")
+}
+
+// ──────────────────────────────────────────────
+// INFRASTRUCTURE
+// ──────────────────────────────────────────────
+
+model ScrapeRun {
+    id            String          @id @default(cuid())
+    storeId       String          @map("store_id")
+    status        ScrapeRunStatus @default(running)
+    startedAt     DateTime        @default(now()) @map("started_at")
+    finishedAt    DateTime?       @map("finished_at")
+    totalProducts Int             @default(0) @map("total_products")
+    successCount  Int             @default(0) @map("success_count")
+    errorCount    Int             @default(0) @map("error_count")
+    errorDetails  Json?           @map("error_details")
+    alertSent     Boolean         @default(false) @map("alert_sent")
+
+    store Store @relation(fields: [storeId], references: [id])
+
+    @@index([storeId, startedAt(sort: Desc)])
+    @@index([status])
+    @@map("scrape_runs")
+}
+
+// ──────────────────────────────────────────────
+// FUTURE TABLES — schema defined now, implement later
+// ──────────────────────────────────────────────
+
+model PriceReport {
+    id                    String                         @id @default(cuid())
+    storeProductId        String                         @map("store_product_id")
+    reportedBy            String                         @map("reported_by")
+    reportedPrice         Decimal                        @map("reported_price") @db.Decimal(10, 2)
+    currentDbPrice        Decimal?                       @map("current_db_price") @db.Decimal(10, 2)
+    photoUrl              String?                        @map("photo_url")
+    seenAt                DateTime                       @map("seen_at")
+    status                PriceReportStatus              @default(pending)
+    verificationMethod    PriceReportVerificationMethod? @map("verification_method")
+    corroboratingReportId String?                        @map("corroborating_report_id")
+    reviewedAt            DateTime?                      @map("reviewed_at")
+    reviewedBy            String?                        @map("reviewed_by")
+    createdAt             DateTime                       @default(now()) @map("created_at")
+
+    storeProduct        StoreProduct  @relation(fields: [storeProductId], references: [id])
+    reporter            User          @relation(fields: [reportedBy], references: [id])
+    corroboratingReport PriceReport?  @relation("Corroboration", fields: [corroboratingReportId], references: [id])
+    corroboratedBy      PriceReport[] @relation("Corroboration")
+
+    @@index([storeProductId, status])
+    @@index([reportedBy, createdAt]) // velocity limiting
+    @@index([status, createdAt]) // pending review queue
+    @@map("price_reports")
+}
+
+model Post {
+    id          String    @id @default(cuid())
+    userId      String    @map("user_id")
+    storeId     String?   @map("store_id") // null for general posts
+    postType    PostType  @map("post_type")
+    categoryTag String?   @map("category_tag")
+    topicTag    String?   @map("topic_tag")
+    title       String
+    body        String    @db.Text
+    isPinned    Boolean   @default(false) @map("is_pinned")
+    isLocked    Boolean   @default(false) @map("is_locked")
+    createdAt   DateTime  @default(now()) @map("created_at")
+    updatedAt   DateTime  @updatedAt @map("updated_at")
+    deletedAt   DateTime? @map("deleted_at")
+
+    user      User          @relation(fields: [userId], references: [id])
+    comments  Comment[]
+    reactions Reaction[]
+    flags     ContentFlag[]
+
+    @@index([storeId, createdAt(sort: Desc)])
+    @@index([postType])
+    @@index([categoryTag])
+    @@index([userId])
+    @@map("posts")
+}
+
+model Comment {
+    id              String    @id @default(cuid())
+    postId          String    @map("post_id")
+    userId          String    @map("user_id")
+    parentCommentId String?   @map("parent_comment_id") // null = top-level, non-null = reply (max 1 level deep)
+    body            String    @db.Text
+    createdAt       DateTime  @default(now()) @map("created_at")
+    updatedAt       DateTime  @updatedAt @map("updated_at")
+    deletedAt       DateTime? @map("deleted_at")
+
+    post      Post          @relation(fields: [postId], references: [id], onDelete: Cascade)
+    user      User          @relation(fields: [userId], references: [id])
+    parent    Comment?      @relation("CommentThread", fields: [parentCommentId], references: [id])
+    replies   Comment[]     @relation("CommentThread")
+    reactions Reaction[]
+    flags     ContentFlag[]
+
+    @@index([postId, createdAt])
+    @@index([parentCommentId])
+    @@map("comments")
+}
+
+model Reaction {
+    id        String   @id @default(cuid())
+    userId    String   @map("user_id")
+    postId    String?  @map("post_id")
+    commentId String?  @map("comment_id")
+    value     Int // 1 = upvote, -1 = downvote
+    createdAt DateTime @default(now()) @map("created_at")
+
+    user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    post    Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+    comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, postId])
+    @@unique([userId, commentId])
+    @@map("reactions")
+}
+
+model ContentFlag {
+    id         String            @id @default(cuid())
+    reporterId String            @map("reporter_id")
+    postId     String?           @map("post_id")
+    commentId  String?           @map("comment_id")
+    reason     ContentFlagReason
+    details    String?           @db.Text
+    status     ContentFlagStatus @default(pending)
+    resolvedBy String?           @map("resolved_by")
+    resolvedAt DateTime?         @map("resolved_at")
+    createdAt  DateTime          @default(now()) @map("created_at")
+
+    reporter User     @relation(fields: [reporterId], references: [id])
+    post     Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+    comment  Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+    @@index([status])
+    @@index([postId])
+    @@index([commentId])
+    @@map("content_flags")
+}
+
+model StoreInventory {
+    id             String   @id @default(cuid())
+    storeProductId String   @unique @map("store_product_id")
+    inStock        Boolean  @default(true) @map("in_stock")
+    lastVerifiedAt DateTime @default(now()) @map("last_verified_at")
+    updatedAt      DateTime @updatedAt @map("updated_at")
+
+    storeProduct StoreProduct @relation(fields: [storeProductId], references: [id])
+
+    @@map("store_inventory")
+}
