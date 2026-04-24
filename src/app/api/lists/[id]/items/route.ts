@@ -9,6 +9,7 @@ const patchSchema = z.object({
   quantity: z.number().optional(),
   unit: z.string().optional(),
   notes: z.string().optional(),
+  customPrice: z.number().nullable().optional(),
 });
 
 const deleteSchema = z.union([
@@ -50,6 +51,23 @@ export async function POST(
     orderBy: { sortOrder: "desc" },
   });
 
+  let lastCustomPrice: number | null = null;
+  if (!productId && name) {
+    const lastItem = await prisma.listItem.findFirst({
+      where: {
+        list: { userId: user.id },
+        name: { equals: name, mode: "insensitive" },
+        productId: null,
+        customPrice: { not: null },
+      },
+      orderBy: { createdAt: "desc" },
+      select: { customPrice: true },
+    });
+    lastCustomPrice = lastItem?.customPrice
+      ? Number(lastItem.customPrice)
+      : null;
+  }
+
   const item = await prisma.listItem.create({
     data: {
       listId: id,
@@ -58,6 +76,7 @@ export async function POST(
       quantity: quantity ?? 1,
       unit: unit ?? null,
       notes: notes ?? null,
+      customPrice: lastCustomPrice,
       sortOrder: (lastItem?.sortOrder ?? -1) + 1,
     },
     include: {
@@ -76,13 +95,14 @@ export async function POST(
   });
   const serialized = {
     ...item,
-    quantity: item.quantity ? Number(item.quantity) : null,
+    quantity:
+      item.quantity !== null && item.quantity !== undefined
+        ? Number(item.quantity)
+        : null,
+    customPrice: item.customPrice ? Number(item.customPrice) : null,
     product: item.product
       ? {
           ...item.product,
-          unitQuantity: item.product.unitQuantity
-            ? Number(item.product.unitQuantity)
-            : null,
           storeProducts: item.product.storeProducts.map((sp) => ({
             ...sp,
             currentPrice: sp.currentPrice ? Number(sp.currentPrice) : null,
@@ -121,6 +141,7 @@ export async function PATCH(
   if (data.quantity !== undefined) updateData.quantity = data.quantity;
   if (data.unit !== undefined) updateData.unit = data.unit;
   if (data.notes !== undefined) updateData.notes = data.notes;
+  if (data.customPrice !== undefined) updateData.customPrice = data.customPrice;
 
   const updated = await prisma.listItem.update({
     where: { id: itemId },

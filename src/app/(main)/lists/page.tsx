@@ -105,6 +105,7 @@ export default async function ListsPage() {
             item.quantity !== null && item.quantity !== undefined
               ? Number(item.quantity)
               : null,
+          customPrice: item.customPrice ? Number(item.customPrice) : null,
           createdAt: item.createdAt.toISOString(),
           updatedAt: item.updatedAt.toISOString(),
           product: item.product

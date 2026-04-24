@@ -2706,7 +2706,8 @@ export const ListItemScalarFieldEnum = {
   isChecked: 'isChecked',
   sortOrder: 'sortOrder',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  customPrice: 'customPrice'
 } as const
 
 export type ListItemScalarFieldEnum = (typeof ListItemScalarFieldEnum)[keyof typeof ListItemScalarFieldEnum]

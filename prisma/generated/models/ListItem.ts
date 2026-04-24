@@ -29,11 +29,13 @@ export type AggregateListItem = {
 export type ListItemAvgAggregateOutputType = {
   quantity: runtime.Decimal | null
   sortOrder: number | null
+  customPrice: runtime.Decimal | null
 }
 
 export type ListItemSumAggregateOutputType = {
   quantity: runtime.Decimal | null
   sortOrder: number | null
+  customPrice: runtime.Decimal | null
 }
 
 export type ListItemMinAggregateOutputType = {
@@ -48,6 +50,7 @@ export type ListItemMinAggregateOutputType = {
   sortOrder: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  customPrice: runtime.Decimal | null
 }
 
 export type ListItemMaxAggregateOutputType = {
@@ -62,6 +65,7 @@ export type ListItemMaxAggregateOutputType = {
   sortOrder: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  customPrice: runtime.Decimal | null
 }
 
 export type ListItemCountAggregateOutputType = {
@@ -76,6 +80,7 @@ export type ListItemCountAggregateOutputType = {
   sortOrder: number
   createdAt: number
   updatedAt: number
+  customPrice: number
   _all: number
 }
 
@@ -83,11 +88,13 @@ export type ListItemCountAggregateOutputType = {
 export type ListItemAvgAggregateInputType = {
   quantity?: true
   sortOrder?: true
+  customPrice?: true
 }
 
 export type ListItemSumAggregateInputType = {
   quantity?: true
   sortOrder?: true
+  customPrice?: true
 }
 
 export type ListItemMinAggregateInputType = {
@@ -102,6 +109,7 @@ export type ListItemMinAggregateInputType = {
   sortOrder?: true
   createdAt?: true
   updatedAt?: true
+  customPrice?: true
 }
 
 export type ListItemMaxAggregateInputType = {
@@ -116,6 +124,7 @@ export type ListItemMaxAggregateInputType = {
   sortOrder?: true
   createdAt?: true
   updatedAt?: true
+  customPrice?: true
 }
 
 export type ListItemCountAggregateInputType = {
@@ -130,6 +139,7 @@ export type ListItemCountAggregateInputType = {
   sortOrder?: true
   createdAt?: true
   updatedAt?: true
+  customPrice?: true
   _all?: true
 }
 
@@ -231,6 +241,7 @@ export type ListItemGroupByOutputType = {
   sortOrder: number
   createdAt: Date
   updatedAt: Date
+  customPrice: runtime.Decimal | null
   _count: ListItemCountAggregateOutputType | null
   _avg: ListItemAvgAggregateOutputType | null
   _sum: ListItemSumAggregateOutputType | null
@@ -268,6 +279,7 @@ export type ListItemWhereInput = {
   sortOrder?: Prisma.IntFilter<"ListItem"> | number
   createdAt?: Prisma.DateTimeFilter<"ListItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ListItem"> | Date | string
+  customPrice?: Prisma.DecimalNullableFilter<"ListItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
 }
@@ -284,6 +296,7 @@ export type ListItemOrderByWithRelationInput = {
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  customPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   list?: Prisma.ListOrderByWithRelationInput
   product?: Prisma.ProductOrderByWithRelationInput
 }
@@ -303,6 +316,7 @@ export type ListItemWhereUniqueInput = Prisma.AtLeast<{
   sortOrder?: Prisma.IntFilter<"ListItem"> | number
   createdAt?: Prisma.DateTimeFilter<"ListItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ListItem"> | Date | string
+  customPrice?: Prisma.DecimalNullableFilter<"ListItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
 }, "id">
@@ -319,6 +333,7 @@ export type ListItemOrderByWithAggregationInput = {
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  customPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ListItemCountOrderByAggregateInput
   _avg?: Prisma.ListItemAvgOrderByAggregateInput
   _max?: Prisma.ListItemMaxOrderByAggregateInput
@@ -341,6 +356,7 @@ export type ListItemScalarWhereWithAggregatesInput = {
   sortOrder?: Prisma.IntWithAggregatesFilter<"ListItem"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ListItem"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ListItem"> | Date | string
+  customPrice?: Prisma.DecimalNullableWithAggregatesFilter<"ListItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemCreateInput = {
@@ -353,6 +369,7 @@ export type ListItemCreateInput = {
   sortOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   list: Prisma.ListCreateNestedOneWithoutItemsInput
   product?: Prisma.ProductCreateNestedOneWithoutListItemsInput
 }
@@ -369,6 +386,7 @@ export type ListItemUncheckedCreateInput = {
   sortOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemUpdateInput = {
@@ -381,6 +399,7 @@ export type ListItemUpdateInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   list?: Prisma.ListUpdateOneRequiredWithoutItemsNestedInput
   product?: Prisma.ProductUpdateOneWithoutListItemsNestedInput
 }
@@ -397,6 +416,7 @@ export type ListItemUncheckedUpdateInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemCreateManyInput = {
@@ -411,6 +431,7 @@ export type ListItemCreateManyInput = {
   sortOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemUpdateManyMutationInput = {
@@ -423,6 +444,7 @@ export type ListItemUpdateManyMutationInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemUncheckedUpdateManyInput = {
@@ -437,6 +459,7 @@ export type ListItemUncheckedUpdateManyInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemListRelationFilter = {
@@ -461,11 +484,13 @@ export type ListItemCountOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  customPrice?: Prisma.SortOrder
 }
 
 export type ListItemAvgOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
+  customPrice?: Prisma.SortOrder
 }
 
 export type ListItemMaxOrderByAggregateInput = {
@@ -480,6 +505,7 @@ export type ListItemMaxOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  customPrice?: Prisma.SortOrder
 }
 
 export type ListItemMinOrderByAggregateInput = {
@@ -494,11 +520,13 @@ export type ListItemMinOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  customPrice?: Prisma.SortOrder
 }
 
 export type ListItemSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
+  customPrice?: Prisma.SortOrder
 }
 
 export type ListItemCreateNestedManyWithoutProductInput = {
@@ -603,6 +631,7 @@ export type ListItemCreateWithoutProductInput = {
   sortOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   list: Prisma.ListCreateNestedOneWithoutItemsInput
 }
 
@@ -617,6 +646,7 @@ export type ListItemUncheckedCreateWithoutProductInput = {
   sortOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemCreateOrConnectWithoutProductInput = {
@@ -660,6 +690,7 @@ export type ListItemScalarWhereInput = {
   sortOrder?: Prisma.IntFilter<"ListItem"> | number
   createdAt?: Prisma.DateTimeFilter<"ListItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ListItem"> | Date | string
+  customPrice?: Prisma.DecimalNullableFilter<"ListItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemCreateWithoutListInput = {
@@ -672,6 +703,7 @@ export type ListItemCreateWithoutListInput = {
   sortOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   product?: Prisma.ProductCreateNestedOneWithoutListItemsInput
 }
 
@@ -686,6 +718,7 @@ export type ListItemUncheckedCreateWithoutListInput = {
   sortOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemCreateOrConnectWithoutListInput = {
@@ -725,6 +758,7 @@ export type ListItemCreateManyProductInput = {
   sortOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemUpdateWithoutProductInput = {
@@ -737,6 +771,7 @@ export type ListItemUpdateWithoutProductInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   list?: Prisma.ListUpdateOneRequiredWithoutItemsNestedInput
 }
 
@@ -751,6 +786,7 @@ export type ListItemUncheckedUpdateWithoutProductInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemUncheckedUpdateManyWithoutProductInput = {
@@ -764,6 +800,7 @@ export type ListItemUncheckedUpdateManyWithoutProductInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemCreateManyListInput = {
@@ -777,6 +814,7 @@ export type ListItemCreateManyListInput = {
   sortOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  customPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemUpdateWithoutListInput = {
@@ -789,6 +827,7 @@ export type ListItemUpdateWithoutListInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   product?: Prisma.ProductUpdateOneWithoutListItemsNestedInput
 }
 
@@ -803,6 +842,7 @@ export type ListItemUncheckedUpdateWithoutListInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type ListItemUncheckedUpdateManyWithoutListInput = {
@@ -816,6 +856,7 @@ export type ListItemUncheckedUpdateManyWithoutListInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 
@@ -832,6 +873,7 @@ export type ListItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   sortOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  customPrice?: boolean
   list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ListItem$productArgs<ExtArgs>
 }, ExtArgs["result"]["listItem"]>
@@ -848,6 +890,7 @@ export type ListItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   sortOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  customPrice?: boolean
   list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ListItem$productArgs<ExtArgs>
 }, ExtArgs["result"]["listItem"]>
@@ -864,6 +907,7 @@ export type ListItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   sortOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  customPrice?: boolean
   list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ListItem$productArgs<ExtArgs>
 }, ExtArgs["result"]["listItem"]>
@@ -880,9 +924,10 @@ export type ListItemSelectScalar = {
   sortOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  customPrice?: boolean
 }
 
-export type ListItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "listId" | "productId" | "name" | "quantity" | "unit" | "notes" | "isChecked" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["listItem"]>
+export type ListItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "listId" | "productId" | "name" | "quantity" | "unit" | "notes" | "isChecked" | "sortOrder" | "createdAt" | "updatedAt" | "customPrice", ExtArgs["result"]["listItem"]>
 export type ListItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ListItem$productArgs<ExtArgs>
@@ -914,6 +959,7 @@ export type $ListItemPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     sortOrder: number
     createdAt: Date
     updatedAt: Date
+    customPrice: runtime.Decimal | null
   }, ExtArgs["result"]["listItem"]>
   composites: {}
 }
@@ -1350,6 +1396,7 @@ export interface ListItemFieldRefs {
   readonly sortOrder: Prisma.FieldRef<"ListItem", 'Int'>
   readonly createdAt: Prisma.FieldRef<"ListItem", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ListItem", 'DateTime'>
+  readonly customPrice: Prisma.FieldRef<"ListItem", 'Decimal'>
 }
     
 

@@ -453,17 +453,18 @@ model List {
 }
 
 model ListItem {
-    id        String   @id @default(cuid())
-    listId    String   @map("list_id")
-    productId String?  @map("product_id") // null if free-text entry
-    name      String // display name (from product or user-typed)
-    quantity  Decimal  @default(1) @db.Decimal(10, 3)
-    unit      String? // "kg", "lbs", "pack", "bunch", or null
-    notes     String?  @db.Text
-    isChecked Boolean  @default(false) @map("is_checked")
-    sortOrder Int      @default(0) @map("sort_order")
-    createdAt DateTime @default(now()) @map("created_at")
-    updatedAt DateTime @updatedAt @map("updated_at")
+    id          String   @id @default(cuid())
+    listId      String   @map("list_id")
+    productId   String?  @map("product_id") // null if free-text entry
+    name        String // display name (from product or user-typed)
+    quantity    Decimal  @default(1) @db.Decimal(10, 3)
+    unit        String? // "kg", "lbs", "pack", "bunch", or null
+    notes       String?  @db.Text
+    isChecked   Boolean  @default(false) @map("is_checked")
+    sortOrder   Int      @default(0) @map("sort_order")
+    createdAt   DateTime @default(now()) @map("created_at")
+    updatedAt   DateTime @updatedAt @map("updated_at")
+    customPrice Decimal? @map("custom_price") @db.Decimal(10, 2)
 
     list    List     @relation(fields: [listId], references: [id], onDelete: Cascade)
     product Product? @relation(fields: [productId], references: [id])

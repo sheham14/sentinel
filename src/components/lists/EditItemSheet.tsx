@@ -2,12 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { X, Minus, Plus } from "lucide-react";
-
-const UNIT_GROUPS = {
-  count: ["each", "pack"],
-  weight: ["g", "kg", "lbs", "oz"],
-  volume: ["ml", "L", "fl oz"],
-};
+import { getAllowedUnits } from "@/lib/unit-convert";
 
 type Product = {
   id: string;
@@ -15,6 +10,7 @@ type Product = {
   brand: string | null;
   unitSize: string | null;
   unitMeasure: string | null;
+  unitQuantity: number | null;
   bestPrice: number | null;
   bestStore: string | null;
 };
@@ -25,6 +21,7 @@ type ListItem = {
   quantity: number | null;
   unit: string | null;
   notes: string | null;
+  customPrice: number | null;
   product: Product | null;
 };
 
@@ -32,45 +29,52 @@ type Props = {
   item: ListItem;
   onSave: (
     id: string,
-    data: { quantity: number; unit: string; notes: string },
+    data: {
+      quantity: number;
+      unit: string;
+      notes: string;
+      customPrice: number | null;
+    },
   ) => Promise<void>;
   onClose: () => void;
 };
 
-function getAllowedUnits(unitMeasure: string | null | undefined): string[] {
-  if (!unitMeasure) return UNIT_GROUPS.count;
-  if (["g", "kg", "oz", "lbs"].includes(unitMeasure)) return UNIT_GROUPS.weight;
-  if (["ml", "L", "fl_oz"].includes(unitMeasure)) return UNIT_GROUPS.volume;
-  return UNIT_GROUPS.count;
-}
-
 export default function EditItemSheet({ item, onSave, onClose }: Props) {
-  const [quantity, setQuantity] = useState(Number(item.quantity ?? 1));
+  const [customPrice, setCustomPrice] = useState<string>(
+    item.customPrice !== null ? String(item.customPrice) : "",
+  );
+  const [quantity, setQuantity] = useState<string | number>(
+    String(item.quantity ?? 1),
+  );
   const [unit, setUnit] = useState(item.unit ?? "each");
   const [notes, setNotes] = useState(item.notes ?? "");
   const [saving, setSaving] = useState(false);
-  const allowedUnits = getAllowedUnits(item.product?.unitMeasure);
+  const allowedUnits = getAllowedUnits(
+    item.product?.unitMeasure,
+    item.product?.unitSize,
+  );
 
   useEffect(() => {
-    if (!allowedUnits.includes(unit)) {
-      setUnit(allowedUnits[0]);
+    const allowed = getAllowedUnits(
+      item.product?.unitMeasure,
+      item.product?.unitSize,
+    );
+    if (!allowed.includes(unit)) {
+      setUnit(allowed[0]);
     }
-  }, [item.product?.unitMeasure]);
-
-  function increment() {
-    setQuantity((q) => q + 1);
-  }
-  function decrement() {
-    setQuantity((q) => Math.max(1, q - 1));
-  }
+  }, [item.product?.unitMeasure, item.product?.unitSize]);
 
   async function handleSave() {
     setSaving(true);
-    await onSave(item.id, { quantity, unit, notes });
+    await onSave(item.id, {
+      quantity: Math.max(1, parseInt(String(quantity)) || 1),
+      unit,
+      notes,
+      customPrice: customPrice ? parseFloat(customPrice) : null,
+    });
     setSaving(false);
     onClose();
   }
-
   return (
     <>
       {/* Backdrop */}
@@ -140,7 +144,7 @@ export default function EditItemSheet({ item, onSave, onClose }: Props) {
             onChange={(e) => {
               const val = e.target.value.replace(/[^0-9]/g, "");
               if (val === "") {
-                setQuantity(1);
+                setQuantity("" as any); // allow empty while typing
                 return;
               }
               const num = Math.min(999, Math.max(1, parseInt(val)));
@@ -188,6 +192,38 @@ export default function EditItemSheet({ item, onSave, onClose }: Props) {
             className="w-full px-3 py-2.5 border border-[#ebebeb] dark:border-[#2e3538] rounded-[10px] text-[13px] text-[#111] dark:text-[#e0e0e0] bg-[#fafafa] dark:bg-[#242b2e] placeholder-[#bbb] outline-none resize-none focus:border-[#00E5C3]"
           />
         </div>
+
+        {!item.product && (
+          <div className="px-5 pt-4">
+            <p className="text-[11px] font-medium text-[#aaa] uppercase tracking-[0.6px] mb-2">
+              Custom price
+            </p>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[14px] text-[#aaa]">
+                $
+              </span>
+              <input
+                type="text"
+                inputMode="decimal"
+                placeholder="0.00"
+                value={customPrice}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/[^0-9.]/g, "");
+                  // Only allow one decimal point
+                  const parts = val.split(".");
+                  if (parts.length > 2) return;
+                  // Max 2 decimal places
+                  if (parts[1]?.length > 2) return;
+                  setCustomPrice(val);
+                }}
+                className="w-full pl-7 pr-4 py-3 border border-[#ebebeb] dark:border-[#2e3538] rounded-xl text-[15px] text-[#111] dark:text-[#e0e0e0] bg-white dark:bg-[#242b2e] outline-none focus:border-[#00E5C3] placeholder-[#bbb]"
+              />
+            </div>
+            <p className="text-[10px] text-[#bbb] mt-1.5">
+              Used to estimate your list subtotal
+            </p>
+          </div>
+        )}
 
         {/* Report */}
         <p className="text-[11px] text-[#aaa] text-center pt-3">

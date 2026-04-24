@@ -40,10 +40,17 @@ export async function GET(
     ...list,
     items: list.items.map((item) => ({
       ...item,
-      quantity: item.quantity ? Number(item.quantity) : null,
+      quantity:
+        item.quantity !== null && item.quantity !== undefined
+          ? Number(item.quantity)
+          : null,
+      customPrice: item.customPrice ? Number(item.customPrice) : null,
       product: item.product
         ? {
             ...item.product,
+            unitQuantity: item.product.unitQuantity
+              ? Number(item.product.unitQuantity)
+              : null,
             storeProducts: item.product.storeProducts.map((sp) => ({
               ...sp,
               currentPrice: sp.currentPrice ? Number(sp.currentPrice) : null,

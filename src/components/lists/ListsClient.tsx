@@ -7,6 +7,7 @@ import { Plus, Check, Trash2, Pencil, ChefHat } from "lucide-react";
 import EditItemSheet from "@/components/lists/EditItemSheet";
 import ListDropdown from "@/components/lists/ListDropdown";
 import ListOptionsMenu from "@/components/lists/ListOptionsMenu";
+import { calculateEffectivePrice, getAllowedUnits } from "@/lib/unit-convert";
 
 // ── Types ──────────────────────────────────────
 
@@ -38,6 +39,7 @@ type Product = {
   brand: string | null;
   unitSize: string | null;
   unitMeasure: string | null;
+  unitQuantity: number | null;
   storeProducts: StoreProduct[];
 };
 
@@ -58,6 +60,7 @@ type ListItem = {
   notes: string | null;
   isChecked: boolean;
   sortOrder: number;
+  customPrice: number | null;
   product: Product | null;
 };
 
@@ -96,13 +99,34 @@ function getBestPrice(
   return prices[0] ?? null;
 }
 
-function getPriceRange(
+function getEffectivePriceRange(
   product: Product | null,
+  quantity: number,
+  unit: string,
+  customPrice: number | null,
 ): { min: number; max: number } | null {
+  // Plain text item with custom price
+  if (!product && customPrice !== null) {
+    const total = customPrice * quantity;
+    return { min: total, max: total };
+  }
+
   if (!product) return null;
+
   const prices = product.storeProducts
     .filter((sp) => sp.currentPrice !== null)
-    .map((sp) => Number(sp.currentPrice));
+    .map((sp) =>
+      calculateEffectivePrice(
+        Number(sp.currentPrice),
+        product.unitQuantity,
+        product.unitMeasure,
+        product.unitSize,
+        quantity,
+        unit,
+      ),
+    )
+    .filter((p): p is number => p !== null);
+
   if (!prices.length) return null;
   return { min: Math.min(...prices), max: Math.max(...prices) };
 }
@@ -111,41 +135,37 @@ function getStoreTotals(
   items: ListItem[],
   preferredChains: string[],
 ): Record<string, number> {
-  console.log("preferredChains:", preferredChains);
-  console.log(
-    "items with products:",
-    items
-      .filter((i) => i.product)
-      .map((i) => ({
-        name: i.name,
-        storeProducts: i.product?.storeProducts.map((sp) => ({
-          chain: sp.store.chain,
-          price: sp.currentPrice,
-        })),
-      })),
-  );
-  console.log(
-    "first item store products:",
-    JSON.stringify(
-      items.find((i) => i.product)?.product?.storeProducts,
-      null,
-      2,
-    ),
-  );
   const totals: Record<string, number> = {};
   for (const item of items) {
-    if (item.isChecked || !item.product) continue;
+    if (item.isChecked) continue;
+    const qty = Number(item.quantity ?? 1);
+    const unit = item.unit ?? "each";
+
+    // Plain text item with custom price — add to all preferred stores equally
+    if (!item.product && item.customPrice !== null) {
+      for (const chain of preferredChains) {
+        totals[chain] = (totals[chain] ?? 0) + item.customPrice * qty;
+      }
+      continue;
+    }
+
+    if (!item.product) continue;
+
     for (const sp of item.product.storeProducts) {
-      if (
-        !sp.store.chain ||
-        !preferredChains.includes(sp.store.chain.toLowerCase())
-      )
-        continue;
+      const chain = sp.store?.chain?.toLowerCase();
+      if (!chain || !preferredChains.includes(chain)) continue;
       if (sp.currentPrice === null) continue;
-      const qty = Number(item.quantity ?? 1);
-      const price = Number(sp.currentPrice);
-      totals[sp.store.chain.toLowerCase()] =
-        (totals[sp.store.chain.toLowerCase()] ?? 0) + price * qty;
+      const effective = calculateEffectivePrice(
+        Number(sp.currentPrice),
+        item.product.unitQuantity,
+        item.product.unitMeasure,
+        item.product.unitSize,
+        qty,
+        unit,
+      );
+      if (effective !== null) {
+        totals[chain] = (totals[chain] ?? 0) + effective;
+      }
     }
   }
   return totals;
@@ -175,12 +195,32 @@ function ListItemRow({
 }) {
   const startX = useRef(0);
   const [swiped, setSwiped] = useState(false);
-  const priceRange = getPriceRange(item.product);
+  const qty = Number(item.quantity ?? 1);
+  const unit = item.unit ?? "each";
+  const priceRange = getEffectivePriceRange(
+    item.product,
+    qty,
+    unit,
+    item.customPrice,
+  );
+
+  const filteredSp =
+    activeChain && item.product
+      ? item.product.storeProducts.find(
+          (sp) => sp.store.chain.toLowerCase() === activeChain.toLowerCase(),
+        )
+      : null;
 
   const filteredPrice =
-    activeChain && item.product
-      ? (item.product.storeProducts.find((sp) => sp.store.chain === activeChain)
-          ?.currentPrice ?? null)
+    filteredSp?.currentPrice !== null && filteredSp?.currentPrice !== undefined
+      ? calculateEffectivePrice(
+          Number(filteredSp.currentPrice),
+          item.product!.unitQuantity,
+          item.product!.unitMeasure,
+          item.product!.unitSize, // ← added
+          qty,
+          unit,
+        )
       : null;
 
   function onTouchStart(e: React.TouchEvent) {
@@ -193,8 +233,6 @@ function ListItemRow({
     if (diff > 60) setSwiped(true);
     else if (diff < -20) setSwiped(false);
   }
-
-  const qty = Number(item.quantity ?? 1);
 
   return (
     <div className="relative overflow-hidden border-b border-[#f5f5f5] dark:border-[#1e2528]">
@@ -271,24 +309,19 @@ function ListItemRow({
           <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
             {activeChain && filteredPrice !== null ? (
               <span className="text-[11px] text-[#00b89e]">
-                ${Number(filteredPrice).toFixed(2)}
+                ${filteredPrice.toFixed(2)}
               </span>
             ) : priceRange ? (
               <span className="text-[11px] text-[#00b89e]">
                 ${priceRange.min.toFixed(2)}
                 {priceRange.min !== priceRange.max &&
                   ` – $${priceRange.max.toFixed(2)}`}
+                {!item.product && (
+                  <span className="text-[10px] text-[#bbb] ml-1">custom</span>
+                )}
               </span>
             ) : (
               <span className="text-[11px] text-[#ccc]">Price unavailable</span>
-            )}
-            {item.product?.brand && (
-              <>
-                <span className="text-[#ddd] dark:text-[#333]">·</span>
-                <span className="text-[11px] text-[#aaa]">
-                  {item.product.brand} matched
-                </span>
-              </>
             )}
           </div>
         </div>
@@ -423,7 +456,7 @@ export default function ListsClient({
   const [activeTab, setActiveTab] = useState<"grocery" | "recipes">("grocery");
   const [activeChain, setActiveChain] = useState<string | null>(null);
   const [editingItem, setEditingItem] = useState<ListItem | null>(null);
-  const [optimizing, setOptimizing] = useState(false);
+  //   const [optimizing, setOptimizing] = useState(false);
   const [addingItem, setAddingItem] = useState(false);
   const [newItemName, setNewItemName] = useState("");
   const quantityDebounceRefs = useRef<Record<string, NodeJS.Timeout>>({});
@@ -608,7 +641,12 @@ export default function ListsClient({
 
   async function handleSaveEdit(
     itemId: string,
-    data: { quantity: number; unit: string; notes: string },
+    data: {
+      quantity: number;
+      unit: string;
+      notes: string;
+      customPrice: number | null;
+    },
   ) {
     if (!activeList) return;
     const res = await fetch(`/api/lists/${activeList.id}/items`, {
@@ -621,7 +659,6 @@ export default function ListsClient({
       prev.map((i) => (i.id === itemId ? { ...i, ...data } : i)),
     );
   }
-
   // ── Delete item ────────────────────────────
 
   async function handleDelete(itemId: string) {
@@ -643,12 +680,12 @@ export default function ListsClient({
 
   // ── Optimize ───────────────────────────────
 
-  async function handleOptimize() {
-    if (!activeList || !bestStoreChain) return;
-    setOptimizing(true);
-    setActiveChain(bestStoreChain);
-    setOptimizing(false);
-  }
+  //   async function handleOptimize() {
+  //     if (!activeList || !bestStoreChain) return;
+  //     setOptimizing(true);
+  //     setActiveChain(bestStoreChain);
+  //     setOptimizing(false);
+  //   }
 
   // ── Add recipe to list ─────────────────────
 
@@ -704,7 +741,7 @@ export default function ListsClient({
           best prices.
         </p>
         <button
-          onClick={() => handleCreateList("My first list")}
+          onClick={() => handleCreateList("Weekly Groceries")}
           className="px-6 py-3 bg-[#00E5C3] rounded-xl text-[13px] font-medium text-[#004d40]"
         >
           Create your first list
@@ -813,7 +850,7 @@ export default function ListsClient({
               <div className="relative">
                 {/* Suggestions dropdown — above input */}
                 {(suggestions.length > 0 || suggestionsLoading) && (
-                  <div className="absolute bottom-full left-0 right-0 mb-1 bg-white dark:bg-[#1e2528] border border-[#e0e0e0] dark:border-[#2e3538] rounded-xl shadow-lg overflow-hidden z-20">
+                  <div className="absolute top-full left-0 right-0 mb-1 bg-white dark:bg-[#1e2528] border border-[#e0e0e0] dark:border-[#2e3538] rounded-xl shadow-lg overflow-hidden z-30">
                     {suggestionsLoading ? (
                       <div className="flex flex-col gap-0">
                         {[1, 2, 3].map((i) => (
@@ -1046,7 +1083,7 @@ export default function ListsClient({
 
       {/* Bottom panel — store totals + optimize */}
       {activeTab === "grocery" && unchecked.length > 0 && (
-        <div className="fixed bottom-[72px] left-1/2 -translate-x-1/2 w-full max-w-sm bg-white dark:bg-[#161b1e] border-t border-[#ebebeb] dark:border-[#2e3538] px-4 py-3 z-10">
+        <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm bg-white dark:bg-[#161b1e] border-t border-[#ebebeb] dark:border-[#2e3538] px-4 pt-3 pb-[40px] z-10">
           {/* Store total cards */}
           <div className="flex gap-2 overflow-x-auto scrollbar-none mb-3">
             {Object.entries(storeTotals)
@@ -1095,13 +1132,13 @@ export default function ListsClient({
             </span>
           </div>
 
-          <button
+          {/* <button
             onClick={handleOptimize}
             disabled={optimizing || !bestStoreChain}
             className="w-full py-2.5 bg-[#f0fdf9] dark:bg-[#1a2e2a] border border-[#b2f0e4] dark:border-[#1e4a3a] rounded-[10px] text-[12px] font-medium text-[#0a7a62] dark:text-[#6ee7c7] disabled:opacity-50"
           >
             {optimizing ? "Optimizing…" : "Optimize for cheapest"}
-          </button>
+          </button> */}
         </div>
       )}
 
@@ -1110,10 +1147,14 @@ export default function ListsClient({
         <EditItemSheet
           item={{
             ...editingItem,
+            customPrice: editingItem.customPrice,
             product: editingItem.product
               ? {
                   ...editingItem.product,
                   unitMeasure: editingItem.product.unitMeasure ?? null,
+                  unitQuantity: editingItem.product.unitQuantity
+                    ? Number(editingItem.product.unitQuantity)
+                    : null,
                   bestPrice: getBestPrice(editingItem.product)?.price ?? null,
                   bestStore: getBestPrice(editingItem.product)?.chain ?? null,
                 }
