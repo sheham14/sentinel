@@ -47,7 +47,6 @@ export type RecipeMinAggregateOutputType = {
   prepTime: number | null
   cookTime: number | null
   servings: number | null
-  instructions: string | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -62,7 +61,6 @@ export type RecipeMaxAggregateOutputType = {
   prepTime: number | null
   cookTime: number | null
   servings: number | null
-  instructions: string | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -106,7 +104,6 @@ export type RecipeMinAggregateInputType = {
   prepTime?: true
   cookTime?: true
   servings?: true
-  instructions?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -121,7 +118,6 @@ export type RecipeMaxAggregateInputType = {
   prepTime?: true
   cookTime?: true
   servings?: true
-  instructions?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -238,7 +234,7 @@ export type RecipeGroupByOutputType = {
   prepTime: number | null
   cookTime: number | null
   servings: number | null
-  instructions: string | null
+  instructions: runtime.JsonValue | null
   isActive: boolean
   createdAt: Date
   updatedAt: Date
@@ -276,7 +272,7 @@ export type RecipeWhereInput = {
   prepTime?: Prisma.IntNullableFilter<"Recipe"> | number | null
   cookTime?: Prisma.IntNullableFilter<"Recipe"> | number | null
   servings?: Prisma.IntNullableFilter<"Recipe"> | number | null
-  instructions?: Prisma.StringNullableFilter<"Recipe"> | string | null
+  instructions?: Prisma.JsonNullableFilter<"Recipe">
   isActive?: Prisma.BoolFilter<"Recipe"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Recipe"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Recipe"> | Date | string
@@ -311,7 +307,7 @@ export type RecipeWhereUniqueInput = Prisma.AtLeast<{
   prepTime?: Prisma.IntNullableFilter<"Recipe"> | number | null
   cookTime?: Prisma.IntNullableFilter<"Recipe"> | number | null
   servings?: Prisma.IntNullableFilter<"Recipe"> | number | null
-  instructions?: Prisma.StringNullableFilter<"Recipe"> | string | null
+  instructions?: Prisma.JsonNullableFilter<"Recipe">
   isActive?: Prisma.BoolFilter<"Recipe"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Recipe"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Recipe"> | Date | string
@@ -350,7 +346,7 @@ export type RecipeScalarWhereWithAggregatesInput = {
   prepTime?: Prisma.IntNullableWithAggregatesFilter<"Recipe"> | number | null
   cookTime?: Prisma.IntNullableWithAggregatesFilter<"Recipe"> | number | null
   servings?: Prisma.IntNullableWithAggregatesFilter<"Recipe"> | number | null
-  instructions?: Prisma.StringNullableWithAggregatesFilter<"Recipe"> | string | null
+  instructions?: Prisma.JsonNullableWithAggregatesFilter<"Recipe">
   isActive?: Prisma.BoolWithAggregatesFilter<"Recipe"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Recipe"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Recipe"> | Date | string
@@ -365,7 +361,7 @@ export type RecipeCreateInput = {
   prepTime?: number | null
   cookTime?: number | null
   servings?: number | null
-  instructions?: string | null
+  instructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -381,7 +377,7 @@ export type RecipeUncheckedCreateInput = {
   prepTime?: number | null
   cookTime?: number | null
   servings?: number | null
-  instructions?: string | null
+  instructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -397,7 +393,7 @@ export type RecipeUpdateInput = {
   prepTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cookTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   servings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -413,7 +409,7 @@ export type RecipeUncheckedUpdateInput = {
   prepTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cookTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   servings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -429,7 +425,7 @@ export type RecipeCreateManyInput = {
   prepTime?: number | null
   cookTime?: number | null
   servings?: number | null
-  instructions?: string | null
+  instructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -444,7 +440,7 @@ export type RecipeUpdateManyMutationInput = {
   prepTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cookTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   servings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -459,7 +455,7 @@ export type RecipeUncheckedUpdateManyInput = {
   prepTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cookTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   servings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -495,7 +491,6 @@ export type RecipeMaxOrderByAggregateInput = {
   prepTime?: Prisma.SortOrder
   cookTime?: Prisma.SortOrder
   servings?: Prisma.SortOrder
-  instructions?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -510,7 +505,6 @@ export type RecipeMinOrderByAggregateInput = {
   prepTime?: Prisma.SortOrder
   cookTime?: Prisma.SortOrder
   servings?: Prisma.SortOrder
-  instructions?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -550,7 +544,7 @@ export type RecipeCreateWithoutIngredientsInput = {
   prepTime?: number | null
   cookTime?: number | null
   servings?: number | null
-  instructions?: string | null
+  instructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -565,7 +559,7 @@ export type RecipeUncheckedCreateWithoutIngredientsInput = {
   prepTime?: number | null
   cookTime?: number | null
   servings?: number | null
-  instructions?: string | null
+  instructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -596,7 +590,7 @@ export type RecipeUpdateWithoutIngredientsInput = {
   prepTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cookTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   servings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -611,7 +605,7 @@ export type RecipeUncheckedUpdateWithoutIngredientsInput = {
   prepTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cookTime?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   servings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  instructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -732,7 +726,7 @@ export type $RecipePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     prepTime: number | null
     cookTime: number | null
     servings: number | null
-    instructions: string | null
+    instructions: runtime.JsonValue | null
     isActive: boolean
     createdAt: Date
     updatedAt: Date
@@ -1168,7 +1162,7 @@ export interface RecipeFieldRefs {
   readonly prepTime: Prisma.FieldRef<"Recipe", 'Int'>
   readonly cookTime: Prisma.FieldRef<"Recipe", 'Int'>
   readonly servings: Prisma.FieldRef<"Recipe", 'Int'>
-  readonly instructions: Prisma.FieldRef<"Recipe", 'String'>
+  readonly instructions: Prisma.FieldRef<"Recipe", 'Json'>
   readonly isActive: Prisma.FieldRef<"Recipe", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Recipe", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Recipe", 'DateTime'>

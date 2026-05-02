@@ -525,8 +525,24 @@ async function main() {
         prepTime: 5,
         cookTime: 15,
         servings: 2,
-        instructions:
-          "1. Cook spaghetti according to package instructions.\n2. Sauté sliced garlic in olive oil until golden.\n3. Toss pasta with garlic oil, season generously.\n4. Serve immediately with parsley.",
+        instructions: [
+          {
+            text: "Bring a large pot of salted water to a boil. Cook spaghetti according to package instructions until al dente. Reserve ¼ cup of pasta water before draining.",
+            timerMinutes: 10,
+          },
+          {
+            text: "While pasta cooks, thinly slice the garlic. Heat olive oil in a large skillet over medium-low heat and sauté garlic until golden and fragrant — don't let it burn.",
+            timerMinutes: 5,
+          },
+          {
+            text: "Add drained pasta to the skillet with a splash of pasta water. Toss well to coat. Add red pepper flakes if using.",
+            timerMinutes: null,
+          },
+          {
+            text: "Serve immediately topped with fresh parsley and a drizzle of good olive oil.",
+            timerMinutes: null,
+          },
+        ],
         ingredients: {
           create: [
             {
@@ -564,8 +580,24 @@ async function main() {
         prepTime: 10,
         cookTime: 15,
         servings: 2,
-        instructions:
-          "1. Mix maple syrup, soy sauce, and garlic.\n2. Marinate salmon for 10 minutes.\n3. Pan-sear skin side down for 4 minutes.\n4. Flip, add glaze, cook 3 more minutes.\n5. Serve with your choice of sides.",
+        instructions: [
+          {
+            text: "Whisk together maple syrup, soy sauce, and minced garlic in a small bowl. Pat salmon fillets dry and place in a shallow dish. Pour marinade over and let sit.",
+            timerMinutes: 10,
+          },
+          {
+            text: "Heat olive oil in a skillet over medium-high heat. Place salmon skin-side down and sear without moving.",
+            timerMinutes: 4,
+          },
+          {
+            text: "Flip the salmon, pour the remaining glaze over top, and cook until salmon is cooked through and glaze is caramelized.",
+            timerMinutes: 3,
+          },
+          {
+            text: "Rest for 2 minutes before serving with your choice of sides.",
+            timerMinutes: 2,
+          },
+        ],
         ingredients: {
           create: [
             {
@@ -597,8 +629,20 @@ async function main() {
         prepTime: 15,
         cookTime: 0,
         servings: 4,
-        instructions:
-          "1. Whisk together mayo, lemon juice, garlic, parmesan, worcestershire.\n2. Toss romaine with dressing.\n3. Top with croutons and extra parmesan.",
+        instructions: [
+          {
+            text: "Whisk together mayonnaise, fresh lemon juice, minced garlic, grated parmesan, and worcestershire sauce until smooth. Season with salt and pepper.",
+            timerMinutes: null,
+          },
+          {
+            text: "Chop romaine into bite-sized pieces and add to a large bowl. Pour dressing over and toss well to coat every leaf.",
+            timerMinutes: null,
+          },
+          {
+            text: "Top with croutons and extra shaved parmesan. Serve immediately.",
+            timerMinutes: null,
+          },
+        ],
         ingredients: {
           create: [
             { name: "Romaine lettuce", quantity: 1, sortOrder: 0 },

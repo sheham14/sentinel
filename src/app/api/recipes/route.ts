@@ -31,7 +31,15 @@ export async function GET(request: NextRequest) {
     orderBy: { title: "asc" },
   });
 
-  return NextResponse.json(recipes);
+  return NextResponse.json(
+    recipes.map((recipe) => ({
+      ...recipe,
+      ingredients: recipe.ingredients.map((ing) => ({
+        ...ing,
+        quantity: ing.quantity ? Number(ing.quantity) : null,
+      })),
+    })),
+  );
 }
 
 export async function POST(request: NextRequest) {

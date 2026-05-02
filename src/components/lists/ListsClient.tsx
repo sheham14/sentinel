@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Plus, Check, Trash2, Pencil, ChefHat } from "lucide-react";
 import EditItemSheet from "@/components/lists/EditItemSheet";
@@ -77,7 +77,13 @@ type Recipe = {
   prepMinutes: number | null;
   cookMinutes: number | null;
   estimatedCost: number | null;
-  ingredients: { id: string; name: string }[];
+  ingredients: {
+    id: string;
+    name: string;
+    productId?: string | null;
+    quantity?: number | null;
+    unit?: string | null;
+  }[];
 };
 
 type ListMeta = {
@@ -453,7 +459,10 @@ export default function ListsClient({
   const [lists, setLists] = useState<ListMeta[]>(allLists);
   const [activeList, setActiveList] = useState<GroceryList | null>(initialList);
   const [items, setItems] = useState<ListItem[]>(initialList?.items ?? []);
-  const [activeTab, setActiveTab] = useState<"grocery" | "recipes">("grocery");
+  const searchParams = useSearchParams();
+  const [activeTab, setActiveTab] = useState<"grocery" | "recipes">(
+    searchParams.get("tab") === "recipes" ? "recipes" : "grocery",
+  );
   const [activeChain, setActiveChain] = useState<string | null>(null);
   const [editingItem, setEditingItem] = useState<ListItem | null>(null);
   //   const [optimizing, setOptimizing] = useState(false);
@@ -696,7 +705,12 @@ export default function ListsClient({
         fetch(`/api/lists/${activeList.id}/items`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: ing.name, quantity: 1, unit: "each" }),
+          body: JSON.stringify({
+            productId: ing.productId ?? undefined,
+            name: ing.name,
+            quantity: ing.quantity ? Number(ing.quantity) : 1,
+            unit: ing.unit ?? null,
+          }),
         }),
       ),
     );

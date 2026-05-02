@@ -67,7 +67,57 @@ export async function POST(
       ? Number(lastItem.customPrice)
       : null;
   }
+  // Check for existing item to avoid duplicates
+  const existing = await prisma.listItem.findFirst({
+    where: {
+      listId: id,
+      ...(productId
+        ? { productId }
+        : { name: { equals: name, mode: "insensitive" }, productId: null }),
+    },
+  });
 
+  if (existing) {
+    const item = await prisma.listItem.update({
+      where: { id: existing.id },
+      data: {
+        quantity:
+          existing.quantity !== null
+            ? Number(existing.quantity) + (quantity ?? 1)
+            : (quantity ?? 1),
+      },
+      include: {
+        product: {
+          include: {
+            storeProducts: {
+              where: { isActive: true },
+              include: {
+                store: { select: { id: true, chain: true, name: true } },
+              },
+              orderBy: { currentPrice: "asc" },
+            },
+          },
+        },
+      },
+    });
+    const serialized = {
+      ...item,
+      quantity: item.quantity !== null ? Number(item.quantity) : null,
+      customPrice: item.customPrice ? Number(item.customPrice) : null,
+      product: item.product
+        ? {
+            ...item.product,
+            storeProducts: item.product.storeProducts.map((sp) => ({
+              ...sp,
+              currentPrice: sp.currentPrice ? Number(sp.currentPrice) : null,
+            })),
+          }
+        : null,
+    };
+    return NextResponse.json(serialized, { status: 200 });
+  }
+
+  // No duplicate — proceed with create as before
   const item = await prisma.listItem.create({
     data: {
       listId: id,

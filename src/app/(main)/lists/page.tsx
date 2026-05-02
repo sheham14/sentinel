@@ -48,7 +48,13 @@ async function getRecipes(userId: string) {
     take: 20,
     include: {
       ingredients: {
-        select: { id: true, name: true },
+        select: {
+          id: true,
+          name: true,
+          productId: true,
+          quantity: true,
+          unit: true,
+        },
         orderBy: { sortOrder: "asc" },
       },
     },
@@ -93,6 +99,9 @@ export default async function ListsPage() {
     ingredients: r.ingredients.map((ing) => ({
       id: ing.id,
       name: ing.name,
+      productId: ing.productId ?? null,
+      quantity: ing.quantity ? Number(ing.quantity) : null,
+      unit: ing.unit ?? null,
     })),
   }));
 

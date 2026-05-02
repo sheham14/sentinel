@@ -9,17 +9,36 @@ type List = {
   itemCount: number;
 };
 
-type Props = {
+type IngredientItem = {
+  id: string;
+  name: string;
+  productId?: string | null;
+  quantity?: number | null;
+  unit?: string | null;
+};
+
+type SingleModeProps = {
+  mode?: "single";
   productId: string;
   productName: string;
+  ingredients?: never;
   onClose: () => void;
 };
 
-export default function AddToListSheet({
-  productId,
-  productName,
-  onClose,
-}: Props) {
+type RecipeModeProps = {
+  mode: "recipe";
+  ingredients: IngredientItem[];
+  productId?: never;
+  productName?: never;
+  onClose: () => void;
+};
+
+type Props = SingleModeProps | RecipeModeProps;
+
+export default function AddToListSheet(props: Props) {
+  const { onClose } = props;
+  const isRecipeMode = props.mode === "recipe";
+
   const [lists, setLists] = useState<List[]>([]);
   const [loading, setLoading] = useState(true);
   const [addedTo, setAddedTo] = useState<Set<string>>(new Set());
@@ -40,14 +59,36 @@ export default function AddToListSheet({
   async function handleAddToList(listId: string) {
     if (addedTo.has(listId) || isPending) return;
     setIsPending(true);
+
     try {
-      const res = await fetch(`/api/lists/${listId}/items`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId, quantity: 1 }),
-      });
-      if (res.ok) {
+      if (isRecipeMode) {
+        // Add all selected ingredients in parallel
+        await Promise.all(
+          props.ingredients.map((ing) =>
+            fetch(`/api/lists/${listId}/items`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(
+                ing.productId
+                  ? { productId: ing.productId, quantity: ing.quantity ?? 1 }
+                  : { name: ing.name, quantity: ing.quantity, unit: ing.unit },
+              ),
+            }),
+          ),
+        );
         setAddedTo((prev) => new Set([...prev, listId]));
+        // Close after brief confirmation in recipe mode
+        setTimeout(onClose, 700);
+      } else {
+        // Single product mode — unchanged behaviour
+        const res = await fetch(`/api/lists/${listId}/items`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ productId: props.productId, quantity: 1 }),
+        });
+        if (res.ok) {
+          setAddedTo((prev) => new Set([...prev, listId]));
+        }
       }
     } finally {
       setIsPending(false);
@@ -68,13 +109,16 @@ export default function AddToListSheet({
         setLists((prev) => [...prev, newList]);
         setNewListName("");
         setCreating(false);
-        // Auto-add to the newly created list
         handleAddToList(newList.id);
       }
     } finally {
       setIsPending(false);
     }
   }
+
+  const headerSubtitle = isRecipeMode
+    ? `${props.ingredients.length} ingredient${props.ingredients.length !== 1 ? "s" : ""}`
+    : props.productName;
 
   return (
     <>
@@ -95,7 +139,7 @@ export default function AddToListSheet({
               Add to list
             </p>
             <p className="text-[12px] text-[#aaa] truncate max-w-[240px]">
-              {productName}
+              {headerSubtitle}
             </p>
           </div>
           <button
@@ -129,6 +173,7 @@ export default function AddToListSheet({
                   <button
                     key={list.id}
                     onClick={() => handleAddToList(list.id)}
+                    disabled={isPending}
                     className={[
                       "w-full flex items-center justify-between px-4 py-3 rounded-xl border transition-all",
                       added
