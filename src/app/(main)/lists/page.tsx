@@ -91,6 +91,7 @@ export default async function ListsPage() {
 
   const shapedRecipes = recipes.map((r) => ({
     id: r.id,
+    userId: r.userId ?? null,
     title: r.title,
     servings: r.servings ?? 4,
     prepMinutes: r.prepTime,
@@ -141,7 +142,8 @@ export default async function ListsPage() {
         serializedList as ComponentProps<typeof ListsClient>["initialList"]
       }
       allLists={allLists}
-      recipes={shapedRecipes}
+      initialRecipes={shapedRecipes}
+      currentUserId={userId}
       preferredStores={preferredStores.map((ps) => ({
         chain: ps.store.chain,
         name: ps.store.name,

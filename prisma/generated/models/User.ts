@@ -291,6 +291,7 @@ export type UserWhereInput = {
   sessions?: Prisma.SessionListRelationFilter
   lists?: Prisma.ListListRelationFilter
   pantryItems?: Prisma.PantryItemListRelationFilter
+  recipes?: Prisma.RecipeListRelationFilter
   watchlists?: Prisma.WatchlistListRelationFilter
   alerts?: Prisma.AlertListRelationFilter
   consentLogs?: Prisma.ConsentLogListRelationFilter
@@ -328,6 +329,7 @@ export type UserOrderByWithRelationInput = {
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   lists?: Prisma.ListOrderByRelationAggregateInput
   pantryItems?: Prisma.PantryItemOrderByRelationAggregateInput
+  recipes?: Prisma.RecipeOrderByRelationAggregateInput
   watchlists?: Prisma.WatchlistOrderByRelationAggregateInput
   alerts?: Prisma.AlertOrderByRelationAggregateInput
   consentLogs?: Prisma.ConsentLogOrderByRelationAggregateInput
@@ -368,6 +370,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   sessions?: Prisma.SessionListRelationFilter
   lists?: Prisma.ListListRelationFilter
   pantryItems?: Prisma.PantryItemListRelationFilter
+  recipes?: Prisma.RecipeListRelationFilter
   watchlists?: Prisma.WatchlistListRelationFilter
   alerts?: Prisma.AlertListRelationFilter
   consentLogs?: Prisma.ConsentLogListRelationFilter
@@ -452,6 +455,7 @@ export type UserCreateInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -488,6 +492,7 @@ export type UserUncheckedCreateInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -524,6 +529,7 @@ export type UserUpdateInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -560,6 +566,7 @@ export type UserUncheckedUpdateInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
@@ -902,6 +909,22 @@ export type UserUpdateOneRequiredWithoutListsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutListsInput, Prisma.UserUpdateWithoutListsInput>, Prisma.UserUncheckedUpdateWithoutListsInput>
 }
 
+export type UserCreateNestedOneWithoutRecipesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecipesInput, Prisma.UserUncheckedCreateWithoutRecipesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecipesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutRecipesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecipesInput, Prisma.UserUncheckedCreateWithoutRecipesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecipesInput
+  upsert?: Prisma.UserUpsertWithoutRecipesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRecipesInput, Prisma.UserUpdateWithoutRecipesInput>, Prisma.UserUncheckedUpdateWithoutRecipesInput>
+}
+
 export type UserCreateNestedOneWithoutFeatureUsagesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutFeatureUsagesInput, Prisma.UserUncheckedCreateWithoutFeatureUsagesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutFeatureUsagesInput
@@ -1023,6 +1046,7 @@ export type UserCreateWithoutPreferredStoresInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -1058,6 +1082,7 @@ export type UserUncheckedCreateWithoutPreferredStoresInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -1109,6 +1134,7 @@ export type UserUpdateWithoutPreferredStoresInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -1144,6 +1170,7 @@ export type UserUncheckedUpdateWithoutPreferredStoresInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
@@ -1178,6 +1205,7 @@ export type UserCreateWithoutAccountsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -1213,6 +1241,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -1264,6 +1293,7 @@ export type UserUpdateWithoutAccountsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -1299,6 +1329,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
@@ -1334,6 +1365,7 @@ export type UserCreateWithoutSessionsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -1369,6 +1401,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -1420,6 +1453,7 @@ export type UserUpdateWithoutSessionsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -1455,6 +1489,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
@@ -1490,6 +1525,7 @@ export type UserCreateWithoutPantryItemsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -1525,6 +1561,7 @@ export type UserUncheckedCreateWithoutPantryItemsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -1576,6 +1613,7 @@ export type UserUpdateWithoutPantryItemsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -1611,6 +1649,7 @@ export type UserUncheckedUpdateWithoutPantryItemsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
@@ -1646,6 +1685,7 @@ export type UserCreateWithoutManagedStoreInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -1681,6 +1721,7 @@ export type UserUncheckedCreateWithoutManagedStoreInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -1767,6 +1808,7 @@ export type UserCreateWithoutPriceSubmissionsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -1802,6 +1844,7 @@ export type UserUncheckedCreateWithoutPriceSubmissionsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -1853,6 +1896,7 @@ export type UserUpdateWithoutPriceSubmissionsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -1888,6 +1932,7 @@ export type UserUncheckedUpdateWithoutPriceSubmissionsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
@@ -1923,6 +1968,7 @@ export type UserCreateWithoutWatchlistsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
   featureUsages?: Prisma.FeatureUsageCreateNestedManyWithoutUserInput
@@ -1958,6 +2004,7 @@ export type UserUncheckedCreateWithoutWatchlistsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
   featureUsages?: Prisma.FeatureUsageUncheckedCreateNestedManyWithoutUserInput
@@ -2009,6 +2056,7 @@ export type UserUpdateWithoutWatchlistsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
   featureUsages?: Prisma.FeatureUsageUpdateManyWithoutUserNestedInput
@@ -2044,6 +2092,7 @@ export type UserUncheckedUpdateWithoutWatchlistsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
   featureUsages?: Prisma.FeatureUsageUncheckedUpdateManyWithoutUserNestedInput
@@ -2079,6 +2128,7 @@ export type UserCreateWithoutAlertsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
   featureUsages?: Prisma.FeatureUsageCreateNestedManyWithoutUserInput
@@ -2114,6 +2164,7 @@ export type UserUncheckedCreateWithoutAlertsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
   featureUsages?: Prisma.FeatureUsageUncheckedCreateNestedManyWithoutUserInput
@@ -2165,6 +2216,7 @@ export type UserUpdateWithoutAlertsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
   featureUsages?: Prisma.FeatureUsageUpdateManyWithoutUserNestedInput
@@ -2200,6 +2252,7 @@ export type UserUncheckedUpdateWithoutAlertsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
   featureUsages?: Prisma.FeatureUsageUncheckedUpdateManyWithoutUserNestedInput
@@ -2234,6 +2287,7 @@ export type UserCreateWithoutListsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -2269,6 +2323,7 @@ export type UserUncheckedCreateWithoutListsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -2320,6 +2375,7 @@ export type UserUpdateWithoutListsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -2354,6 +2410,167 @@ export type UserUncheckedUpdateWithoutListsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
+  alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
+  featureUsages?: Prisma.FeatureUsageUncheckedUpdateManyWithoutUserNestedInput
+  priceReports?: Prisma.PriceReportUncheckedUpdateManyWithoutReporterNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
+  priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
+  preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutRecipesInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  name?: string | null
+  image?: string | null
+  role?: $Enums.UserRole
+  stripeCustomerId?: string | null
+  deletedAt?: Date | string | null
+  anonymizedAt?: Date | string | null
+  deletionRequestedAt?: Date | string | null
+  emailNotifications?: boolean
+  pushNotifications?: boolean
+  marketingOptIn?: boolean
+  digestFrequency?: $Enums.DigestFrequency
+  onboardingCompleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  managedStore?: Prisma.StoreCreateNestedOneWithoutAdminsInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  lists?: Prisma.ListCreateNestedManyWithoutUserInput
+  pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
+  alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
+  featureUsages?: Prisma.FeatureUsageCreateNestedManyWithoutUserInput
+  priceReports?: Prisma.PriceReportCreateNestedManyWithoutReporterInput
+  posts?: Prisma.PostCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
+  priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
+  preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutRecipesInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  name?: string | null
+  image?: string | null
+  role?: $Enums.UserRole
+  stripeCustomerId?: string | null
+  managedStoreId?: string | null
+  deletedAt?: Date | string | null
+  anonymizedAt?: Date | string | null
+  deletionRequestedAt?: Date | string | null
+  emailNotifications?: boolean
+  pushNotifications?: boolean
+  marketingOptIn?: boolean
+  digestFrequency?: $Enums.DigestFrequency
+  onboardingCompleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
+  pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
+  alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
+  featureUsages?: Prisma.FeatureUsageUncheckedCreateNestedManyWithoutUserInput
+  priceReports?: Prisma.PriceReportUncheckedCreateNestedManyWithoutReporterInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
+  priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
+  preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutRecipesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecipesInput, Prisma.UserUncheckedCreateWithoutRecipesInput>
+}
+
+export type UserUpsertWithoutRecipesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRecipesInput, Prisma.UserUncheckedUpdateWithoutRecipesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecipesInput, Prisma.UserUncheckedCreateWithoutRecipesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRecipesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRecipesInput, Prisma.UserUncheckedUpdateWithoutRecipesInput>
+}
+
+export type UserUpdateWithoutRecipesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  anonymizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletionRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailNotifications?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pushNotifications?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  marketingOptIn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  digestFrequency?: Prisma.EnumDigestFrequencyFieldUpdateOperationsInput | $Enums.DigestFrequency
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  managedStore?: Prisma.StoreUpdateOneWithoutAdminsNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  lists?: Prisma.ListUpdateManyWithoutUserNestedInput
+  pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
+  alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
+  featureUsages?: Prisma.FeatureUsageUpdateManyWithoutUserNestedInput
+  priceReports?: Prisma.PriceReportUpdateManyWithoutReporterNestedInput
+  posts?: Prisma.PostUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
+  priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
+  preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRecipesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  anonymizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletionRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailNotifications?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pushNotifications?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  marketingOptIn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  digestFrequency?: Prisma.EnumDigestFrequencyFieldUpdateOperationsInput | $Enums.DigestFrequency
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
@@ -2391,6 +2608,7 @@ export type UserCreateWithoutFeatureUsagesInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -2426,6 +2644,7 @@ export type UserUncheckedCreateWithoutFeatureUsagesInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -2477,6 +2696,7 @@ export type UserUpdateWithoutFeatureUsagesInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -2512,6 +2732,7 @@ export type UserUncheckedUpdateWithoutFeatureUsagesInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2547,6 +2768,7 @@ export type UserCreateWithoutConsentLogsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   featureUsages?: Prisma.FeatureUsageCreateNestedManyWithoutUserInput
@@ -2582,6 +2804,7 @@ export type UserUncheckedCreateWithoutConsentLogsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   featureUsages?: Prisma.FeatureUsageUncheckedCreateNestedManyWithoutUserInput
@@ -2633,6 +2856,7 @@ export type UserUpdateWithoutConsentLogsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   featureUsages?: Prisma.FeatureUsageUpdateManyWithoutUserNestedInput
@@ -2668,6 +2892,7 @@ export type UserUncheckedUpdateWithoutConsentLogsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   featureUsages?: Prisma.FeatureUsageUncheckedUpdateManyWithoutUserNestedInput
@@ -2703,6 +2928,7 @@ export type UserCreateWithoutPriceReportsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -2738,6 +2964,7 @@ export type UserUncheckedCreateWithoutPriceReportsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -2789,6 +3016,7 @@ export type UserUpdateWithoutPriceReportsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -2824,6 +3052,7 @@ export type UserUncheckedUpdateWithoutPriceReportsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2859,6 +3088,7 @@ export type UserCreateWithoutPostsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -2894,6 +3124,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -2945,6 +3176,7 @@ export type UserUpdateWithoutPostsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -2980,6 +3212,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3015,6 +3248,7 @@ export type UserCreateWithoutCommentsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -3050,6 +3284,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -3101,6 +3336,7 @@ export type UserUpdateWithoutCommentsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -3136,6 +3372,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3171,6 +3408,7 @@ export type UserCreateWithoutReactionsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -3206,6 +3444,7 @@ export type UserUncheckedCreateWithoutReactionsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -3257,6 +3496,7 @@ export type UserUpdateWithoutReactionsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -3292,6 +3532,7 @@ export type UserUncheckedUpdateWithoutReactionsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3327,6 +3568,7 @@ export type UserCreateWithoutContentFlagsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   lists?: Prisma.ListCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
@@ -3362,6 +3604,7 @@ export type UserUncheckedCreateWithoutContentFlagsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
   pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
   watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
   consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
@@ -3413,6 +3656,7 @@ export type UserUpdateWithoutContentFlagsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -3448,6 +3692,7 @@ export type UserUncheckedUpdateWithoutContentFlagsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3502,6 +3747,7 @@ export type UserUpdateWithoutManagedStoreInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
@@ -3537,6 +3783,7 @@ export type UserUncheckedUpdateWithoutManagedStoreInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
   pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
   watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
   consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3580,6 +3827,7 @@ export type UserCountOutputType = {
   sessions: number
   lists: number
   pantryItems: number
+  recipes: number
   watchlists: number
   alerts: number
   consentLogs: number
@@ -3598,6 +3846,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   lists?: boolean | UserCountOutputTypeCountListsArgs
   pantryItems?: boolean | UserCountOutputTypeCountPantryItemsArgs
+  recipes?: boolean | UserCountOutputTypeCountRecipesArgs
   watchlists?: boolean | UserCountOutputTypeCountWatchlistsArgs
   alerts?: boolean | UserCountOutputTypeCountAlertsArgs
   consentLogs?: boolean | UserCountOutputTypeCountConsentLogsArgs
@@ -3647,6 +3896,13 @@ export type UserCountOutputTypeCountListsArgs<ExtArgs extends runtime.Types.Exte
  */
 export type UserCountOutputTypeCountPantryItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PantryItemWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRecipesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecipeWhereInput
 }
 
 /**
@@ -3751,6 +4007,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   lists?: boolean | Prisma.User$listsArgs<ExtArgs>
   pantryItems?: boolean | Prisma.User$pantryItemsArgs<ExtArgs>
+  recipes?: boolean | Prisma.User$recipesArgs<ExtArgs>
   watchlists?: boolean | Prisma.User$watchlistsArgs<ExtArgs>
   alerts?: boolean | Prisma.User$alertsArgs<ExtArgs>
   consentLogs?: boolean | Prisma.User$consentLogsArgs<ExtArgs>
@@ -3837,6 +4094,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   lists?: boolean | Prisma.User$listsArgs<ExtArgs>
   pantryItems?: boolean | Prisma.User$pantryItemsArgs<ExtArgs>
+  recipes?: boolean | Prisma.User$recipesArgs<ExtArgs>
   watchlists?: boolean | Prisma.User$watchlistsArgs<ExtArgs>
   alerts?: boolean | Prisma.User$alertsArgs<ExtArgs>
   consentLogs?: boolean | Prisma.User$consentLogsArgs<ExtArgs>
@@ -3865,6 +4123,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     lists: Prisma.$ListPayload<ExtArgs>[]
     pantryItems: Prisma.$PantryItemPayload<ExtArgs>[]
+    recipes: Prisma.$RecipePayload<ExtArgs>[]
     watchlists: Prisma.$WatchlistPayload<ExtArgs>[]
     alerts: Prisma.$AlertPayload<ExtArgs>[]
     consentLogs: Prisma.$ConsentLogPayload<ExtArgs>[]
@@ -4295,6 +4554,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   lists<T extends Prisma.User$listsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$listsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pantryItems<T extends Prisma.User$pantryItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pantryItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PantryItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recipes<T extends Prisma.User$recipesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recipesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecipePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   watchlists<T extends Prisma.User$watchlistsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$watchlistsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   alerts<T extends Prisma.User$alertsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$alertsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AlertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   consentLogs<T extends Prisma.User$consentLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$consentLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConsentLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4866,6 +5126,30 @@ export type User$pantryItemsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.PantryItemScalarFieldEnum | Prisma.PantryItemScalarFieldEnum[]
+}
+
+/**
+ * User.recipes
+ */
+export type User$recipesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Recipe
+   */
+  select?: Prisma.RecipeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Recipe
+   */
+  omit?: Prisma.RecipeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecipeInclude<ExtArgs> | null
+  where?: Prisma.RecipeWhereInput
+  orderBy?: Prisma.RecipeOrderByWithRelationInput | Prisma.RecipeOrderByWithRelationInput[]
+  cursor?: Prisma.RecipeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecipeScalarFieldEnum | Prisma.RecipeScalarFieldEnum[]
 }
 
 /**

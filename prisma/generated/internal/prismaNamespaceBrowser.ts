@@ -172,6 +172,8 @@ export const PantryItemScalarFieldEnum = {
   userId: 'userId',
   productId: 'productId',
   name: 'name',
+  brand: 'brand',
+  category: 'category',
   quantity: 'quantity',
   unit: 'unit',
   addedFrom: 'addedFrom',
@@ -353,6 +355,7 @@ export const RecipeScalarFieldEnum = {
   servings: 'servings',
   instructions: 'instructions',
   isActive: 'isActive',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

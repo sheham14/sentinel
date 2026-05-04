@@ -66,6 +66,7 @@ export async function POST(request: NextRequest) {
   const recipe = await prisma.recipe.create({
     data: {
       title,
+      userId: user!.id,
       description: description ?? null,
       prepTime: prepTime ?? null,
       cookTime: cookTime ?? null,

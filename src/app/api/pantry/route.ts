@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
   if (error) return error;
 
   const body = await request.json();
-  const { productId, name, quantity, unit, expiresAt } = body;
+  const { productId, name, quantity, unit, expiresAt, brand, category } = body;
 
   if (!name) {
     return NextResponse.json({ error: "name is required" }, { status: 400 });
@@ -45,6 +45,8 @@ export async function POST(request: NextRequest) {
       name,
       quantity: quantity ?? null,
       unit: unit ?? null,
+      brand: brand ?? null,
+      category: category ?? null,
       expiresAt: expiresAt ? new Date(expiresAt) : null,
       addedFrom: "manual",
     },

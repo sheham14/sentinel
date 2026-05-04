@@ -11,11 +11,15 @@ export async function PATCH(
 
   const { id } = await params;
   const body = await request.json();
-  const { quantity, unit, expiresAt } = body;
+  const { quantity, unit, expiresAt, name, brand, category, productId } = body;
 
   const item = await prisma.pantryItem.updateMany({
     where: { id, userId: user.id },
     data: {
+      ...(name !== undefined && { name }),
+      ...(brand !== undefined && { brand }),
+      ...(category !== undefined && { category }),
+      ...(productId !== undefined && { productId }),
       ...(quantity !== undefined && { quantity }),
       ...(unit !== undefined && { unit }),
       ...(expiresAt !== undefined && {

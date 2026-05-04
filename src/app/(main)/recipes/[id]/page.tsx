@@ -118,7 +118,9 @@ async function RecipeDetail({ id }: { id: string }) {
     hasUnlinkedIngredients: ingredients.some((i) => !i.productId),
   };
 
-  return <RecipeDetailClient recipe={data} />;
+  const isOwner = recipe.userId === user.id;
+
+  return <RecipeDetailClient recipe={data} isOwner={isOwner} />;
 }
 
 function RecipeDetailSkeleton() {

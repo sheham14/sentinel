@@ -123,8 +123,10 @@ type ActiveTimer = {
 
 export default function RecipeDetailClient({
   recipe,
+  isOwner,
 }: {
   recipe: RecipeDetailData;
+  isOwner: boolean;
 }) {
   const router = useRouter();
   const heroRef = useRef<HTMLDivElement>(null);
@@ -242,12 +244,14 @@ export default function RecipeDetailClient({
           >
             <EyeIcon slashed={showPrices} />
           </button>
-          <button
-            onClick={() => router.push(`/recipes/${recipe.id}/edit`)}
-            className="w-7 h-7 rounded-[8px] bg-white/20 flex items-center justify-center"
-          >
-            <EditIcon />
-          </button>
+          {isOwner && (
+            <button
+              onClick={() => router.push(`/recipes/${recipe.id}/edit`)}
+              className="w-7 h-7 rounded-[8px] bg-white/20 flex items-center justify-center"
+            >
+              <EditIcon />
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -295,13 +299,15 @@ export default function RecipeDetailClient({
           >
             <EyeIcon slashed={showPrices} />
           </button>
-          <button
-            onClick={() => router.push(`/recipes/${recipe.id}/edit`)}
-            className="w-[30px] h-[30px] rounded-[9px] bg-black/35 flex items-center justify-center"
-            aria-label="Edit recipe"
-          >
-            <EditIcon />
-          </button>
+          {isOwner && (
+            <button
+              onClick={() => router.push(`/recipes/${recipe.id}/edit`)}
+              className="w-[30px] h-[30px] rounded-[9px] bg-black/35 flex items-center justify-center"
+              aria-label="Edit recipe"
+            >
+              <EditIcon />
+            </button>
+          )}
         </div>
 
         {/* Title */}

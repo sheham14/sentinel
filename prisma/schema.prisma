@@ -153,6 +153,7 @@ model User {
     sessions         Session[]
     lists            List[]
     pantryItems      PantryItem[]
+    recipes          Recipe[]
     watchlists       Watchlist[]
     alerts           Alert[]
     consentLogs      ConsentLog[]
@@ -232,6 +233,8 @@ model PantryItem {
     userId    String    @map("user_id")
     productId String?   @map("product_id") // linked canonical product if matched
     name      String // "eggs", "olive oil", "pasta"
+    brand     String?
+    category  String? // mirrors ProductCategory values but stored as string for flexibility
     quantity  Decimal?  @db.Decimal(10, 3)
     unit      String? // "dozen", "ml", "g"
     addedFrom String    @default("manual") @map("added_from")
@@ -479,17 +482,20 @@ model Recipe {
     description  String?  @db.Text
     imageUrl     String?  @map("image_url")
     sourceUrl    String?  @map("source_url")
-    prepTime     Int?     @map("prep_time") // minutes
-    cookTime     Int?     @map("cook_time") // minutes
+    prepTime     Int?     @map("prep_time")
+    cookTime     Int?     @map("cook_time")
     servings     Int?
     instructions Json?
     isActive     Boolean  @default(true) @map("is_active")
+    userId       String?  @map("user_id") // ← add
     createdAt    DateTime @default(now()) @map("created_at")
     updatedAt    DateTime @updatedAt @map("updated_at")
 
     ingredients RecipeIngredient[]
+    user        User?              @relation(fields: [userId], references: [id]) // ← add
 
     @@index([title])
+    @@index([userId]) // ← add
     @@map("recipes")
 }
 
