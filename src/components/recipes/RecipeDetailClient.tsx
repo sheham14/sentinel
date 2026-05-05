@@ -596,6 +596,9 @@ export default function RecipeDetailClient({
                 ? Math.round(ing.quantity * scale * 10) / 10
                 : null,
             unit: ing.unit,
+            productUnitQuantity: ing.productUnitQuantity,
+            productUnitMeasure: ing.productUnitMeasure,
+            productUnitSize: ing.productUnitSize,
           }))}
           onClose={() => setShowSheet(false)}
         />

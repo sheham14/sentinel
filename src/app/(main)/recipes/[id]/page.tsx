@@ -17,6 +17,9 @@ export type SerializedIngredient = {
   inPantry: boolean;
   bestPrice: number | null;
   bestStore: string | null;
+  productUnitQuantity: number | null;
+  productUnitMeasure: string | null;
+  productUnitSize: string | null;
 };
 
 export type RecipeDetailData = {
@@ -95,6 +98,11 @@ async function RecipeDetail({ id }: { id: string }) {
       inPantry,
       bestPrice: best ? Number(best.currentPrice) : null,
       bestStore: best?.store?.name ?? null,
+      productUnitQuantity: ing.product?.unitQuantity
+        ? Number(ing.product.unitQuantity)
+        : null,
+      productUnitMeasure: ing.product?.unitMeasure ?? null,
+      productUnitSize: ing.product?.unitSize ?? null,
     };
   });
 

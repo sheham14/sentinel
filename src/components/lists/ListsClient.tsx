@@ -14,7 +14,14 @@ import {
 import EditItemSheet from "@/components/lists/EditItemSheet";
 import ListDropdown from "@/components/lists/ListDropdown";
 import ListOptionsMenu from "@/components/lists/ListOptionsMenu";
-import { calculateEffectivePrice, getAllowedUnits } from "@/lib/unit-convert";
+import PantryFromListSheet from "@/components/pantry/PantryFromListSheet";
+import {
+  calculateEffectivePrice,
+  getAllowedUnits,
+  getMeasureType,
+  getUnitType,
+  TO_BASE,
+} from "@/lib/unit-convert";
 
 // ── Types ──────────────────────────────────────
 
@@ -91,6 +98,9 @@ type Recipe = {
     productId?: string | null;
     quantity?: number | null;
     unit?: string | null;
+    productUnitQuantity?: number | null;
+    productUnitMeasure?: string | null;
+    productUnitSize?: string | null;
   }[];
 };
 
@@ -635,6 +645,8 @@ export default function ListsClient({
   const router = useRouter();
   const [lists, setLists] = useState<ListMeta[]>(allLists);
   const [activeList, setActiveList] = useState<GroceryList | null>(initialList);
+  const [pantrySheetItems, setPantrySheetItems] = useState<typeof items>([]);
+  const [showPantrySheet, setShowPantrySheet] = useState(false);
   const [items, setItems] = useState<ListItem[]>(initialList?.items ?? []);
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<"grocery" | "recipes">(
@@ -779,9 +791,15 @@ export default function ListsClient({
 
   async function handleClearCompleted() {
     if (!activeList) return;
-    const completedIds = items.filter((i) => i.isChecked).map((i) => i.id);
-    if (!completedIds.length) return;
-    // Optimistic update
+    const completed = items.filter((i) => i.isChecked);
+    if (!completed.length) return;
+    // Show sheet instead of immediately clearing
+    setPantrySheetItems(completed);
+    setShowPantrySheet(true);
+  }
+
+  async function executeClearCompleted() {
+    if (!activeList) return;
     setItems((prev) => prev.filter((i) => !i.isChecked));
     await fetch(`/api/lists/${activeList.id}/items`, {
       method: "DELETE",
@@ -864,34 +882,67 @@ export default function ListsClient({
     );
   }
 
-  // ── Optimize ───────────────────────────────
-
-  //   async function handleOptimize() {
-  //     if (!activeList || !bestStoreChain) return;
-  //     setOptimizing(true);
-  //     setActiveChain(bestStoreChain);
-  //     setOptimizing(false);
-  //   }
-
   // ── Add recipe to list ─────────────────────
 
   async function handleAddRecipeToList(recipe: Recipe) {
     if (!activeList) return;
     await Promise.all(
-      recipe.ingredients.map((ing) =>
-        fetch(`/api/lists/${activeList.id}/items`, {
+      recipe.ingredients.map((ing) => {
+        const body = (() => {
+          if (!ing.productId) {
+            return {
+              name: ing.name,
+              quantity: ing.quantity ?? 1,
+              unit: ing.unit ?? null,
+            };
+          }
+          const {
+            productUnitQuantity,
+            productUnitMeasure,
+            productUnitSize,
+            quantity,
+            unit,
+          } = ing;
+          const isBulk =
+            productUnitSize?.toLowerCase().includes("per") ?? false;
+          const measureType = getMeasureType(productUnitMeasure ?? null);
+          const requestedType = unit ? getUnitType(unit) : "count";
+
+          if (
+            !isBulk &&
+            measureType !== "count" &&
+            requestedType !== "count" &&
+            measureType === requestedType &&
+            productUnitQuantity &&
+            quantity
+          ) {
+            const packageBase =
+              productUnitQuantity * (TO_BASE[productUnitMeasure!] ?? 1);
+            const requestedBase = quantity * (TO_BASE[unit!] ?? 1);
+            const packs = Math.ceil(requestedBase / packageBase);
+            return {
+              productId: ing.productId,
+              name: ing.name,
+              quantity: packs,
+              unit: null,
+            };
+          }
+
+          return {
+            productId: ing.productId,
+            name: ing.name,
+            quantity: quantity ?? 1,
+            unit: unit ?? null,
+          };
+        })();
+
+        return fetch(`/api/lists/${activeList.id}/items`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            productId: ing.productId ?? undefined,
-            name: ing.name,
-            quantity: ing.quantity ? Number(ing.quantity) : 1,
-            unit: ing.unit ?? null,
-          }),
-        }),
-      ),
+          body: JSON.stringify(body),
+        });
+      }),
     );
-    // Refetch list
     const res = await fetch(`/api/lists/${activeList.id}`);
     if (res.ok) {
       const data = await res.json();
@@ -1378,14 +1429,6 @@ export default function ListsClient({
               ${(activeTotal ?? sortedTotals[0]?.[1] ?? 0).toFixed(2)}
             </span>
           </div>
-
-          {/* <button
-            onClick={handleOptimize}
-            disabled={optimizing || !bestStoreChain}
-            className="w-full py-2.5 bg-[#f0fdf9] dark:bg-[#1a2e2a] border border-[#b2f0e4] dark:border-[#1e4a3a] rounded-[10px] text-[12px] font-medium text-[#0a7a62] dark:text-[#6ee7c7] disabled:opacity-50"
-          >
-            {optimizing ? "Optimizing…" : "Optimize for cheapest"}
-          </button> */}
         </div>
       )}
 
@@ -1409,6 +1452,29 @@ export default function ListsClient({
           }}
           onSave={handleSaveEdit}
           onClose={() => setEditingItem(null)}
+        />
+      )}
+
+      {/* Pantry from list sheet */}
+      {showPantrySheet && (
+        <PantryFromListSheet
+          listId={activeList!.id}
+          checkedItems={pantrySheetItems.map((i) => ({
+            id: i.id,
+            name: i.name,
+            quantity: i.quantity ? Number(i.quantity) : null,
+            unit: i.unit ?? null,
+            productId: i.product?.id ?? null,
+          }))}
+          onConfirm={() => {
+            setShowPantrySheet(false);
+            executeClearCompleted();
+          }}
+          onJustClear={() => {
+            setShowPantrySheet(false);
+            executeClearCompleted();
+          }}
+          onCancel={() => setShowPantrySheet(false)}
         />
       )}
     </div>

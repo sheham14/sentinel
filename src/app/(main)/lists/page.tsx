@@ -43,9 +43,10 @@ async function getListDetail(listId: string, userId: string) {
 }
 
 async function getRecipes(userId: string) {
-  // Return all recipes for now — user-saved recipes come in Phase 2
   return prisma.recipe.findMany({
-    take: 20,
+    where: {
+      OR: [{ userId }, { userId: null }],
+    },
     include: {
       ingredients: {
         select: {
@@ -54,6 +55,13 @@ async function getRecipes(userId: string) {
           productId: true,
           quantity: true,
           unit: true,
+          product: {
+            select: {
+              unitQuantity: true,
+              unitMeasure: true,
+              unitSize: true,
+            },
+          },
         },
         orderBy: { sortOrder: "asc" },
       },
@@ -103,6 +111,11 @@ export default async function ListsPage() {
       productId: ing.productId ?? null,
       quantity: ing.quantity ? Number(ing.quantity) : null,
       unit: ing.unit ?? null,
+      productUnitQuantity: ing.product?.unitQuantity
+        ? Number(ing.product.unitQuantity)
+        : null,
+      productUnitMeasure: ing.product?.unitMeasure ?? null,
+      productUnitSize: ing.product?.unitSize ?? null,
     })),
   }));
 

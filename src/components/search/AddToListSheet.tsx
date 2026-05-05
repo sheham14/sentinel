@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { X, Plus, Check } from "lucide-react";
+import { getMeasureType, getUnitType, TO_BASE } from "@/lib/unit-convert";
 
 type List = {
   id: string;
@@ -15,6 +16,9 @@ type IngredientItem = {
   productId?: string | null;
   quantity?: number | null;
   unit?: string | null;
+  productUnitQuantity?: number | null;
+  productUnitMeasure?: string | null;
+  productUnitSize?: string | null;
 };
 
 type SingleModeProps = {
@@ -64,23 +68,68 @@ export default function AddToListSheet(props: Props) {
       if (isRecipeMode) {
         // Add all selected ingredients in parallel
         await Promise.all(
-          props.ingredients.map((ing) =>
-            fetch(`/api/lists/${listId}/items`, {
+          props.ingredients.map((ing) => {
+            const body = (() => {
+              if (!ing.productId) {
+                return {
+                  name: ing.name,
+                  quantity: ing.quantity,
+                  unit: ing.unit,
+                };
+              }
+              const {
+                productUnitQuantity,
+                productUnitMeasure,
+                productUnitSize,
+                quantity,
+                unit,
+              } = ing;
+              const isBulk =
+                productUnitSize?.toLowerCase().includes("per") ?? false;
+              const measureType = getMeasureType(productUnitMeasure);
+              const requestedType = unit ? getUnitType(unit) : "count";
+
+              if (
+                !isBulk &&
+                measureType !== "count" &&
+                requestedType !== "count" &&
+                measureType === requestedType &&
+                productUnitQuantity &&
+                quantity
+              ) {
+                const packageBase =
+                  productUnitQuantity * (TO_BASE[productUnitMeasure!] ?? 1);
+                const requestedBase = quantity * (TO_BASE[unit!] ?? 1);
+                const packs = Math.ceil(requestedBase / packageBase);
+                return {
+                  productId: ing.productId,
+                  name: ing.name,
+                  quantity: packs,
+                  unit: null,
+                };
+              }
+
+              return {
+                productId: ing.productId,
+                name: ing.name,
+                quantity: quantity ?? 1,
+                unit,
+              };
+            })();
+
+            return fetch(`/api/lists/${listId}/items`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(
-                ing.productId
-                  ? { productId: ing.productId, quantity: ing.quantity ?? 1 }
-                  : { name: ing.name, quantity: ing.quantity, unit: ing.unit },
-              ),
-            }),
-          ),
+              body: JSON.stringify(body),
+            });
+          }),
         );
         setAddedTo((prev) => new Set([...prev, listId]));
         // Close after brief confirmation in recipe mode
         setTimeout(onClose, 700);
       } else {
         // Single product mode — unchanged behaviour
+
         const res = await fetch(`/api/lists/${listId}/items`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },

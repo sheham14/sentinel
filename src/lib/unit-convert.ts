@@ -70,14 +70,30 @@ export function calculateEffectivePrice(
   requestedQty: number,
   requestedUnit: string,
 ): number | null {
-  // Packaged — simple multiplication
-  if (!isBulkProduct(packageUnitSize)) {
-    return packagePrice * requestedQty;
-  }
-
   const measureType = getMeasureType(packageMeasure);
   const requestedType = getUnitType(requestedUnit);
 
+  // Packaged product (e.g. 500g pasta box)
+  if (!isBulkProduct(packageUnitSize)) {
+    // If both are same unit type (weight/volume), calculate packs needed
+    if (
+      measureType !== "count" &&
+      requestedType !== "count" &&
+      measureType === requestedType &&
+      packageQuantity &&
+      packageQuantity > 0
+    ) {
+      const packageBaseUnits =
+        packageQuantity * (TO_BASE[packageMeasure!] ?? 1);
+      const requestedBaseUnits = requestedQty * (TO_BASE[requestedUnit] ?? 1);
+      const packsNeeded = Math.ceil(requestedBaseUnits / packageBaseUnits);
+      return packsNeeded * packagePrice;
+    }
+    // Count units or no conversion possible — simple multiplication
+    return packagePrice * requestedQty;
+  }
+
+  // Bulk product (e.g. "per 100g" deli meat)
   // Mismatched or count units — fall back to simple multiplication
   if (
     measureType === "count" ||

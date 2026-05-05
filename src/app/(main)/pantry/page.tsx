@@ -1,0 +1,69 @@
+import { prisma } from "@/lib/prisma";
+import { getAuthenticatedUser } from "@/lib/auth-utils";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import PantryClient from "@/components/pantry/PantryClient";
+
+export type SerializedPantryItem = {
+  id: string;
+  name: string;
+  brand: string | null;
+  category: string | null;
+  quantity: number | null;
+  unit: string | null;
+  productId: string | null;
+  expiresAt: string | null;
+  updatedAt: string;
+  addedFrom: string;
+};
+
+async function PantryData({ userId }: { userId: string }) {
+  const items = await prisma.pantryItem.findMany({
+    where: { userId },
+    orderBy: { updatedAt: "desc" },
+  });
+
+  const serialized: SerializedPantryItem[] = items.map((item) => ({
+    id: item.id,
+    name: item.name,
+    brand: item.brand ?? null,
+    category: item.category ?? null,
+    quantity: item.quantity ? Number(item.quantity) : null,
+    unit: item.unit ?? null,
+    productId: item.productId ?? null,
+    expiresAt: item.expiresAt ? item.expiresAt.toISOString() : null,
+    updatedAt: item.updatedAt.toISOString(),
+    addedFrom: item.addedFrom,
+  }));
+
+  return <PantryClient initialItems={serialized} />;
+}
+
+function PantrySkeleton() {
+  return (
+    <div className="animate-pulse px-4 pt-4">
+      <div className="h-[38px] rounded-xl bg-[#f4f4f4] dark:bg-[#242b2e] mb-3" />
+      <div className="grid grid-cols-2 gap-[10px]">
+        {[1, 2, 3, 4, 5, 6].map((i) => (
+          <div
+            key={i}
+            className="h-[140px] rounded-[14px] bg-[#f4f4f4] dark:bg-[#242b2e]"
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default async function PantryPage() {
+  const { user, error } = await getAuthenticatedUser();
+  if (error) redirect("/signin");
+
+  return (
+    <div className="bg-[#f7f7f7] dark:bg-[#161b1e] min-h-screen">
+      <Suspense fallback={<PantrySkeleton />}>
+        <PantryData userId={user!.id} />
+      </Suspense>
+    </div>
+  );
+}
