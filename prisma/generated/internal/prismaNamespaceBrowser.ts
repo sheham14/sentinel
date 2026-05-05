@@ -282,7 +282,8 @@ export const AlertScalarFieldEnum = {
   payload: 'payload',
   sentAt: 'sentAt',
   batchId: 'batchId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  readAt: 'readAt'
 } as const
 
 export type AlertScalarFieldEnum = (typeof AlertScalarFieldEnum)[keyof typeof AlertScalarFieldEnum]

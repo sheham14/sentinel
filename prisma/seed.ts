@@ -713,6 +713,120 @@ async function main() {
   });
   console.log("✅ Consent logs created");
 
+  // Add to your seed file after existing data is created
+
+  // const now = new Date();
+  const hoursAgo = (h: number) => new Date(now.getTime() - h * 60 * 60 * 1000);
+  const daysAgo = (d: number) =>
+    new Date(now.getTime() - d * 24 * 60 * 60 * 1000);
+
+  await prisma.alert.createMany({
+    data: [
+      // Unread — today
+      {
+        userId: "cmnrsfngr00002cc7qrgkj9wo",
+        type: "price_drop",
+        channel: "push",
+        payload: {
+          productName: "Milk — Natrel 2% 4L",
+          emoji: "🥛",
+          oldPrice: 5.99,
+          newPrice: 5.47,
+          storeName: "Walmart",
+          storeColor: "#0071ce",
+          productId: "prod_milk_natrel",
+        },
+        sentAt: hoursAgo(1),
+        createdAt: hoursAgo(1),
+      },
+      {
+        userId: "cmnrsfngr00002cc7qrgkj9wo",
+        type: "price_drop",
+        channel: "push",
+        payload: {
+          productName: "Chicken — Maple Leaf 1kg",
+          emoji: "🍗",
+          oldPrice: 11.99,
+          newPrice: 10.97,
+          storeName: "Loblaws",
+          storeColor: "#d62b2b",
+          productId: "prod_chicken_maple_leaf",
+        },
+        sentAt: hoursAgo(3),
+        createdAt: hoursAgo(3),
+      },
+      {
+        userId: "cmnrsfngr00002cc7qrgkj9wo",
+        type: "price_drop",
+        channel: "push",
+        payload: {
+          productName: "Salmon — Atlantic 400g",
+          emoji: "🐟",
+          oldPrice: 13.99,
+          newPrice: 12.97,
+          storeName: "Walmart",
+          storeColor: "#0071ce",
+          productId: "prod_salmon_atlantic",
+        },
+        sentAt: hoursAgo(5),
+        createdAt: hoursAgo(5),
+      },
+      // Read — earlier
+      {
+        userId: "cmnrsfngr00002cc7qrgkj9wo",
+        type: "price_drop",
+        channel: "push",
+        payload: {
+          productName: "Eggs — Burnbrae 12 pack",
+          emoji: "🥚",
+          oldPrice: 4.49,
+          newPrice: 3.97,
+          storeName: "Walmart",
+          storeColor: "#0071ce",
+          productId: "prod_eggs_burnbrae",
+        },
+        sentAt: daysAgo(2),
+        readAt: daysAgo(1),
+        createdAt: daysAgo(2),
+      },
+      {
+        userId: "cmnrsfngr00002cc7qrgkj9wo",
+        type: "price_drop",
+        channel: "push",
+        payload: {
+          productName: "White Bread — Wonder 675g",
+          emoji: "🍞",
+          oldPrice: 3.99,
+          newPrice: 3.47,
+          storeName: "Metro",
+          storeColor: "#e30000",
+          productId: "prod_bread_wonder",
+        },
+        sentAt: daysAgo(4),
+        readAt: daysAgo(3),
+        createdAt: daysAgo(4),
+      },
+      {
+        userId: "cmnrsfngr00002cc7qrgkj9wo",
+        type: "price_drop",
+        channel: "push",
+        payload: {
+          productName: "Cheddar — Cracker Barrel 400g",
+          emoji: "🧀",
+          oldPrice: 7.49,
+          newPrice: 6.97,
+          storeName: "Sobeys",
+          storeColor: "#d62b2b",
+          productId: "prod_cheddar_cracker_barrel",
+        },
+        sentAt: daysAgo(7),
+        readAt: daysAgo(6),
+        createdAt: daysAgo(7),
+      },
+    ],
+  });
+  console.log("✅ 6 mock alerts seeded");
+
   console.log("\n🎉 Seed complete!");
   console.log(`   Test user: test@sentinel.ca`);
   console.log(`   Admin user: admin@sentinel.ca`);

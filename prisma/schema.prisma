@@ -395,6 +395,7 @@ model Alert {
     sentAt    DateTime?        @map("sent_at")
     batchId   String?          @map("batch_id") // groups batched notifications
     createdAt DateTime         @default(now()) @map("created_at")
+    readAt    DateTime?        @map("read_at")
 
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

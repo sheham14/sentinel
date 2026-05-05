@@ -32,6 +32,7 @@ export type AlertMinAggregateOutputType = {
   sentAt: Date | null
   batchId: string | null
   createdAt: Date | null
+  readAt: Date | null
 }
 
 export type AlertMaxAggregateOutputType = {
@@ -42,6 +43,7 @@ export type AlertMaxAggregateOutputType = {
   sentAt: Date | null
   batchId: string | null
   createdAt: Date | null
+  readAt: Date | null
 }
 
 export type AlertCountAggregateOutputType = {
@@ -53,6 +55,7 @@ export type AlertCountAggregateOutputType = {
   sentAt: number
   batchId: number
   createdAt: number
+  readAt: number
   _all: number
 }
 
@@ -65,6 +68,7 @@ export type AlertMinAggregateInputType = {
   sentAt?: true
   batchId?: true
   createdAt?: true
+  readAt?: true
 }
 
 export type AlertMaxAggregateInputType = {
@@ -75,6 +79,7 @@ export type AlertMaxAggregateInputType = {
   sentAt?: true
   batchId?: true
   createdAt?: true
+  readAt?: true
 }
 
 export type AlertCountAggregateInputType = {
@@ -86,6 +91,7 @@ export type AlertCountAggregateInputType = {
   sentAt?: true
   batchId?: true
   createdAt?: true
+  readAt?: true
   _all?: true
 }
 
@@ -170,6 +176,7 @@ export type AlertGroupByOutputType = {
   sentAt: Date | null
   batchId: string | null
   createdAt: Date
+  readAt: Date | null
   _count: AlertCountAggregateOutputType | null
   _min: AlertMinAggregateOutputType | null
   _max: AlertMaxAggregateOutputType | null
@@ -202,6 +209,7 @@ export type AlertWhereInput = {
   sentAt?: Prisma.DateTimeNullableFilter<"Alert"> | Date | string | null
   batchId?: Prisma.StringNullableFilter<"Alert"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Alert"> | Date | string
+  readAt?: Prisma.DateTimeNullableFilter<"Alert"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -214,6 +222,7 @@ export type AlertOrderByWithRelationInput = {
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   batchId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  readAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -229,6 +238,7 @@ export type AlertWhereUniqueInput = Prisma.AtLeast<{
   sentAt?: Prisma.DateTimeNullableFilter<"Alert"> | Date | string | null
   batchId?: Prisma.StringNullableFilter<"Alert"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Alert"> | Date | string
+  readAt?: Prisma.DateTimeNullableFilter<"Alert"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
@@ -241,6 +251,7 @@ export type AlertOrderByWithAggregationInput = {
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   batchId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  readAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AlertCountOrderByAggregateInput
   _max?: Prisma.AlertMaxOrderByAggregateInput
   _min?: Prisma.AlertMinOrderByAggregateInput
@@ -258,6 +269,7 @@ export type AlertScalarWhereWithAggregatesInput = {
   sentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Alert"> | Date | string | null
   batchId?: Prisma.StringNullableWithAggregatesFilter<"Alert"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Alert"> | Date | string
+  readAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Alert"> | Date | string | null
 }
 
 export type AlertCreateInput = {
@@ -268,6 +280,7 @@ export type AlertCreateInput = {
   sentAt?: Date | string | null
   batchId?: string | null
   createdAt?: Date | string
+  readAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutAlertsInput
 }
 
@@ -280,6 +293,7 @@ export type AlertUncheckedCreateInput = {
   sentAt?: Date | string | null
   batchId?: string | null
   createdAt?: Date | string
+  readAt?: Date | string | null
 }
 
 export type AlertUpdateInput = {
@@ -290,6 +304,7 @@ export type AlertUpdateInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutAlertsNestedInput
 }
 
@@ -302,6 +317,7 @@ export type AlertUncheckedUpdateInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AlertCreateManyInput = {
@@ -313,6 +329,7 @@ export type AlertCreateManyInput = {
   sentAt?: Date | string | null
   batchId?: string | null
   createdAt?: Date | string
+  readAt?: Date | string | null
 }
 
 export type AlertUpdateManyMutationInput = {
@@ -323,6 +340,7 @@ export type AlertUpdateManyMutationInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AlertUncheckedUpdateManyInput = {
@@ -334,6 +352,7 @@ export type AlertUncheckedUpdateManyInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AlertListRelationFilter = {
@@ -355,6 +374,7 @@ export type AlertCountOrderByAggregateInput = {
   sentAt?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  readAt?: Prisma.SortOrder
 }
 
 export type AlertMaxOrderByAggregateInput = {
@@ -365,6 +385,7 @@ export type AlertMaxOrderByAggregateInput = {
   sentAt?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  readAt?: Prisma.SortOrder
 }
 
 export type AlertMinOrderByAggregateInput = {
@@ -375,6 +396,7 @@ export type AlertMinOrderByAggregateInput = {
   sentAt?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  readAt?: Prisma.SortOrder
 }
 
 export type AlertCreateNestedManyWithoutUserInput = {
@@ -431,6 +453,7 @@ export type AlertCreateWithoutUserInput = {
   sentAt?: Date | string | null
   batchId?: string | null
   createdAt?: Date | string
+  readAt?: Date | string | null
 }
 
 export type AlertUncheckedCreateWithoutUserInput = {
@@ -441,6 +464,7 @@ export type AlertUncheckedCreateWithoutUserInput = {
   sentAt?: Date | string | null
   batchId?: string | null
   createdAt?: Date | string
+  readAt?: Date | string | null
 }
 
 export type AlertCreateOrConnectWithoutUserInput = {
@@ -481,6 +505,7 @@ export type AlertScalarWhereInput = {
   sentAt?: Prisma.DateTimeNullableFilter<"Alert"> | Date | string | null
   batchId?: Prisma.StringNullableFilter<"Alert"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Alert"> | Date | string
+  readAt?: Prisma.DateTimeNullableFilter<"Alert"> | Date | string | null
 }
 
 export type AlertCreateManyUserInput = {
@@ -491,6 +516,7 @@ export type AlertCreateManyUserInput = {
   sentAt?: Date | string | null
   batchId?: string | null
   createdAt?: Date | string
+  readAt?: Date | string | null
 }
 
 export type AlertUpdateWithoutUserInput = {
@@ -501,6 +527,7 @@ export type AlertUpdateWithoutUserInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AlertUncheckedUpdateWithoutUserInput = {
@@ -511,6 +538,7 @@ export type AlertUncheckedUpdateWithoutUserInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AlertUncheckedUpdateManyWithoutUserInput = {
@@ -521,6 +549,7 @@ export type AlertUncheckedUpdateManyWithoutUserInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -534,6 +563,7 @@ export type AlertSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   sentAt?: boolean
   batchId?: boolean
   createdAt?: boolean
+  readAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["alert"]>
 
@@ -546,6 +576,7 @@ export type AlertSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   sentAt?: boolean
   batchId?: boolean
   createdAt?: boolean
+  readAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["alert"]>
 
@@ -558,6 +589,7 @@ export type AlertSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   sentAt?: boolean
   batchId?: boolean
   createdAt?: boolean
+  readAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["alert"]>
 
@@ -570,9 +602,10 @@ export type AlertSelectScalar = {
   sentAt?: boolean
   batchId?: boolean
   createdAt?: boolean
+  readAt?: boolean
 }
 
-export type AlertOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "type" | "channel" | "payload" | "sentAt" | "batchId" | "createdAt", ExtArgs["result"]["alert"]>
+export type AlertOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "type" | "channel" | "payload" | "sentAt" | "batchId" | "createdAt" | "readAt", ExtArgs["result"]["alert"]>
 export type AlertInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -597,6 +630,7 @@ export type $AlertPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     sentAt: Date | null
     batchId: string | null
     createdAt: Date
+    readAt: Date | null
   }, ExtArgs["result"]["alert"]>
   composites: {}
 }
@@ -1029,6 +1063,7 @@ export interface AlertFieldRefs {
   readonly sentAt: Prisma.FieldRef<"Alert", 'DateTime'>
   readonly batchId: Prisma.FieldRef<"Alert", 'String'>
   readonly createdAt: Prisma.FieldRef<"Alert", 'DateTime'>
+  readonly readAt: Prisma.FieldRef<"Alert", 'DateTime'>
 }
     
 

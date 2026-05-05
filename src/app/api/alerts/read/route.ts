@@ -7,8 +7,8 @@ export async function PATCH() {
   if (error) return error;
 
   await prisma.alert.updateMany({
-    where: { userId: user.id, sentAt: null },
-    data: { sentAt: new Date() },
+    where: { userId: user.id, readAt: null },
+    data: { readAt: new Date() },
   });
 
   return NextResponse.json({ success: true });
@@ -21,7 +21,7 @@ export async function DELETE() {
   await prisma.alert.deleteMany({
     where: {
       userId: user.id,
-      sentAt: { not: null },
+      readAt: { not: null },
     },
   });
 
