@@ -20,8 +20,22 @@ export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayloa
 
 export type AggregateUser = {
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
+}
+
+export type UserAvgAggregateOutputType = {
+  dailyCalorieGoal: number | null
+  heightCm: number | null
+  weightKg: runtime.Decimal | null
+}
+
+export type UserSumAggregateOutputType = {
+  dailyCalorieGoal: number | null
+  heightCm: number | null
+  weightKg: runtime.Decimal | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -29,7 +43,20 @@ export type UserMinAggregateOutputType = {
   email: string | null
   emailVerified: Date | null
   name: string | null
+  dateOfBirth: Date | null
+  gender: string | null
   image: string | null
+  country: string | null
+  city: string | null
+  province: string | null
+  nationality: string | null
+  healthGoal: string | null
+  activityLevel: string | null
+  dailyCalorieGoal: number | null
+  heightCm: number | null
+  weightKg: runtime.Decimal | null
+  locale: string | null
+  currency: string | null
   role: $Enums.UserRole | null
   stripeCustomerId: string | null
   managedStoreId: string | null
@@ -50,7 +77,20 @@ export type UserMaxAggregateOutputType = {
   email: string | null
   emailVerified: Date | null
   name: string | null
+  dateOfBirth: Date | null
+  gender: string | null
   image: string | null
+  country: string | null
+  city: string | null
+  province: string | null
+  nationality: string | null
+  healthGoal: string | null
+  activityLevel: string | null
+  dailyCalorieGoal: number | null
+  heightCm: number | null
+  weightKg: runtime.Decimal | null
+  locale: string | null
+  currency: string | null
   role: $Enums.UserRole | null
   stripeCustomerId: string | null
   managedStoreId: string | null
@@ -71,7 +111,22 @@ export type UserCountAggregateOutputType = {
   email: number
   emailVerified: number
   name: number
+  dateOfBirth: number
+  gender: number
   image: number
+  country: number
+  city: number
+  province: number
+  nationality: number
+  dietaryRestrictions: number
+  allergies: number
+  healthGoal: number
+  activityLevel: number
+  dailyCalorieGoal: number
+  heightCm: number
+  weightKg: number
+  locale: number
+  currency: number
   role: number
   stripeCustomerId: number
   managedStoreId: number
@@ -89,12 +144,37 @@ export type UserCountAggregateOutputType = {
 }
 
 
+export type UserAvgAggregateInputType = {
+  dailyCalorieGoal?: true
+  heightCm?: true
+  weightKg?: true
+}
+
+export type UserSumAggregateInputType = {
+  dailyCalorieGoal?: true
+  heightCm?: true
+  weightKg?: true
+}
+
 export type UserMinAggregateInputType = {
   id?: true
   email?: true
   emailVerified?: true
   name?: true
+  dateOfBirth?: true
+  gender?: true
   image?: true
+  country?: true
+  city?: true
+  province?: true
+  nationality?: true
+  healthGoal?: true
+  activityLevel?: true
+  dailyCalorieGoal?: true
+  heightCm?: true
+  weightKg?: true
+  locale?: true
+  currency?: true
   role?: true
   stripeCustomerId?: true
   managedStoreId?: true
@@ -115,7 +195,20 @@ export type UserMaxAggregateInputType = {
   email?: true
   emailVerified?: true
   name?: true
+  dateOfBirth?: true
+  gender?: true
   image?: true
+  country?: true
+  city?: true
+  province?: true
+  nationality?: true
+  healthGoal?: true
+  activityLevel?: true
+  dailyCalorieGoal?: true
+  heightCm?: true
+  weightKg?: true
+  locale?: true
+  currency?: true
   role?: true
   stripeCustomerId?: true
   managedStoreId?: true
@@ -136,7 +229,22 @@ export type UserCountAggregateInputType = {
   email?: true
   emailVerified?: true
   name?: true
+  dateOfBirth?: true
+  gender?: true
   image?: true
+  country?: true
+  city?: true
+  province?: true
+  nationality?: true
+  dietaryRestrictions?: true
+  allergies?: true
+  healthGoal?: true
+  activityLevel?: true
+  dailyCalorieGoal?: true
+  heightCm?: true
+  weightKg?: true
+  locale?: true
+  currency?: true
   role?: true
   stripeCustomerId?: true
   managedStoreId?: true
@@ -191,6 +299,18 @@ export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: UserAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: UserSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: UserMinAggregateInputType
@@ -221,6 +341,8 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: UserCountAggregateInputType | true
+  _avg?: UserAvgAggregateInputType
+  _sum?: UserSumAggregateInputType
   _min?: UserMinAggregateInputType
   _max?: UserMaxAggregateInputType
 }
@@ -230,7 +352,22 @@ export type UserGroupByOutputType = {
   email: string
   emailVerified: Date | null
   name: string | null
+  dateOfBirth: Date | null
+  gender: string | null
   image: string | null
+  country: string
+  city: string | null
+  province: string | null
+  nationality: string | null
+  dietaryRestrictions: string[]
+  allergies: string[]
+  healthGoal: string | null
+  activityLevel: string | null
+  dailyCalorieGoal: number | null
+  heightCm: number | null
+  weightKg: runtime.Decimal | null
+  locale: string
+  currency: string
   role: $Enums.UserRole
   stripeCustomerId: string | null
   managedStoreId: string | null
@@ -245,6 +382,8 @@ export type UserGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
@@ -272,7 +411,22 @@ export type UserWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   name?: Prisma.StringNullableFilter<"User"> | string | null
+  dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  gender?: Prisma.StringNullableFilter<"User"> | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
+  country?: Prisma.StringFilter<"User"> | string
+  city?: Prisma.StringNullableFilter<"User"> | string | null
+  province?: Prisma.StringNullableFilter<"User"> | string | null
+  nationality?: Prisma.StringNullableFilter<"User"> | string | null
+  dietaryRestrictions?: Prisma.StringNullableListFilter<"User">
+  allergies?: Prisma.StringNullableListFilter<"User">
+  healthGoal?: Prisma.StringNullableFilter<"User"> | string | null
+  activityLevel?: Prisma.StringNullableFilter<"User"> | string | null
+  dailyCalorieGoal?: Prisma.IntNullableFilter<"User"> | number | null
+  heightCm?: Prisma.IntNullableFilter<"User"> | number | null
+  weightKg?: Prisma.DecimalNullableFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFilter<"User"> | string
+  currency?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   stripeCustomerId?: Prisma.StringNullableFilter<"User"> | string | null
   managedStoreId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -303,6 +457,7 @@ export type UserWhereInput = {
   contentFlags?: Prisma.ContentFlagListRelationFilter
   priceSubmissions?: Prisma.PriceHistoryListRelationFilter
   preferredStores?: Prisma.UserPreferredStoreListRelationFilter
+  aiChatSessions?: Prisma.AiChatSessionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -310,7 +465,22 @@ export type UserOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
+  gender?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  province?: Prisma.SortOrderInput | Prisma.SortOrder
+  nationality?: Prisma.SortOrderInput | Prisma.SortOrder
+  dietaryRestrictions?: Prisma.SortOrder
+  allergies?: Prisma.SortOrder
+  healthGoal?: Prisma.SortOrderInput | Prisma.SortOrder
+  activityLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  dailyCalorieGoal?: Prisma.SortOrderInput | Prisma.SortOrder
+  heightCm?: Prisma.SortOrderInput | Prisma.SortOrder
+  weightKg?: Prisma.SortOrderInput | Prisma.SortOrder
+  locale?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
   role?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder
   managedStoreId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -341,6 +511,7 @@ export type UserOrderByWithRelationInput = {
   contentFlags?: Prisma.ContentFlagOrderByRelationAggregateInput
   priceSubmissions?: Prisma.PriceHistoryOrderByRelationAggregateInput
   preferredStores?: Prisma.UserPreferredStoreOrderByRelationAggregateInput
+  aiChatSessions?: Prisma.AiChatSessionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -352,7 +523,22 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   name?: Prisma.StringNullableFilter<"User"> | string | null
+  dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  gender?: Prisma.StringNullableFilter<"User"> | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
+  country?: Prisma.StringFilter<"User"> | string
+  city?: Prisma.StringNullableFilter<"User"> | string | null
+  province?: Prisma.StringNullableFilter<"User"> | string | null
+  nationality?: Prisma.StringNullableFilter<"User"> | string | null
+  dietaryRestrictions?: Prisma.StringNullableListFilter<"User">
+  allergies?: Prisma.StringNullableListFilter<"User">
+  healthGoal?: Prisma.StringNullableFilter<"User"> | string | null
+  activityLevel?: Prisma.StringNullableFilter<"User"> | string | null
+  dailyCalorieGoal?: Prisma.IntNullableFilter<"User"> | number | null
+  heightCm?: Prisma.IntNullableFilter<"User"> | number | null
+  weightKg?: Prisma.DecimalNullableFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFilter<"User"> | string
+  currency?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   managedStoreId?: Prisma.StringNullableFilter<"User"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -382,6 +568,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   contentFlags?: Prisma.ContentFlagListRelationFilter
   priceSubmissions?: Prisma.PriceHistoryListRelationFilter
   preferredStores?: Prisma.UserPreferredStoreListRelationFilter
+  aiChatSessions?: Prisma.AiChatSessionListRelationFilter
 }, "id" | "email" | "stripeCustomerId">
 
 export type UserOrderByWithAggregationInput = {
@@ -389,7 +576,22 @@ export type UserOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
+  gender?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  province?: Prisma.SortOrderInput | Prisma.SortOrder
+  nationality?: Prisma.SortOrderInput | Prisma.SortOrder
+  dietaryRestrictions?: Prisma.SortOrder
+  allergies?: Prisma.SortOrder
+  healthGoal?: Prisma.SortOrderInput | Prisma.SortOrder
+  activityLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  dailyCalorieGoal?: Prisma.SortOrderInput | Prisma.SortOrder
+  heightCm?: Prisma.SortOrderInput | Prisma.SortOrder
+  weightKg?: Prisma.SortOrderInput | Prisma.SortOrder
+  locale?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
   role?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder
   managedStoreId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -404,8 +606,10 @@ export type UserOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
+  _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
+  _sum?: Prisma.UserSumOrderByAggregateInput
 }
 
 export type UserScalarWhereWithAggregatesInput = {
@@ -416,7 +620,22 @@ export type UserScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   emailVerified?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  dateOfBirth?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  gender?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  country?: Prisma.StringWithAggregatesFilter<"User"> | string
+  city?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  province?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  nationality?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  dietaryRestrictions?: Prisma.StringNullableListFilter<"User">
+  allergies?: Prisma.StringNullableListFilter<"User">
+  healthGoal?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  activityLevel?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  dailyCalorieGoal?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  heightCm?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  weightKg?: Prisma.DecimalNullableWithAggregatesFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringWithAggregatesFilter<"User"> | string
+  currency?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
   stripeCustomerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   managedStoreId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -437,7 +656,22 @@ export type UserCreateInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -467,6 +701,7 @@ export type UserCreateInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -474,7 +709,22 @@ export type UserUncheckedCreateInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -504,6 +754,7 @@ export type UserUncheckedCreateInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -511,7 +762,22 @@ export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -541,6 +807,7 @@ export type UserUpdateInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -548,7 +815,22 @@ export type UserUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -578,6 +860,7 @@ export type UserUncheckedUpdateInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -585,7 +868,22 @@ export type UserCreateManyInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -606,7 +904,22 @@ export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -626,7 +939,22 @@ export type UserUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -642,12 +970,35 @@ export type UserUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  province?: Prisma.SortOrder
+  nationality?: Prisma.SortOrder
+  dietaryRestrictions?: Prisma.SortOrder
+  allergies?: Prisma.SortOrder
+  healthGoal?: Prisma.SortOrder
+  activityLevel?: Prisma.SortOrder
+  dailyCalorieGoal?: Prisma.SortOrder
+  heightCm?: Prisma.SortOrder
+  weightKg?: Prisma.SortOrder
+  locale?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
   role?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrder
   managedStoreId?: Prisma.SortOrder
@@ -663,12 +1014,31 @@ export type UserCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type UserAvgOrderByAggregateInput = {
+  dailyCalorieGoal?: Prisma.SortOrder
+  heightCm?: Prisma.SortOrder
+  weightKg?: Prisma.SortOrder
+}
+
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  province?: Prisma.SortOrder
+  nationality?: Prisma.SortOrder
+  healthGoal?: Prisma.SortOrder
+  activityLevel?: Prisma.SortOrder
+  dailyCalorieGoal?: Prisma.SortOrder
+  heightCm?: Prisma.SortOrder
+  weightKg?: Prisma.SortOrder
+  locale?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
   role?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrder
   managedStoreId?: Prisma.SortOrder
@@ -689,7 +1059,20 @@ export type UserMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  province?: Prisma.SortOrder
+  nationality?: Prisma.SortOrder
+  healthGoal?: Prisma.SortOrder
+  activityLevel?: Prisma.SortOrder
+  dailyCalorieGoal?: Prisma.SortOrder
+  heightCm?: Prisma.SortOrder
+  weightKg?: Prisma.SortOrder
+  locale?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
   role?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrder
   managedStoreId?: Prisma.SortOrder
@@ -703,6 +1086,12 @@ export type UserMinOrderByAggregateInput = {
   onboardingCompleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type UserSumOrderByAggregateInput = {
+  dailyCalorieGoal?: Prisma.SortOrder
+  heightCm?: Prisma.SortOrder
+  weightKg?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -725,6 +1114,14 @@ export type UserNullableScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput | null
 }
 
+export type UserCreatedietaryRestrictionsInput = {
+  set: string[]
+}
+
+export type UserCreateallergiesInput = {
+  set: string[]
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -735,6 +1132,32 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type UserUpdatedietaryRestrictionsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type UserUpdateallergiesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -939,6 +1362,20 @@ export type UserUpdateOneRequiredWithoutFeatureUsagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFeatureUsagesInput, Prisma.UserUpdateWithoutFeatureUsagesInput>, Prisma.UserUncheckedUpdateWithoutFeatureUsagesInput>
 }
 
+export type UserCreateNestedOneWithoutAiChatSessionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiChatSessionsInput, Prisma.UserUncheckedCreateWithoutAiChatSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiChatSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAiChatSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiChatSessionsInput, Prisma.UserUncheckedCreateWithoutAiChatSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiChatSessionsInput
+  upsert?: Prisma.UserUpsertWithoutAiChatSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAiChatSessionsInput, Prisma.UserUpdateWithoutAiChatSessionsInput>, Prisma.UserUncheckedUpdateWithoutAiChatSessionsInput>
+}
+
 export type UserCreateNestedOneWithoutConsentLogsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutConsentLogsInput, Prisma.UserUncheckedCreateWithoutConsentLogsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutConsentLogsInput
@@ -1028,7 +1465,22 @@ export type UserCreateWithoutPreferredStoresInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -1057,6 +1509,7 @@ export type UserCreateWithoutPreferredStoresInput = {
   reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPreferredStoresInput = {
@@ -1064,7 +1517,22 @@ export type UserUncheckedCreateWithoutPreferredStoresInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -1093,6 +1561,7 @@ export type UserUncheckedCreateWithoutPreferredStoresInput = {
   reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPreferredStoresInput = {
@@ -1116,7 +1585,22 @@ export type UserUpdateWithoutPreferredStoresInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1145,6 +1629,7 @@ export type UserUpdateWithoutPreferredStoresInput = {
   reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPreferredStoresInput = {
@@ -1152,7 +1637,22 @@ export type UserUncheckedUpdateWithoutPreferredStoresInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1181,6 +1681,7 @@ export type UserUncheckedUpdateWithoutPreferredStoresInput = {
   reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -1188,7 +1689,22 @@ export type UserCreateWithoutAccountsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -1217,6 +1733,7 @@ export type UserCreateWithoutAccountsInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1224,7 +1741,22 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -1253,6 +1785,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1276,7 +1809,22 @@ export type UserUpdateWithoutAccountsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1305,6 +1853,7 @@ export type UserUpdateWithoutAccountsInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1312,7 +1861,22 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1341,6 +1905,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1348,7 +1913,22 @@ export type UserCreateWithoutSessionsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -1377,6 +1957,7 @@ export type UserCreateWithoutSessionsInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1384,7 +1965,22 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -1413,6 +2009,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1436,7 +2033,22 @@ export type UserUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1465,6 +2077,7 @@ export type UserUpdateWithoutSessionsInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1472,7 +2085,22 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1501,6 +2129,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPantryItemsInput = {
@@ -1508,7 +2137,22 @@ export type UserCreateWithoutPantryItemsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -1537,6 +2181,7 @@ export type UserCreateWithoutPantryItemsInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPantryItemsInput = {
@@ -1544,7 +2189,22 @@ export type UserUncheckedCreateWithoutPantryItemsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -1573,6 +2233,7 @@ export type UserUncheckedCreateWithoutPantryItemsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPantryItemsInput = {
@@ -1596,7 +2257,22 @@ export type UserUpdateWithoutPantryItemsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1625,6 +2301,7 @@ export type UserUpdateWithoutPantryItemsInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPantryItemsInput = {
@@ -1632,7 +2309,22 @@ export type UserUncheckedUpdateWithoutPantryItemsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1661,6 +2353,7 @@ export type UserUncheckedUpdateWithoutPantryItemsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutManagedStoreInput = {
@@ -1668,7 +2361,22 @@ export type UserCreateWithoutManagedStoreInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -1697,6 +2405,7 @@ export type UserCreateWithoutManagedStoreInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutManagedStoreInput = {
@@ -1704,7 +2413,22 @@ export type UserUncheckedCreateWithoutManagedStoreInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -1733,6 +2457,7 @@ export type UserUncheckedCreateWithoutManagedStoreInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutManagedStoreInput = {
@@ -1769,7 +2494,22 @@ export type UserScalarWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   name?: Prisma.StringNullableFilter<"User"> | string | null
+  dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  gender?: Prisma.StringNullableFilter<"User"> | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
+  country?: Prisma.StringFilter<"User"> | string
+  city?: Prisma.StringNullableFilter<"User"> | string | null
+  province?: Prisma.StringNullableFilter<"User"> | string | null
+  nationality?: Prisma.StringNullableFilter<"User"> | string | null
+  dietaryRestrictions?: Prisma.StringNullableListFilter<"User">
+  allergies?: Prisma.StringNullableListFilter<"User">
+  healthGoal?: Prisma.StringNullableFilter<"User"> | string | null
+  activityLevel?: Prisma.StringNullableFilter<"User"> | string | null
+  dailyCalorieGoal?: Prisma.IntNullableFilter<"User"> | number | null
+  heightCm?: Prisma.IntNullableFilter<"User"> | number | null
+  weightKg?: Prisma.DecimalNullableFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFilter<"User"> | string
+  currency?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   stripeCustomerId?: Prisma.StringNullableFilter<"User"> | string | null
   managedStoreId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -1790,7 +2530,22 @@ export type UserCreateWithoutPriceSubmissionsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -1819,6 +2574,7 @@ export type UserCreateWithoutPriceSubmissionsInput = {
   reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPriceSubmissionsInput = {
@@ -1826,7 +2582,22 @@ export type UserUncheckedCreateWithoutPriceSubmissionsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -1855,6 +2626,7 @@ export type UserUncheckedCreateWithoutPriceSubmissionsInput = {
   reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPriceSubmissionsInput = {
@@ -1878,7 +2650,22 @@ export type UserUpdateWithoutPriceSubmissionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1907,6 +2694,7 @@ export type UserUpdateWithoutPriceSubmissionsInput = {
   reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPriceSubmissionsInput = {
@@ -1914,7 +2702,22 @@ export type UserUncheckedUpdateWithoutPriceSubmissionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1943,6 +2746,7 @@ export type UserUncheckedUpdateWithoutPriceSubmissionsInput = {
   reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWatchlistsInput = {
@@ -1950,7 +2754,22 @@ export type UserCreateWithoutWatchlistsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -1979,6 +2798,7 @@ export type UserCreateWithoutWatchlistsInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWatchlistsInput = {
@@ -1986,7 +2806,22 @@ export type UserUncheckedCreateWithoutWatchlistsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -2015,6 +2850,7 @@ export type UserUncheckedCreateWithoutWatchlistsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWatchlistsInput = {
@@ -2038,7 +2874,22 @@ export type UserUpdateWithoutWatchlistsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2067,6 +2918,7 @@ export type UserUpdateWithoutWatchlistsInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWatchlistsInput = {
@@ -2074,7 +2926,22 @@ export type UserUncheckedUpdateWithoutWatchlistsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2103,6 +2970,7 @@ export type UserUncheckedUpdateWithoutWatchlistsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAlertsInput = {
@@ -2110,7 +2978,22 @@ export type UserCreateWithoutAlertsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -2139,6 +3022,7 @@ export type UserCreateWithoutAlertsInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAlertsInput = {
@@ -2146,7 +3030,22 @@ export type UserUncheckedCreateWithoutAlertsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -2175,6 +3074,7 @@ export type UserUncheckedCreateWithoutAlertsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAlertsInput = {
@@ -2198,7 +3098,22 @@ export type UserUpdateWithoutAlertsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2227,6 +3142,7 @@ export type UserUpdateWithoutAlertsInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAlertsInput = {
@@ -2234,7 +3150,22 @@ export type UserUncheckedUpdateWithoutAlertsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2263,6 +3194,7 @@ export type UserUncheckedUpdateWithoutAlertsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutListsInput = {
@@ -2270,7 +3202,22 @@ export type UserCreateWithoutListsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -2299,6 +3246,7 @@ export type UserCreateWithoutListsInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutListsInput = {
@@ -2306,7 +3254,22 @@ export type UserUncheckedCreateWithoutListsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -2335,6 +3298,7 @@ export type UserUncheckedCreateWithoutListsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutListsInput = {
@@ -2358,7 +3322,22 @@ export type UserUpdateWithoutListsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2387,6 +3366,7 @@ export type UserUpdateWithoutListsInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutListsInput = {
@@ -2394,7 +3374,22 @@ export type UserUncheckedUpdateWithoutListsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2423,6 +3418,7 @@ export type UserUncheckedUpdateWithoutListsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRecipesInput = {
@@ -2430,7 +3426,22 @@ export type UserCreateWithoutRecipesInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -2459,6 +3470,7 @@ export type UserCreateWithoutRecipesInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRecipesInput = {
@@ -2466,7 +3478,22 @@ export type UserUncheckedCreateWithoutRecipesInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -2495,6 +3522,7 @@ export type UserUncheckedCreateWithoutRecipesInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRecipesInput = {
@@ -2518,7 +3546,22 @@ export type UserUpdateWithoutRecipesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2547,6 +3590,7 @@ export type UserUpdateWithoutRecipesInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecipesInput = {
@@ -2554,7 +3598,22 @@ export type UserUncheckedUpdateWithoutRecipesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2583,6 +3642,7 @@ export type UserUncheckedUpdateWithoutRecipesInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFeatureUsagesInput = {
@@ -2590,7 +3650,22 @@ export type UserCreateWithoutFeatureUsagesInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -2619,6 +3694,7 @@ export type UserCreateWithoutFeatureUsagesInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFeatureUsagesInput = {
@@ -2626,7 +3702,22 @@ export type UserUncheckedCreateWithoutFeatureUsagesInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -2655,6 +3746,7 @@ export type UserUncheckedCreateWithoutFeatureUsagesInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFeatureUsagesInput = {
@@ -2678,7 +3770,22 @@ export type UserUpdateWithoutFeatureUsagesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2707,6 +3814,7 @@ export type UserUpdateWithoutFeatureUsagesInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFeatureUsagesInput = {
@@ -2714,7 +3822,22 @@ export type UserUncheckedUpdateWithoutFeatureUsagesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2743,6 +3866,231 @@ export type UserUncheckedUpdateWithoutFeatureUsagesInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAiChatSessionsInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
+  image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
+  role?: $Enums.UserRole
+  stripeCustomerId?: string | null
+  deletedAt?: Date | string | null
+  anonymizedAt?: Date | string | null
+  deletionRequestedAt?: Date | string | null
+  emailNotifications?: boolean
+  pushNotifications?: boolean
+  marketingOptIn?: boolean
+  digestFrequency?: $Enums.DigestFrequency
+  onboardingCompleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  managedStore?: Prisma.StoreCreateNestedOneWithoutAdminsInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  lists?: Prisma.ListCreateNestedManyWithoutUserInput
+  pantryItems?: Prisma.PantryItemCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  watchlists?: Prisma.WatchlistCreateNestedManyWithoutUserInput
+  alerts?: Prisma.AlertCreateNestedManyWithoutUserInput
+  consentLogs?: Prisma.ConsentLogCreateNestedManyWithoutUserInput
+  featureUsages?: Prisma.FeatureUsageCreateNestedManyWithoutUserInput
+  priceReports?: Prisma.PriceReportCreateNestedManyWithoutReporterInput
+  posts?: Prisma.PostCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
+  priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
+  preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAiChatSessionsInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
+  image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
+  role?: $Enums.UserRole
+  stripeCustomerId?: string | null
+  managedStoreId?: string | null
+  deletedAt?: Date | string | null
+  anonymizedAt?: Date | string | null
+  deletionRequestedAt?: Date | string | null
+  emailNotifications?: boolean
+  pushNotifications?: boolean
+  marketingOptIn?: boolean
+  digestFrequency?: $Enums.DigestFrequency
+  onboardingCompleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  lists?: Prisma.ListUncheckedCreateNestedManyWithoutUserInput
+  pantryItems?: Prisma.PantryItemUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  watchlists?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
+  alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutUserInput
+  consentLogs?: Prisma.ConsentLogUncheckedCreateNestedManyWithoutUserInput
+  featureUsages?: Prisma.FeatureUsageUncheckedCreateNestedManyWithoutUserInput
+  priceReports?: Prisma.PriceReportUncheckedCreateNestedManyWithoutReporterInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
+  priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
+  preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAiChatSessionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiChatSessionsInput, Prisma.UserUncheckedCreateWithoutAiChatSessionsInput>
+}
+
+export type UserUpsertWithoutAiChatSessionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAiChatSessionsInput, Prisma.UserUncheckedUpdateWithoutAiChatSessionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiChatSessionsInput, Prisma.UserUncheckedCreateWithoutAiChatSessionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAiChatSessionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAiChatSessionsInput, Prisma.UserUncheckedUpdateWithoutAiChatSessionsInput>
+}
+
+export type UserUpdateWithoutAiChatSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  anonymizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletionRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailNotifications?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pushNotifications?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  marketingOptIn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  digestFrequency?: Prisma.EnumDigestFrequencyFieldUpdateOperationsInput | $Enums.DigestFrequency
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  managedStore?: Prisma.StoreUpdateOneWithoutAdminsNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  lists?: Prisma.ListUpdateManyWithoutUserNestedInput
+  pantryItems?: Prisma.PantryItemUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  watchlists?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
+  alerts?: Prisma.AlertUpdateManyWithoutUserNestedInput
+  consentLogs?: Prisma.ConsentLogUpdateManyWithoutUserNestedInput
+  featureUsages?: Prisma.FeatureUsageUpdateManyWithoutUserNestedInput
+  priceReports?: Prisma.PriceReportUpdateManyWithoutReporterNestedInput
+  posts?: Prisma.PostUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
+  priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
+  preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAiChatSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  anonymizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletionRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailNotifications?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pushNotifications?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  marketingOptIn?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  digestFrequency?: Prisma.EnumDigestFrequencyFieldUpdateOperationsInput | $Enums.DigestFrequency
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  lists?: Prisma.ListUncheckedUpdateManyWithoutUserNestedInput
+  pantryItems?: Prisma.PantryItemUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  watchlists?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
+  alerts?: Prisma.AlertUncheckedUpdateManyWithoutUserNestedInput
+  consentLogs?: Prisma.ConsentLogUncheckedUpdateManyWithoutUserNestedInput
+  featureUsages?: Prisma.FeatureUsageUncheckedUpdateManyWithoutUserNestedInput
+  priceReports?: Prisma.PriceReportUncheckedUpdateManyWithoutReporterNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
+  priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
+  preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutConsentLogsInput = {
@@ -2750,7 +4098,22 @@ export type UserCreateWithoutConsentLogsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -2779,6 +4142,7 @@ export type UserCreateWithoutConsentLogsInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutConsentLogsInput = {
@@ -2786,7 +4150,22 @@ export type UserUncheckedCreateWithoutConsentLogsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -2815,6 +4194,7 @@ export type UserUncheckedCreateWithoutConsentLogsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutConsentLogsInput = {
@@ -2838,7 +4218,22 @@ export type UserUpdateWithoutConsentLogsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2867,6 +4262,7 @@ export type UserUpdateWithoutConsentLogsInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConsentLogsInput = {
@@ -2874,7 +4270,22 @@ export type UserUncheckedUpdateWithoutConsentLogsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2903,6 +4314,7 @@ export type UserUncheckedUpdateWithoutConsentLogsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPriceReportsInput = {
@@ -2910,7 +4322,22 @@ export type UserCreateWithoutPriceReportsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -2939,6 +4366,7 @@ export type UserCreateWithoutPriceReportsInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPriceReportsInput = {
@@ -2946,7 +4374,22 @@ export type UserUncheckedCreateWithoutPriceReportsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -2975,6 +4418,7 @@ export type UserUncheckedCreateWithoutPriceReportsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPriceReportsInput = {
@@ -2998,7 +4442,22 @@ export type UserUpdateWithoutPriceReportsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3027,6 +4486,7 @@ export type UserUpdateWithoutPriceReportsInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPriceReportsInput = {
@@ -3034,7 +4494,22 @@ export type UserUncheckedUpdateWithoutPriceReportsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3063,6 +4538,7 @@ export type UserUncheckedUpdateWithoutPriceReportsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostsInput = {
@@ -3070,7 +4546,22 @@ export type UserCreateWithoutPostsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -3099,6 +4590,7 @@ export type UserCreateWithoutPostsInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
@@ -3106,7 +4598,22 @@ export type UserUncheckedCreateWithoutPostsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -3135,6 +4642,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostsInput = {
@@ -3158,7 +4666,22 @@ export type UserUpdateWithoutPostsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3187,6 +4710,7 @@ export type UserUpdateWithoutPostsInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
@@ -3194,7 +4718,22 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3223,6 +4762,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -3230,7 +4770,22 @@ export type UserCreateWithoutCommentsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -3259,6 +4814,7 @@ export type UserCreateWithoutCommentsInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -3266,7 +4822,22 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -3295,6 +4866,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -3318,7 +4890,22 @@ export type UserUpdateWithoutCommentsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3347,6 +4934,7 @@ export type UserUpdateWithoutCommentsInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -3354,7 +4942,22 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3383,6 +4986,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReactionsInput = {
@@ -3390,7 +4994,22 @@ export type UserCreateWithoutReactionsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -3419,6 +5038,7 @@ export type UserCreateWithoutReactionsInput = {
   contentFlags?: Prisma.ContentFlagCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReactionsInput = {
@@ -3426,7 +5046,22 @@ export type UserUncheckedCreateWithoutReactionsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -3455,6 +5090,7 @@ export type UserUncheckedCreateWithoutReactionsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedCreateNestedManyWithoutReporterInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReactionsInput = {
@@ -3478,7 +5114,22 @@ export type UserUpdateWithoutReactionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3507,6 +5158,7 @@ export type UserUpdateWithoutReactionsInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReactionsInput = {
@@ -3514,7 +5166,22 @@ export type UserUncheckedUpdateWithoutReactionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3543,6 +5210,7 @@ export type UserUncheckedUpdateWithoutReactionsInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutContentFlagsInput = {
@@ -3550,7 +5218,22 @@ export type UserCreateWithoutContentFlagsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -3579,6 +5262,7 @@ export type UserCreateWithoutContentFlagsInput = {
   reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
   priceSubmissions?: Prisma.PriceHistoryCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutContentFlagsInput = {
@@ -3586,7 +5270,22 @@ export type UserUncheckedCreateWithoutContentFlagsInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   managedStoreId?: string | null
@@ -3615,6 +5314,7 @@ export type UserUncheckedCreateWithoutContentFlagsInput = {
   reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedCreateNestedManyWithoutSubmitterInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedCreateNestedManyWithoutUserInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutContentFlagsInput = {
@@ -3638,7 +5338,22 @@ export type UserUpdateWithoutContentFlagsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3667,6 +5382,7 @@ export type UserUpdateWithoutContentFlagsInput = {
   reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutContentFlagsInput = {
@@ -3674,7 +5390,22 @@ export type UserUncheckedUpdateWithoutContentFlagsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managedStoreId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3703,6 +5434,7 @@ export type UserUncheckedUpdateWithoutContentFlagsInput = {
   reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyManagedStoreInput = {
@@ -3710,7 +5442,22 @@ export type UserCreateManyManagedStoreInput = {
   email: string
   emailVerified?: Date | string | null
   name?: string | null
+  dateOfBirth?: Date | string | null
+  gender?: string | null
   image?: string | null
+  country?: string
+  city?: string | null
+  province?: string | null
+  nationality?: string | null
+  dietaryRestrictions?: Prisma.UserCreatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserCreateallergiesInput | string[]
+  healthGoal?: string | null
+  activityLevel?: string | null
+  dailyCalorieGoal?: number | null
+  heightCm?: number | null
+  weightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: string
+  currency?: string
   role?: $Enums.UserRole
   stripeCustomerId?: string | null
   deletedAt?: Date | string | null
@@ -3730,7 +5477,22 @@ export type UserUpdateWithoutManagedStoreInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3759,6 +5521,7 @@ export type UserUpdateWithoutManagedStoreInput = {
   contentFlags?: Prisma.ContentFlagUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagedStoreInput = {
@@ -3766,7 +5529,22 @@ export type UserUncheckedUpdateWithoutManagedStoreInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3795,6 +5573,7 @@ export type UserUncheckedUpdateWithoutManagedStoreInput = {
   contentFlags?: Prisma.ContentFlagUncheckedUpdateManyWithoutReporterNestedInput
   priceSubmissions?: Prisma.PriceHistoryUncheckedUpdateManyWithoutSubmitterNestedInput
   preferredStores?: Prisma.UserPreferredStoreUncheckedUpdateManyWithoutUserNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutManagedStoreInput = {
@@ -3802,7 +5581,22 @@ export type UserUncheckedUpdateManyWithoutManagedStoreInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dietaryRestrictions?: Prisma.UserUpdatedietaryRestrictionsInput | string[]
+  allergies?: Prisma.UserUpdateallergiesInput | string[]
+  healthGoal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyCalorieGoal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightCm?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3839,6 +5633,7 @@ export type UserCountOutputType = {
   contentFlags: number
   priceSubmissions: number
   preferredStores: number
+  aiChatSessions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3858,6 +5653,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   contentFlags?: boolean | UserCountOutputTypeCountContentFlagsArgs
   priceSubmissions?: boolean | UserCountOutputTypeCountPriceSubmissionsArgs
   preferredStores?: boolean | UserCountOutputTypeCountPreferredStoresArgs
+  aiChatSessions?: boolean | UserCountOutputTypeCountAiChatSessionsArgs
 }
 
 /**
@@ -3982,13 +5778,35 @@ export type UserCountOutputTypeCountPreferredStoresArgs<ExtArgs extends runtime.
   where?: Prisma.UserPreferredStoreWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAiChatSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiChatSessionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
   emailVerified?: boolean
   name?: boolean
+  dateOfBirth?: boolean
+  gender?: boolean
   image?: boolean
+  country?: boolean
+  city?: boolean
+  province?: boolean
+  nationality?: boolean
+  dietaryRestrictions?: boolean
+  allergies?: boolean
+  healthGoal?: boolean
+  activityLevel?: boolean
+  dailyCalorieGoal?: boolean
+  heightCm?: boolean
+  weightKg?: boolean
+  locale?: boolean
+  currency?: boolean
   role?: boolean
   stripeCustomerId?: boolean
   managedStoreId?: boolean
@@ -4019,6 +5837,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   contentFlags?: boolean | Prisma.User$contentFlagsArgs<ExtArgs>
   priceSubmissions?: boolean | Prisma.User$priceSubmissionsArgs<ExtArgs>
   preferredStores?: boolean | Prisma.User$preferredStoresArgs<ExtArgs>
+  aiChatSessions?: boolean | Prisma.User$aiChatSessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -4027,7 +5846,22 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   emailVerified?: boolean
   name?: boolean
+  dateOfBirth?: boolean
+  gender?: boolean
   image?: boolean
+  country?: boolean
+  city?: boolean
+  province?: boolean
+  nationality?: boolean
+  dietaryRestrictions?: boolean
+  allergies?: boolean
+  healthGoal?: boolean
+  activityLevel?: boolean
+  dailyCalorieGoal?: boolean
+  heightCm?: boolean
+  weightKg?: boolean
+  locale?: boolean
+  currency?: boolean
   role?: boolean
   stripeCustomerId?: boolean
   managedStoreId?: boolean
@@ -4049,7 +5883,22 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   emailVerified?: boolean
   name?: boolean
+  dateOfBirth?: boolean
+  gender?: boolean
   image?: boolean
+  country?: boolean
+  city?: boolean
+  province?: boolean
+  nationality?: boolean
+  dietaryRestrictions?: boolean
+  allergies?: boolean
+  healthGoal?: boolean
+  activityLevel?: boolean
+  dailyCalorieGoal?: boolean
+  heightCm?: boolean
+  weightKg?: boolean
+  locale?: boolean
+  currency?: boolean
   role?: boolean
   stripeCustomerId?: boolean
   managedStoreId?: boolean
@@ -4071,7 +5920,22 @@ export type UserSelectScalar = {
   email?: boolean
   emailVerified?: boolean
   name?: boolean
+  dateOfBirth?: boolean
+  gender?: boolean
   image?: boolean
+  country?: boolean
+  city?: boolean
+  province?: boolean
+  nationality?: boolean
+  dietaryRestrictions?: boolean
+  allergies?: boolean
+  healthGoal?: boolean
+  activityLevel?: boolean
+  dailyCalorieGoal?: boolean
+  heightCm?: boolean
+  weightKg?: boolean
+  locale?: boolean
+  currency?: boolean
   role?: boolean
   stripeCustomerId?: boolean
   managedStoreId?: boolean
@@ -4087,7 +5951,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "role" | "stripeCustomerId" | "managedStoreId" | "deletedAt" | "anonymizedAt" | "deletionRequestedAt" | "emailNotifications" | "pushNotifications" | "marketingOptIn" | "digestFrequency" | "onboardingCompleted" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "dateOfBirth" | "gender" | "image" | "country" | "city" | "province" | "nationality" | "dietaryRestrictions" | "allergies" | "healthGoal" | "activityLevel" | "dailyCalorieGoal" | "heightCm" | "weightKg" | "locale" | "currency" | "role" | "stripeCustomerId" | "managedStoreId" | "deletedAt" | "anonymizedAt" | "deletionRequestedAt" | "emailNotifications" | "pushNotifications" | "marketingOptIn" | "digestFrequency" | "onboardingCompleted" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   managedStore?: boolean | Prisma.User$managedStoreArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -4106,6 +5970,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   contentFlags?: boolean | Prisma.User$contentFlagsArgs<ExtArgs>
   priceSubmissions?: boolean | Prisma.User$priceSubmissionsArgs<ExtArgs>
   preferredStores?: boolean | Prisma.User$preferredStoresArgs<ExtArgs>
+  aiChatSessions?: boolean | Prisma.User$aiChatSessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4135,13 +6000,29 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     contentFlags: Prisma.$ContentFlagPayload<ExtArgs>[]
     priceSubmissions: Prisma.$PriceHistoryPayload<ExtArgs>[]
     preferredStores: Prisma.$UserPreferredStorePayload<ExtArgs>[]
+    aiChatSessions: Prisma.$AiChatSessionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     email: string
     emailVerified: Date | null
     name: string | null
+    dateOfBirth: Date | null
+    gender: string | null
     image: string | null
+    country: string
+    city: string | null
+    province: string | null
+    nationality: string | null
+    dietaryRestrictions: string[]
+    allergies: string[]
+    healthGoal: string | null
+    activityLevel: string | null
+    dailyCalorieGoal: number | null
+    heightCm: number | null
+    weightKg: runtime.Decimal | null
+    locale: string
+    currency: string
     role: $Enums.UserRole
     stripeCustomerId: string | null
     managedStoreId: string | null
@@ -4566,6 +6447,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   contentFlags<T extends Prisma.User$contentFlagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$contentFlagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentFlagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   priceSubmissions<T extends Prisma.User$priceSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$priceSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   preferredStores<T extends Prisma.User$preferredStoresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$preferredStoresArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPreferredStorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiChatSessions<T extends Prisma.User$aiChatSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiChatSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiChatSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4599,7 +6481,22 @@ export interface UserFieldRefs {
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly emailVerified: Prisma.FieldRef<"User", 'DateTime'>
   readonly name: Prisma.FieldRef<"User", 'String'>
+  readonly dateOfBirth: Prisma.FieldRef<"User", 'DateTime'>
+  readonly gender: Prisma.FieldRef<"User", 'String'>
   readonly image: Prisma.FieldRef<"User", 'String'>
+  readonly country: Prisma.FieldRef<"User", 'String'>
+  readonly city: Prisma.FieldRef<"User", 'String'>
+  readonly province: Prisma.FieldRef<"User", 'String'>
+  readonly nationality: Prisma.FieldRef<"User", 'String'>
+  readonly dietaryRestrictions: Prisma.FieldRef<"User", 'String[]'>
+  readonly allergies: Prisma.FieldRef<"User", 'String[]'>
+  readonly healthGoal: Prisma.FieldRef<"User", 'String'>
+  readonly activityLevel: Prisma.FieldRef<"User", 'String'>
+  readonly dailyCalorieGoal: Prisma.FieldRef<"User", 'Int'>
+  readonly heightCm: Prisma.FieldRef<"User", 'Int'>
+  readonly weightKg: Prisma.FieldRef<"User", 'Decimal'>
+  readonly locale: Prisma.FieldRef<"User", 'String'>
+  readonly currency: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'UserRole'>
   readonly stripeCustomerId: Prisma.FieldRef<"User", 'String'>
   readonly managedStoreId: Prisma.FieldRef<"User", 'String'>
@@ -5414,6 +7311,30 @@ export type User$preferredStoresArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.UserPreferredStoreScalarFieldEnum | Prisma.UserPreferredStoreScalarFieldEnum[]
+}
+
+/**
+ * User.aiChatSessions
+ */
+export type User$aiChatSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiChatSession
+   */
+  select?: Prisma.AiChatSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiChatSession
+   */
+  omit?: Prisma.AiChatSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiChatSessionInclude<ExtArgs> | null
+  where?: Prisma.AiChatSessionWhereInput
+  orderBy?: Prisma.AiChatSessionOrderByWithRelationInput | Prisma.AiChatSessionOrderByWithRelationInput[]
+  cursor?: Prisma.AiChatSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiChatSessionScalarFieldEnum | Prisma.AiChatSessionScalarFieldEnum[]
 }
 
 /**

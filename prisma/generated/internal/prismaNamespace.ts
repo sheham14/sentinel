@@ -403,6 +403,8 @@ export const ModelName = {
   Recipe: 'Recipe',
   RecipeIngredient: 'RecipeIngredient',
   FeatureUsage: 'FeatureUsage',
+  AiChatSession: 'AiChatSession',
+  AiChatMessage: 'AiChatMessage',
   ConsentLog: 'ConsentLog',
   ScrapeRun: 'ScrapeRun',
   PriceReport: 'PriceReport',
@@ -426,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userPreferredStore" | "account" | "session" | "verificationToken" | "pantryItem" | "store" | "product" | "storeProduct" | "priceHistory" | "watchlist" | "alert" | "flyer" | "household" | "list" | "listItem" | "recipe" | "recipeIngredient" | "featureUsage" | "consentLog" | "scrapeRun" | "priceReport" | "post" | "comment" | "reaction" | "contentFlag" | "storeInventory"
+    modelProps: "user" | "userPreferredStore" | "account" | "session" | "verificationToken" | "pantryItem" | "store" | "product" | "storeProduct" | "priceHistory" | "watchlist" | "alert" | "flyer" | "household" | "list" | "listItem" | "recipe" | "recipeIngredient" | "featureUsage" | "aiChatSession" | "aiChatMessage" | "consentLog" | "scrapeRun" | "priceReport" | "post" | "comment" | "reaction" | "contentFlag" | "storeInventory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1836,6 +1838,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AiChatSession: {
+      payload: Prisma.$AiChatSessionPayload<ExtArgs>
+      fields: Prisma.AiChatSessionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AiChatSessionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatSessionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AiChatSessionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatSessionPayload>
+        }
+        findFirst: {
+          args: Prisma.AiChatSessionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatSessionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AiChatSessionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatSessionPayload>
+        }
+        findMany: {
+          args: Prisma.AiChatSessionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatSessionPayload>[]
+        }
+        create: {
+          args: Prisma.AiChatSessionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatSessionPayload>
+        }
+        createMany: {
+          args: Prisma.AiChatSessionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AiChatSessionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatSessionPayload>[]
+        }
+        delete: {
+          args: Prisma.AiChatSessionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatSessionPayload>
+        }
+        update: {
+          args: Prisma.AiChatSessionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatSessionPayload>
+        }
+        deleteMany: {
+          args: Prisma.AiChatSessionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AiChatSessionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AiChatSessionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatSessionPayload>[]
+        }
+        upsert: {
+          args: Prisma.AiChatSessionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatSessionPayload>
+        }
+        aggregate: {
+          args: Prisma.AiChatSessionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAiChatSession>
+        }
+        groupBy: {
+          args: Prisma.AiChatSessionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AiChatSessionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AiChatSessionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AiChatSessionCountAggregateOutputType> | number
+        }
+      }
+    }
+    AiChatMessage: {
+      payload: Prisma.$AiChatMessagePayload<ExtArgs>
+      fields: Prisma.AiChatMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AiChatMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AiChatMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.AiChatMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AiChatMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatMessagePayload>
+        }
+        findMany: {
+          args: Prisma.AiChatMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatMessagePayload>[]
+        }
+        create: {
+          args: Prisma.AiChatMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatMessagePayload>
+        }
+        createMany: {
+          args: Prisma.AiChatMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AiChatMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.AiChatMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatMessagePayload>
+        }
+        update: {
+          args: Prisma.AiChatMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.AiChatMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AiChatMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AiChatMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.AiChatMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiChatMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.AiChatMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAiChatMessage>
+        }
+        groupBy: {
+          args: Prisma.AiChatMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AiChatMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AiChatMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AiChatMessageCountAggregateOutputType> | number
+        }
+      }
+    }
     ConsentLog: {
       payload: Prisma.$ConsentLogPayload<ExtArgs>
       fields: Prisma.ConsentLogFieldRefs
@@ -2472,7 +2622,22 @@ export const UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   name: 'name',
+  dateOfBirth: 'dateOfBirth',
+  gender: 'gender',
   image: 'image',
+  country: 'country',
+  city: 'city',
+  province: 'province',
+  nationality: 'nationality',
+  dietaryRestrictions: 'dietaryRestrictions',
+  allergies: 'allergies',
+  healthGoal: 'healthGoal',
+  activityLevel: 'activityLevel',
+  dailyCalorieGoal: 'dailyCalorieGoal',
+  heightCm: 'heightCm',
+  weightKg: 'weightKg',
+  locale: 'locale',
+  currency: 'currency',
   role: 'role',
   stripeCustomerId: 'stripeCustomerId',
   managedStoreId: 'managedStoreId',
@@ -2563,6 +2728,9 @@ export const StoreScalarFieldEnum = {
   address: 'address',
   city: 'city',
   province: 'province',
+  country: 'country',
+  currency: 'currency',
+  locale: 'locale',
   postalCode: 'postalCode',
   latitude: 'latitude',
   longitude: 'longitude',
@@ -2759,6 +2927,33 @@ export const FeatureUsageScalarFieldEnum = {
 } as const
 
 export type FeatureUsageScalarFieldEnum = (typeof FeatureUsageScalarFieldEnum)[keyof typeof FeatureUsageScalarFieldEnum]
+
+
+export const AiChatSessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  isTemp: 'isTemp',
+  model: 'model',
+  tokenCount: 'tokenCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AiChatSessionScalarFieldEnum = (typeof AiChatSessionScalarFieldEnum)[keyof typeof AiChatSessionScalarFieldEnum]
+
+
+export const AiChatMessageScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  role: 'role',
+  content: 'content',
+  inputTokens: 'inputTokens',
+  outputTokens: 'outputTokens',
+  createdAt: 'createdAt'
+} as const
+
+export type AiChatMessageScalarFieldEnum = (typeof AiChatMessageScalarFieldEnum)[keyof typeof AiChatMessageScalarFieldEnum]
 
 
 export const ConsentLogScalarFieldEnum = {
@@ -2964,6 +3159,34 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal[]'
+ */
+export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
  * Reference to a field of type 'UserRole'
  */
 export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
@@ -2995,34 +3218,6 @@ export type EnumDigestFrequencyFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'DigestFrequency[]'
  */
 export type ListEnumDigestFrequencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DigestFrequency[]'>
-    
-
-
-/**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
- * Reference to a field of type 'Decimal'
- */
-export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
-
-
-/**
- * Reference to a field of type 'Decimal[]'
- */
-export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -3293,6 +3488,8 @@ export type GlobalOmitConfig = {
   recipe?: Prisma.RecipeOmit
   recipeIngredient?: Prisma.RecipeIngredientOmit
   featureUsage?: Prisma.FeatureUsageOmit
+  aiChatSession?: Prisma.AiChatSessionOmit
+  aiChatMessage?: Prisma.AiChatMessageOmit
   consentLog?: Prisma.ConsentLogOmit
   scrapeRun?: Prisma.ScrapeRunOmit
   priceReport?: Prisma.PriceReportOmit

@@ -43,6 +43,9 @@ export type StoreMinAggregateOutputType = {
   address: string | null
   city: string | null
   province: string | null
+  country: string | null
+  currency: string | null
+  locale: string | null
   postalCode: string | null
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
@@ -62,6 +65,9 @@ export type StoreMaxAggregateOutputType = {
   address: string | null
   city: string | null
   province: string | null
+  country: string | null
+  currency: string | null
+  locale: string | null
   postalCode: string | null
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
@@ -81,6 +87,9 @@ export type StoreCountAggregateOutputType = {
   address: number
   city: number
   province: number
+  country: number
+  currency: number
+  locale: number
   postalCode: number
   latitude: number
   longitude: number
@@ -112,6 +121,9 @@ export type StoreMinAggregateInputType = {
   address?: true
   city?: true
   province?: true
+  country?: true
+  currency?: true
+  locale?: true
   postalCode?: true
   latitude?: true
   longitude?: true
@@ -131,6 +143,9 @@ export type StoreMaxAggregateInputType = {
   address?: true
   city?: true
   province?: true
+  country?: true
+  currency?: true
+  locale?: true
   postalCode?: true
   latitude?: true
   longitude?: true
@@ -150,6 +165,9 @@ export type StoreCountAggregateInputType = {
   address?: true
   city?: true
   province?: true
+  country?: true
+  currency?: true
+  locale?: true
   postalCode?: true
   latitude?: true
   longitude?: true
@@ -256,6 +274,9 @@ export type StoreGroupByOutputType = {
   address: string | null
   city: string | null
   province: string | null
+  country: string
+  currency: string
+  locale: string
   postalCode: string | null
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
@@ -298,6 +319,9 @@ export type StoreWhereInput = {
   address?: Prisma.StringNullableFilter<"Store"> | string | null
   city?: Prisma.StringNullableFilter<"Store"> | string | null
   province?: Prisma.StringNullableFilter<"Store"> | string | null
+  country?: Prisma.StringFilter<"Store"> | string
+  currency?: Prisma.StringFilter<"Store"> | string
+  locale?: Prisma.StringFilter<"Store"> | string
   postalCode?: Prisma.StringNullableFilter<"Store"> | string | null
   latitude?: Prisma.DecimalNullableFilter<"Store"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.DecimalNullableFilter<"Store"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -322,6 +346,9 @@ export type StoreOrderByWithRelationInput = {
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
   province?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  locale?: Prisma.SortOrder
   postalCode?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -349,6 +376,9 @@ export type StoreWhereUniqueInput = Prisma.AtLeast<{
   address?: Prisma.StringNullableFilter<"Store"> | string | null
   city?: Prisma.StringNullableFilter<"Store"> | string | null
   province?: Prisma.StringNullableFilter<"Store"> | string | null
+  country?: Prisma.StringFilter<"Store"> | string
+  currency?: Prisma.StringFilter<"Store"> | string
+  locale?: Prisma.StringFilter<"Store"> | string
   postalCode?: Prisma.StringNullableFilter<"Store"> | string | null
   latitude?: Prisma.DecimalNullableFilter<"Store"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.DecimalNullableFilter<"Store"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -373,6 +403,9 @@ export type StoreOrderByWithAggregationInput = {
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
   province?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  locale?: Prisma.SortOrder
   postalCode?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -400,6 +433,9 @@ export type StoreScalarWhereWithAggregatesInput = {
   address?: Prisma.StringNullableWithAggregatesFilter<"Store"> | string | null
   city?: Prisma.StringNullableWithAggregatesFilter<"Store"> | string | null
   province?: Prisma.StringNullableWithAggregatesFilter<"Store"> | string | null
+  country?: Prisma.StringWithAggregatesFilter<"Store"> | string
+  currency?: Prisma.StringWithAggregatesFilter<"Store"> | string
+  locale?: Prisma.StringWithAggregatesFilter<"Store"> | string
   postalCode?: Prisma.StringNullableWithAggregatesFilter<"Store"> | string | null
   latitude?: Prisma.DecimalNullableWithAggregatesFilter<"Store"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.DecimalNullableWithAggregatesFilter<"Store"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -419,6 +455,9 @@ export type StoreCreateInput = {
   address?: string | null
   city?: string | null
   province?: string | null
+  country?: string
+  currency?: string
+  locale?: string
   postalCode?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -443,6 +482,9 @@ export type StoreUncheckedCreateInput = {
   address?: string | null
   city?: string | null
   province?: string | null
+  country?: string
+  currency?: string
+  locale?: string
   postalCode?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -467,6 +509,9 @@ export type StoreUpdateInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -491,6 +536,9 @@ export type StoreUncheckedUpdateInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -515,6 +563,9 @@ export type StoreCreateManyInput = {
   address?: string | null
   city?: string | null
   province?: string | null
+  country?: string
+  currency?: string
+  locale?: string
   postalCode?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -534,6 +585,9 @@ export type StoreUpdateManyMutationInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -553,6 +607,9 @@ export type StoreUncheckedUpdateManyInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -582,6 +639,9 @@ export type StoreCountOrderByAggregateInput = {
   address?: Prisma.SortOrder
   city?: Prisma.SortOrder
   province?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  locale?: Prisma.SortOrder
   postalCode?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
@@ -606,6 +666,9 @@ export type StoreMaxOrderByAggregateInput = {
   address?: Prisma.SortOrder
   city?: Prisma.SortOrder
   province?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  locale?: Prisma.SortOrder
   postalCode?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
@@ -625,6 +688,9 @@ export type StoreMinOrderByAggregateInput = {
   address?: Prisma.SortOrder
   city?: Prisma.SortOrder
   province?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  locale?: Prisma.SortOrder
   postalCode?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
@@ -721,6 +787,9 @@ export type StoreCreateWithoutAdminsInput = {
   address?: string | null
   city?: string | null
   province?: string | null
+  country?: string
+  currency?: string
+  locale?: string
   postalCode?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -744,6 +813,9 @@ export type StoreUncheckedCreateWithoutAdminsInput = {
   address?: string | null
   city?: string | null
   province?: string | null
+  country?: string
+  currency?: string
+  locale?: string
   postalCode?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -783,6 +855,9 @@ export type StoreUpdateWithoutAdminsInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -806,6 +881,9 @@ export type StoreUncheckedUpdateWithoutAdminsInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -829,6 +907,9 @@ export type StoreCreateWithoutPreferredByUsersInput = {
   address?: string | null
   city?: string | null
   province?: string | null
+  country?: string
+  currency?: string
+  locale?: string
   postalCode?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -852,6 +933,9 @@ export type StoreUncheckedCreateWithoutPreferredByUsersInput = {
   address?: string | null
   city?: string | null
   province?: string | null
+  country?: string
+  currency?: string
+  locale?: string
   postalCode?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -891,6 +975,9 @@ export type StoreUpdateWithoutPreferredByUsersInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -914,6 +1001,9 @@ export type StoreUncheckedUpdateWithoutPreferredByUsersInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -937,6 +1027,9 @@ export type StoreCreateWithoutStoreProductsInput = {
   address?: string | null
   city?: string | null
   province?: string | null
+  country?: string
+  currency?: string
+  locale?: string
   postalCode?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -960,6 +1053,9 @@ export type StoreUncheckedCreateWithoutStoreProductsInput = {
   address?: string | null
   city?: string | null
   province?: string | null
+  country?: string
+  currency?: string
+  locale?: string
   postalCode?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -999,6 +1095,9 @@ export type StoreUpdateWithoutStoreProductsInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1022,6 +1121,9 @@ export type StoreUncheckedUpdateWithoutStoreProductsInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1045,6 +1147,9 @@ export type StoreCreateWithoutFlyersInput = {
   address?: string | null
   city?: string | null
   province?: string | null
+  country?: string
+  currency?: string
+  locale?: string
   postalCode?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1068,6 +1173,9 @@ export type StoreUncheckedCreateWithoutFlyersInput = {
   address?: string | null
   city?: string | null
   province?: string | null
+  country?: string
+  currency?: string
+  locale?: string
   postalCode?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1107,6 +1215,9 @@ export type StoreUpdateWithoutFlyersInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1130,6 +1241,9 @@ export type StoreUncheckedUpdateWithoutFlyersInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1153,6 +1267,9 @@ export type StoreCreateWithoutScrapeRunsInput = {
   address?: string | null
   city?: string | null
   province?: string | null
+  country?: string
+  currency?: string
+  locale?: string
   postalCode?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1176,6 +1293,9 @@ export type StoreUncheckedCreateWithoutScrapeRunsInput = {
   address?: string | null
   city?: string | null
   province?: string | null
+  country?: string
+  currency?: string
+  locale?: string
   postalCode?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1215,6 +1335,9 @@ export type StoreUpdateWithoutScrapeRunsInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1238,6 +1361,9 @@ export type StoreUncheckedUpdateWithoutScrapeRunsInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.StringFieldUpdateOperationsInput | string
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1328,6 +1454,9 @@ export type StoreSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   address?: boolean
   city?: boolean
   province?: boolean
+  country?: boolean
+  currency?: boolean
+  locale?: boolean
   postalCode?: boolean
   latitude?: boolean
   longitude?: boolean
@@ -1353,6 +1482,9 @@ export type StoreSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   address?: boolean
   city?: boolean
   province?: boolean
+  country?: boolean
+  currency?: boolean
+  locale?: boolean
   postalCode?: boolean
   latitude?: boolean
   longitude?: boolean
@@ -1372,6 +1504,9 @@ export type StoreSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   address?: boolean
   city?: boolean
   province?: boolean
+  country?: boolean
+  currency?: boolean
+  locale?: boolean
   postalCode?: boolean
   latitude?: boolean
   longitude?: boolean
@@ -1391,6 +1526,9 @@ export type StoreSelectScalar = {
   address?: boolean
   city?: boolean
   province?: boolean
+  country?: boolean
+  currency?: boolean
+  locale?: boolean
   postalCode?: boolean
   latitude?: boolean
   longitude?: boolean
@@ -1403,7 +1541,7 @@ export type StoreSelectScalar = {
   portalEnabledAt?: boolean
 }
 
-export type StoreOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "chain" | "name" | "address" | "city" | "province" | "postalCode" | "latitude" | "longitude" | "logoUrl" | "websiteUrl" | "isActive" | "createdAt" | "updatedAt" | "portalEnabled" | "portalEnabledAt", ExtArgs["result"]["store"]>
+export type StoreOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "chain" | "name" | "address" | "city" | "province" | "country" | "currency" | "locale" | "postalCode" | "latitude" | "longitude" | "logoUrl" | "websiteUrl" | "isActive" | "createdAt" | "updatedAt" | "portalEnabled" | "portalEnabledAt", ExtArgs["result"]["store"]>
 export type StoreInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   storeProducts?: boolean | Prisma.Store$storeProductsArgs<ExtArgs>
   flyers?: boolean | Prisma.Store$flyersArgs<ExtArgs>
@@ -1431,6 +1569,9 @@ export type $StorePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     address: string | null
     city: string | null
     province: string | null
+    country: string
+    currency: string
+    locale: string
     postalCode: string | null
     latitude: runtime.Decimal | null
     longitude: runtime.Decimal | null
@@ -1875,6 +2016,9 @@ export interface StoreFieldRefs {
   readonly address: Prisma.FieldRef<"Store", 'String'>
   readonly city: Prisma.FieldRef<"Store", 'String'>
   readonly province: Prisma.FieldRef<"Store", 'String'>
+  readonly country: Prisma.FieldRef<"Store", 'String'>
+  readonly currency: Prisma.FieldRef<"Store", 'String'>
+  readonly locale: Prisma.FieldRef<"Store", 'String'>
   readonly postalCode: Prisma.FieldRef<"Store", 'String'>
   readonly latitude: Prisma.FieldRef<"Store", 'Decimal'>
   readonly longitude: Prisma.FieldRef<"Store", 'Decimal'>

@@ -118,13 +118,28 @@ enum ContentFlagStatus {
 // ──────────────────────────────────────────────
 
 model User {
-    id               String    @id @default(cuid())
-    email            String    @unique
-    emailVerified    DateTime? @map("email_verified")
-    name             String?
-    image            String?
-    role             UserRole  @default(consumer)
-    stripeCustomerId String?   @unique @map("stripe_customer_id")
+    id                  String    @id @default(cuid())
+    email               String    @unique
+    emailVerified       DateTime? @map("email_verified")
+    name                String?
+    dateOfBirth         DateTime? @map("date_of_birth")
+    gender              String? // "male" | "female" | "other" | "prefer_not_to_say"
+    image               String?
+    country             String    @default("Canada")
+    city                String?
+    province            String?
+    nationality         String?
+    dietaryRestrictions String[]  @map("dietary_restrictions") // ["vegetarian", "halal", "gluten-free"]
+    allergies           String[]
+    healthGoal          String? // "weight_loss" | "muscle_gain" | "maintenance"
+    activityLevel       String? // "sedentary" | "moderate" | "active"
+    dailyCalorieGoal    Int?
+    heightCm            Int?      @map("height_cm")
+    weightKg            Decimal?  @map("weight_kg") @db.Decimal(5, 2)
+    locale              String    @default("en-CA")
+    currency            String    @default("CAD")
+    role                UserRole  @default(consumer)
+    stripeCustomerId    String?   @unique @map("stripe_customer_id")
 
     // Store admin scoping
     managedStoreId String? @map("managed_store_id")
@@ -165,6 +180,7 @@ model User {
     contentFlags     ContentFlag[]
     priceSubmissions PriceHistory[]       @relation("PriceSubmitter")
     preferredStores  UserPreferredStore[]
+    aiChatSessions   AiChatSession[]
 
     @@index([email])
     @@index([role])
@@ -257,11 +273,14 @@ model PantryItem {
 
 model Store {
     id              String    @id @default(cuid())
-    chain           String // "walmart" | "loblaws" | "metro" | "sobeys" | "dollarama"
-    name            String // "Walmart Supercentre - Mount Pearl"
+    chain           String
+    name            String
     address         String?
     city            String?
     province        String?
+    country         String    @default("Canada")
+    currency        String    @default("CAD")
+    locale          String    @default("en-CA")
     postalCode      String?   @map("postal_code")
     latitude        Decimal?  @db.Decimal(10, 7)
     longitude       Decimal?  @db.Decimal(10, 7)
@@ -535,6 +554,38 @@ model FeatureUsage {
     @@index([userId, feature, usedAt]) // rate limit check query
     @@index([usedAt]) // analytics and cleanup
     @@map("feature_usage")
+}
+
+model AiChatSession {
+    id         String   @id @default(cuid())
+    userId     String   @map("user_id")
+    title      String? // auto-generated from first message
+    isTemp     Boolean  @default(false) @map("is_temp")
+    model      String   @default("claude-haiku-4-5-20251001")
+    tokenCount Int      @default(0) @map("token_count")
+    createdAt  DateTime @default(now()) @map("created_at")
+    updatedAt  DateTime @updatedAt @map("updated_at")
+
+    user     User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+    messages AiChatMessage[]
+
+    @@index([userId, createdAt(sort: Desc)])
+    @@map("ai_chat_sessions")
+}
+
+model AiChatMessage {
+    id           String   @id @default(cuid())
+    sessionId    String   @map("session_id")
+    role         String // "user" | "assistant"
+    content      String   @db.Text
+    inputTokens  Int?     @map("input_tokens")
+    outputTokens Int?     @map("output_tokens")
+    createdAt    DateTime @default(now()) @map("created_at")
+
+    session AiChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+    @@index([sessionId, createdAt])
+    @@map("ai_chat_messages")
 }
 
 // ──────────────────────────────────────────────

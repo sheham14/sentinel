@@ -113,6 +113,16 @@ export type RecipeIngredient = Prisma.RecipeIngredientModel
  */
 export type FeatureUsage = Prisma.FeatureUsageModel
 /**
+ * Model AiChatSession
+ * 
+ */
+export type AiChatSession = Prisma.AiChatSessionModel
+/**
+ * Model AiChatMessage
+ * 
+ */
+export type AiChatMessage = Prisma.AiChatMessageModel
+/**
  * Model ConsentLog
  * 
  */

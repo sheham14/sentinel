@@ -70,6 +70,8 @@ export const ModelName = {
   Recipe: 'Recipe',
   RecipeIngredient: 'RecipeIngredient',
   FeatureUsage: 'FeatureUsage',
+  AiChatSession: 'AiChatSession',
+  AiChatMessage: 'AiChatMessage',
   ConsentLog: 'ConsentLog',
   ScrapeRun: 'ScrapeRun',
   PriceReport: 'PriceReport',
@@ -101,7 +103,22 @@ export const UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   name: 'name',
+  dateOfBirth: 'dateOfBirth',
+  gender: 'gender',
   image: 'image',
+  country: 'country',
+  city: 'city',
+  province: 'province',
+  nationality: 'nationality',
+  dietaryRestrictions: 'dietaryRestrictions',
+  allergies: 'allergies',
+  healthGoal: 'healthGoal',
+  activityLevel: 'activityLevel',
+  dailyCalorieGoal: 'dailyCalorieGoal',
+  heightCm: 'heightCm',
+  weightKg: 'weightKg',
+  locale: 'locale',
+  currency: 'currency',
   role: 'role',
   stripeCustomerId: 'stripeCustomerId',
   managedStoreId: 'managedStoreId',
@@ -192,6 +209,9 @@ export const StoreScalarFieldEnum = {
   address: 'address',
   city: 'city',
   province: 'province',
+  country: 'country',
+  currency: 'currency',
+  locale: 'locale',
   postalCode: 'postalCode',
   latitude: 'latitude',
   longitude: 'longitude',
@@ -388,6 +408,33 @@ export const FeatureUsageScalarFieldEnum = {
 } as const
 
 export type FeatureUsageScalarFieldEnum = (typeof FeatureUsageScalarFieldEnum)[keyof typeof FeatureUsageScalarFieldEnum]
+
+
+export const AiChatSessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  isTemp: 'isTemp',
+  model: 'model',
+  tokenCount: 'tokenCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AiChatSessionScalarFieldEnum = (typeof AiChatSessionScalarFieldEnum)[keyof typeof AiChatSessionScalarFieldEnum]
+
+
+export const AiChatMessageScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  role: 'role',
+  content: 'content',
+  inputTokens: 'inputTokens',
+  outputTokens: 'outputTokens',
+  createdAt: 'createdAt'
+} as const
+
+export type AiChatMessageScalarFieldEnum = (typeof AiChatMessageScalarFieldEnum)[keyof typeof AiChatMessageScalarFieldEnum]
 
 
 export const ConsentLogScalarFieldEnum = {
