@@ -80,26 +80,17 @@ function PantryIcon() {
   );
 }
 
-function FlyersIcon() {
+function RecipesIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-      <rect
-        x="3"
-        y="4"
-        width="13"
-        height="15"
-        rx="1.5"
+      <path
+        d="M7 18h8v-5H7v5Z"
         stroke="currentColor"
         strokeWidth="1.5"
+        strokeLinejoin="round"
       />
       <path
-        d="M7 8H12M7 11H12M7 14H10"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M14 7H17C17.6 7 18 7.4 18 8V17C18 17.6 17.6 18 17 18H14"
+        d="M8.5 13c0-1.4-1.5-1.8-1.5-3.2C7 8.2 8.8 7 11 7s4 1.2 4 2.8c0 1.4-1.5 1.8-1.5 3.2"
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
@@ -129,7 +120,7 @@ const NAV_ITEMS = [
   { href: "/", label: "Home", Icon: HomeIcon, exact: true },
   { href: "/lists", label: "Lists", Icon: ListsIcon, exact: false },
   { href: "/pantry", label: "Pantry", Icon: PantryIcon, exact: false },
-  { href: "/flyers", label: "Flyers", Icon: FlyersIcon, exact: false },
+  { href: "/recipes", label: "Recipes", Icon: RecipesIcon, exact: false },
   {
     href: "/alerts",
     label: "Alerts",
