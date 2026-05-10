@@ -6,7 +6,7 @@ import {
   Home,
   ClipboardList,
   Utensils,
-  Bell,
+  Sparkles,
   Refrigerator,
 } from "lucide-react";
 
@@ -15,29 +15,29 @@ const NAV_ITEMS = [
   { href: "/lists", label: "Lists", Icon: ClipboardList, exact: false },
   { href: "/pantry", label: "Pantry", Icon: Refrigerator, exact: false },
   { href: "/recipes", label: "Recipes", Icon: Utensils, exact: false },
-  {
-    href: "/alerts",
-    label: "Alerts",
-    Icon: Bell,
-    exact: false,
-    hasNotif: true,
-  },
+  { href: "/recipes/ai", label: "AI Chef", Icon: Sparkles, exact: false },
 ];
 
-export default function BottomNav({
-  hasUnreadAlerts,
-}: {
-  hasUnreadAlerts: boolean;
-}) {
+export default function BottomNav() {
   const pathname = usePathname();
 
   function isActive(href: string, exact: boolean) {
-    return exact ? pathname === href : pathname.startsWith(href);
+    if (exact) return pathname === href;
+    // Prefer the most specific match — if another item is a sub-path of this
+    // one and also matches, defer to it.
+    const moreSpecific = NAV_ITEMS.some(
+      (other) =>
+        other.href !== href &&
+        other.href.startsWith(href) &&
+        pathname.startsWith(other.href),
+    );
+    if (moreSpecific) return false;
+    return pathname.startsWith(href);
   }
 
   return (
     <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm bg-white dark:bg-[#161b1e] border-t border-[#ebebeb] dark:border-[#2e3538] flex items-center justify-around px-2 z-10">
-      {NAV_ITEMS.map(({ href, label, Icon, exact, hasNotif }) => {
+      {NAV_ITEMS.map(({ href, label, Icon, exact }) => {
         const active = isActive(href, exact);
         return (
           <Link
@@ -50,12 +50,7 @@ export default function BottomNav({
                 : "text-[#bbb] dark:text-[#444] hover:text-[#00b89e] dark:hover:text-[#00b89e]",
             ].join(" ")}
           >
-            <div className="relative">
-              <Icon size={22} strokeWidth={1.5} />
-              {hasNotif && hasUnreadAlerts && (
-                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#ff5252] border-[1.5px] border-white dark:border-[#161b1e]" />
-              )}
-            </div>
+            <Icon size={22} strokeWidth={1.5} />
             {label}
           </Link>
         );

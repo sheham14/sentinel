@@ -693,9 +693,8 @@ export default function AIChatClient() {
           sidebarOpen ? "translate-x-[260px]" : "",
         ].join(" ")}
       >
-        {/* Header + chips combined */}
+        {/* Header */}
         <div className="flex items-center gap-2 px-4 py-2.5 border-b border-[#f0f0f0] dark:border-[#2a3044] flex-shrink-0 bg-white dark:bg-[#0f1416]">
-          {/* History button */}
           <button
             onClick={() => setSidebarOpen(true)}
             className="w-[30px] h-[30px] rounded-[9px] bg-[#f4f4f4] dark:bg-[#242b2e] flex items-center justify-center flex-shrink-0"
@@ -711,7 +710,6 @@ export default function AIChatClient() {
             </svg>
           </button>
 
-          {/* Title / rename */}
           <div className="flex-1 flex justify-center">
             {isRenaming ? (
               <input
@@ -740,7 +738,6 @@ export default function AIChatClient() {
             )}
           </div>
 
-          {/* New chat button */}
           <button
             onClick={newChat}
             className="w-[30px] h-[30px] rounded-[9px] bg-[#f4f4f4] dark:bg-[#242b2e] flex items-center justify-center flex-shrink-0"

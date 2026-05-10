@@ -10,6 +10,7 @@ import {
   X,
   LayoutGrid,
   LayoutList,
+  Bell,
 } from "lucide-react";
 import AddToListSheet from "@/components/search/AddToListSheet";
 
@@ -410,10 +411,12 @@ export default function HomeClient({
   data,
   userName,
   userImage,
+  hasUnreadAlerts,
 }: {
   data: WatchlistSummary;
   userName: string | null;
   userImage: string | null;
+  hasUnreadAlerts: boolean;
 }) {
   const [items, setItems] = useState(data.items);
   const [activeChain, setActiveChain] = useState<string | null>(null);
@@ -580,6 +583,16 @@ export default function HomeClient({
             <span className="text-[13px] text-[#aaa] flex-1">
               Search groceries...
             </span>
+          </Link>
+
+          <Link
+            href="/alerts"
+            className="relative w-[34px] h-[34px] rounded-full bg-[#f4f4f4] dark:bg-[#242b2e] flex items-center justify-center flex-shrink-0"
+          >
+            <Bell size={16} strokeWidth={1.5} className="text-[#888] dark:text-[#aaa]" />
+            {hasUnreadAlerts && (
+              <span className="absolute top-0.5 right-0.5 w-2 h-2 rounded-full bg-[#ff5252] border-[1.5px] border-white dark:border-[#0f1416]" />
+            )}
           </Link>
         </div>
 
