@@ -2,17 +2,14 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
   Search,
-  ScanLine,
-  ChevronDown,
-  ChevronUp,
   Trash2,
   Plus,
   Check,
   X,
-  ChefHat,
+  LayoutGrid,
+  LayoutList,
 } from "lucide-react";
 import AddToListSheet from "@/components/search/AddToListSheet";
 
@@ -163,6 +160,7 @@ function ProductCard({
   activeChain,
   selectMode,
   selected,
+  gridView,
   onSelect,
   onBellCycle,
   onSwipeDelete,
@@ -171,6 +169,7 @@ function ProductCard({
   activeChain: string | null;
   selectMode: boolean;
   selected: boolean;
+  gridView: boolean;
   onSelect: (id: string) => void;
   onBellCycle: (productId: string, current: NotifState) => void;
   onSwipeDelete: (productId: string) => void;
@@ -205,6 +204,87 @@ function ProductCard({
     } else if (diff < -20) {
       setSwiped(false);
     }
+  }
+
+  if (gridView) {
+    return (
+      <div
+        className={[
+          "bg-white dark:bg-[#1e2528] border rounded-[14px] overflow-hidden",
+          selected ? "border-[#00E5C3]" : "border-[#ebebeb] dark:border-[#2e3538]",
+        ].join(" ")}
+      >
+        {/* Image */}
+        <Link href={`/product/${item.productId}`} className="block">
+          <div className="relative w-full aspect-square bg-[#f7f7f7] dark:bg-[#242b2e] flex items-center justify-center overflow-hidden">
+            {item.imageUrl ? (
+              <img
+                src={item.imageUrl}
+                alt={item.name}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <span className="text-[32px]">🛒</span>
+            )}
+            {selectMode && (
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  onSelect(item.productId);
+                }}
+                className={[
+                  "absolute top-2 right-2 w-5 h-5 rounded-full border flex items-center justify-center",
+                  selected
+                    ? "bg-[#00E5C3] border-[#00E5C3]"
+                    : "border-[#e0e0e0] bg-white/80 dark:bg-black/40",
+                ].join(" ")}
+              >
+                {selected && (
+                  <Check size={10} className="text-[#004d40]" strokeWidth={2.5} />
+                )}
+              </button>
+            )}
+          </div>
+        </Link>
+        {/* Info */}
+        <div className="p-2.5">
+          <Link href={`/product/${item.productId}`}>
+            <p className="text-[12px] font-medium text-[#111] dark:text-[#e0e0e0] line-clamp-2 leading-tight mb-1.5">
+              {item.name}
+            </p>
+          </Link>
+          <div className="flex items-end justify-between gap-1">
+            <div>
+              {displayPrice != null ? (
+                <p className="text-[15px] font-semibold text-[#00b89e]">
+                  ${displayPrice.toFixed(2)}
+                </p>
+              ) : (
+                <p className="text-[11px] text-[#aaa]">No price</p>
+              )}
+              {displayStore && (
+                <p className="text-[10px] text-[#888] dark:text-[#555] capitalize">
+                  {displayStore}
+                </p>
+              )}
+            </div>
+            {!selectMode && (
+              <button
+                onClick={() => onBellCycle(item.productId, notifState)}
+                className={[
+                  "w-6 h-6 rounded-[7px] border flex items-center justify-center flex-shrink-0 transition-all",
+                  notifState === 0
+                    ? "border-[#ebebeb] dark:border-[#2e3538] text-[#ccc] dark:text-[#444]"
+                    : "border-[#c0f5ed] dark:border-[#1e4a3a] bg-[#f0fdf9] dark:bg-[#1a2e2a] text-[#00b89e]",
+                ].join(" ")}
+              >
+                <BellIcon state={notifState} />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -320,16 +400,6 @@ function ProductCard({
           </button>
         )}
       </div>
-      <div className="fixed bottom-[110px] left-1/2 -translate-x-1/2 w-full max-w-sm pointer-events-none px-4">
-        <div className="relative w-full">
-          <Link
-            href="/recipes/ask"
-            className="absolute right-0 w-[52px] h-[52px] rounded-[18px] bg-[#00E5C3] flex items-center justify-center shadow-[0_4px_16px_rgba(0,229,195,0.4)] active:scale-95 transition-transform pointer-events-auto"
-          >
-            <ChefHat size={24} strokeWidth={1.5} className="text-[#004d40]" />
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }
@@ -345,11 +415,12 @@ export default function HomeClient({
   userName: string | null;
   userImage: string | null;
 }) {
-  const router = useRouter();
   const [items, setItems] = useState(data.items);
   const [activeChain, setActiveChain] = useState<string | null>(null);
-  const [bannerOpen, setBannerOpen] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(true);
+  const [gridView, setGridView] = useState(
+    () => localStorage.getItem("watchlist_grid_view") === "true",
+  );
   const [selectMode, setSelectMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [addToListTargets, setAddToListTargets] = useState<
@@ -377,19 +448,12 @@ export default function HomeClient({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  const { stores, bestStore } = data;
-  const storeTotals = data.storeTotals;
+  const { stores } = data;
 
   const visibleItems = activeChain
     ? items.filter((item) => item.prices[activeChain] != null)
     : items;
 
-  const bestTotal = bestStore ? storeTotals[bestStore] : null;
-  const sortedStores = [...stores].sort((a, b) => {
-    if (a.total === 0) return 1;
-    if (b.total === 0) return -1;
-    return a.total - b.total;
-  });
 
   const initials = userName
     ? userName
@@ -516,19 +580,6 @@ export default function HomeClient({
             <span className="text-[13px] text-[#aaa] flex-1">
               Search groceries...
             </span>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                router.push("/scan");
-              }}
-              className="w-7 h-7 rounded-[8px] bg-[#00E5C3] flex items-center justify-center flex-shrink-0"
-            >
-              <ScanLine
-                size={14}
-                className="text-[#004d40]"
-                strokeWidth={1.5}
-              />
-            </button>
           </Link>
         </div>
 
@@ -570,98 +621,6 @@ export default function HomeClient({
 
       {/* ── Scrollable content ── */}
       <div className="pt-2">
-        {/* Savings banner */}
-        {bestStore && stores.length > 1 && (
-          <div className="mx-4 mb-4 bg-[#f0fdf9] dark:bg-[#1a2e2a] border border-[#b2f0e4] dark:border-[#1e4a3a] rounded-[14px] overflow-hidden">
-            <button
-              onClick={() => setBannerOpen((o) => !o)}
-              className="w-full flex items-center justify-between px-3.5 py-2.5"
-            >
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#00E5C3] flex-shrink-0" />
-                <span className="text-[12px] text-[#0a7a62] dark:text-[#6ee7c7]">
-                  Best store for your list:{" "}
-                  <strong className="font-medium capitalize">
-                    {bestStore}
-                  </strong>
-                </span>
-              </div>
-              {bannerOpen ? (
-                <ChevronUp
-                  size={14}
-                  className="text-[#00b89e]"
-                  strokeWidth={1.5}
-                />
-              ) : (
-                <ChevronDown
-                  size={14}
-                  className="text-[#00b89e]"
-                  strokeWidth={1.5}
-                />
-              )}
-            </button>
-
-            {bannerOpen && (
-              <div className="border-t border-[#c0f0e4] dark:border-[#1e4a3a] px-3.5 py-2 flex flex-col gap-1">
-                {sortedStores.map((store) => {
-                  const isBest = store.chain === bestStore;
-                  const isSelected = store.chain === activeChain;
-                  const diff =
-                    bestTotal != null && store.total > 0
-                      ? store.total - bestTotal
-                      : null;
-                  return (
-                    <div
-                      key={store.chain}
-                      className={[
-                        "flex items-center justify-between py-1 px-1.5 rounded-lg",
-                        isSelected ? "bg-[#e0faf4] dark:bg-[#1e3a32]" : "",
-                      ].join(" ")}
-                    >
-                      <div className="flex items-center gap-2">
-                        <span
-                          className="w-[18px] h-[18px] rounded-full flex items-center justify-center text-[9px] font-bold"
-                          style={{ background: store.bg, color: store.color }}
-                        >
-                          {store.letter}
-                        </span>
-                        <span className="text-[12px] text-[#333] dark:text-[#ccc] capitalize">
-                          {store.chain}
-                        </span>
-                        {isSelected && (
-                          <span className="text-[10px] text-[#888]">
-                            · selected
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[12px] font-medium text-[#111] dark:text-[#e0e0e0]">
-                          {store.total > 0 ? `$${store.total.toFixed(2)}` : "—"}
-                        </span>
-                        {store.total > 0 && (
-                          <span
-                            className={[
-                              "text-[11px] px-1.5 py-0.5 rounded-md min-w-[44px] text-center",
-                              isBest
-                                ? "bg-[#d0f7ee] dark:bg-[#1a3d30] text-[#0a7a62] dark:text-[#6ee7c7]"
-                                : "bg-[#fee] dark:bg-[#3a1a1a] text-[#c0392b] dark:text-[#f08080]",
-                            ].join(" ")}
-                          >
-                            {isBest
-                              ? "Best"
-                              : diff != null
-                                ? `+$${diff.toFixed(2)}`
-                                : "—"}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        )}
 
         {/* Price tracking header */}
         <div className="flex items-center justify-between px-4 mb-2">
@@ -669,14 +628,34 @@ export default function HomeClient({
             Price tracking
           </p>
           {items.length > 0 && (
-            <button
-              onClick={() =>
-                selectMode ? exitSelectMode() : setSelectMode(true)
-              }
-              className="text-[12px] font-medium text-[#00b89e]"
-            >
-              {selectMode ? "Cancel" : "Select"}
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => {
+                  const next = !gridView;
+                  setGridView(next);
+                  localStorage.setItem("watchlist_grid_view", String(next));
+                }}
+                className={
+                  gridView
+                    ? "text-[#00b89e]"
+                    : "text-[#aaa] dark:text-[#555]"
+                }
+              >
+                {gridView ? (
+                  <LayoutList size={16} strokeWidth={1.5} />
+                ) : (
+                  <LayoutGrid size={16} strokeWidth={1.5} />
+                )}
+              </button>
+              <button
+                onClick={() =>
+                  selectMode ? exitSelectMode() : setSelectMode(true)
+                }
+                className="text-[12px] font-medium text-[#00b89e]"
+              >
+                {selectMode ? "Cancel" : "Select"}
+              </button>
+            </div>
           )}
         </div>
 
@@ -694,19 +673,38 @@ export default function HomeClient({
               Add products
             </Link>
           </div>
+        ) : gridView ? (
+          <div className="grid grid-cols-2 gap-2.5 px-4 pb-[100px]">
+            {visibleItems.map((item) => (
+              <ProductCard
+                key={item.watchlistId}
+                item={item}
+                activeChain={activeChain}
+                selectMode={selectMode}
+                selected={selectedIds.has(item.productId)}
+                gridView={true}
+                onSelect={handleSelect}
+                onBellCycle={handleBellCycle}
+                onSwipeDelete={handleSwipeDelete}
+              />
+            ))}
+          </div>
         ) : (
-          visibleItems.map((item) => (
-            <ProductCard
-              key={item.watchlistId}
-              item={item}
-              activeChain={activeChain}
-              selectMode={selectMode}
-              selected={selectedIds.has(item.productId)}
-              onSelect={handleSelect}
-              onBellCycle={handleBellCycle}
-              onSwipeDelete={handleSwipeDelete}
-            />
-          ))
+          <div className="pb-[100px]">
+            {visibleItems.map((item) => (
+              <ProductCard
+                key={item.watchlistId}
+                item={item}
+                activeChain={activeChain}
+                selectMode={selectMode}
+                selected={selectedIds.has(item.productId)}
+                gridView={false}
+                onSelect={handleSelect}
+                onBellCycle={handleBellCycle}
+                onSwipeDelete={handleSwipeDelete}
+              />
+            ))}
+          </div>
         )}
       </div>
 

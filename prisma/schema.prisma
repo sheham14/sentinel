@@ -570,6 +570,7 @@ model AiChatSession {
     messages AiChatMessage[]
 
     @@index([userId, createdAt(sort: Desc)])
+    @@index([isTemp, updatedAt])
     @@map("ai_chat_sessions")
 }
 

@@ -401,7 +401,7 @@ export default function PantryClient({
   const hasActions = selectMode && selectedIds.size > 0;
 
   return (
-    <div className="min-h-screen bg-[#f7f7f7] dark:bg-[#161b1e]">
+    <div className="bg-[#f7f7f7] dark:bg-[#161b1e]">
       {/* Header */}
       <div className="flex items-center justify-between px-4 pt-3 pb-1">
         <p className="text-[20px] font-medium text-[#111] dark:text-[#e0e0e0]">

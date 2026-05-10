@@ -41,31 +41,6 @@ function BackIcon() {
   );
 }
 
-function EyeIcon({ slashed }: { slashed: boolean }) {
-  return (
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-      <path
-        d="M1 6.5C1 6.5 3 3 6.5 3C10 3 12 6.5 12 6.5C12 6.5 10 10 6.5 10C3 10 1 6.5 1 6.5Z"
-        stroke="white"
-        strokeWidth="1.2"
-      />
-      {slashed ? (
-        <line
-          x1="2"
-          y1="2"
-          x2="11"
-          y2="11"
-          stroke="white"
-          strokeWidth="1.2"
-          strokeLinecap="round"
-        />
-      ) : (
-        <circle cx="6.5" cy="6.5" r="1.8" stroke="white" strokeWidth="1.2" />
-      )}
-    </svg>
-  );
-}
-
 function EditIcon() {
   return (
     <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
@@ -133,7 +108,6 @@ export default function RecipeDetailClient({
 
   // ── State ────────────────────────────────────────────────────────────────
   const [servings, setServings] = useState(recipe.servings);
-  const [showPrices, setShowPrices] = useState(false);
   const [heroCollapsed, setHeroCollapsed] = useState(false);
 
   // Steps: tap to mark done; active = first non-done step
@@ -155,7 +129,6 @@ export default function RecipeDetailClient({
   const selectedIngredients = recipe.ingredients.filter((i) =>
     checkedIds.has(i.id),
   );
-  const pantryCount = recipe.ingredients.filter((i) => i.inPantry).length;
   const firstIncomplete = recipe.steps.findIndex(
     (_, i) => !completedSteps.has(i),
   );
@@ -238,12 +211,6 @@ export default function RecipeDetailClient({
           {recipe.title}
         </span>
         <div className="flex gap-2">
-          <button
-            onClick={() => setShowPrices((v) => !v)}
-            className="w-7 h-7 rounded-[8px] bg-white/20 flex items-center justify-center"
-          >
-            <EyeIcon slashed={showPrices} />
-          </button>
           {isOwner && (
             <button
               onClick={() => router.push(`/recipes/${recipe.id}/edit`)}
@@ -283,22 +250,15 @@ export default function RecipeDetailClient({
 
         {/* Back */}
         <button
-          onClick={() => router.push("/lists?tab=recipes")}
+          onClick={() => router.push("/recipes")}
           className="absolute top-3 left-4 w-[30px] h-[30px] rounded-[9px] bg-black/35 flex items-center justify-center z-10"
           aria-label="Go back"
         >
           <BackIcon />
         </button>
 
-        {/* Eye + Edit */}
+        {/* Edit */}
         <div className="absolute top-3 right-4 flex gap-2 z-10">
-          <button
-            onClick={() => setShowPrices((v) => !v)}
-            className="w-[30px] h-[30px] rounded-[9px] bg-black/35 flex items-center justify-center"
-            aria-label={showPrices ? "Hide prices" : "Show prices"}
-          >
-            <EyeIcon slashed={showPrices} />
-          </button>
           {isOwner && (
             <button
               onClick={() => router.push(`/recipes/${recipe.id}/edit`)}
@@ -312,16 +272,20 @@ export default function RecipeDetailClient({
 
         {/* Title */}
         <div className="relative z-10 px-4 pb-[14px]">
-          <p className="text-[19px] font-medium text-white mb-0.5 leading-snug">
+          <p className="text-[19px] font-medium text-white leading-snug">
             {recipe.title}
           </p>
-          {recipe.description && (
-            <p className="text-[11px] text-white/65 line-clamp-1">
-              {recipe.description}
-            </p>
-          )}
         </div>
       </div>
+
+      {/* Description */}
+      {recipe.description && (
+        <div className="px-4 pt-3 pb-1 bg-white dark:bg-[#161b1e]">
+          <p className="text-[13px] text-[#555] dark:text-[#999] leading-relaxed">
+            {recipe.description}
+          </p>
+        </div>
+      )}
 
       {/* Meta row */}
       <div className="flex items-center border-b border-[#f0f0f0] dark:border-[#2a3044] bg-white dark:bg-[#161b1e]">
@@ -379,40 +343,6 @@ export default function RecipeDetailClient({
         </div>
       </div>
 
-      {/* Cost banner — only when prices toggled on */}
-      {showPrices && (
-        <div className="mx-4 mt-[10px]">
-          {recipe.estimatedTotal !== null ? (
-            <div className="bg-[#f0fdf9] dark:bg-[#1a2e2a] border border-[#b2f0e4] dark:border-[#1e4a3a] rounded-[12px] px-[14px] py-[10px] flex items-center justify-between">
-              <div>
-                <p className="text-[18px] font-medium text-[#00b89e]">
-                  ${(recipe.estimatedTotal * scale).toFixed(2)}
-                </p>
-                <p className="text-[11px] text-[#0a7a62] dark:text-[#6ee7c7] mt-0.5">
-                  {selectedIngredients.length} item
-                  {selectedIngredients.length !== 1 ? "s" : ""} to buy
-                  {recipe.hasUnlinkedIngredients &&
-                    " · some prices unavailable"}
-                </p>
-              </div>
-              {pantryCount > 0 && (
-                <p className="text-[11px] text-[#aaa] text-right leading-snug">
-                  {pantryCount} item{pantryCount !== 1 ? "s" : ""}
-                  <br />
-                  in pantry
-                </p>
-              )}
-            </div>
-          ) : (
-            <div className="bg-[#f7f7f7] dark:bg-[#1e2528] border border-[#ebebeb] dark:border-[#2e3538] rounded-[12px] px-[14px] py-[10px]">
-              <p className="text-[12px] text-[#aaa] text-center">
-                Add to your list to see price estimates at local stores
-              </p>
-            </div>
-          )}
-        </div>
-      )}
-
       {/* Ingredients */}
       <div className="mt-2">
         <div className="flex items-center justify-between px-4 pt-[14px] pb-2">
@@ -465,23 +395,12 @@ export default function RecipeDetailClient({
                 </p>
               </div>
 
-              {/* Right: pantry badge OR price */}
-              <div className="text-right flex-shrink-0">
-                {ing.inPantry ? (
-                  <span className="text-[9px] bg-[#f0fdf9] dark:bg-[#1a2e2a] text-[#0a7a62] dark:text-[#6ee7c7] border border-[#b2f0e4] dark:border-[#1e4a3a] rounded-[4px] px-[5px] py-[1px]">
-                    In pantry
-                  </span>
-                ) : showPrices && ing.bestPrice !== null ? (
-                  <>
-                    <p className="text-[13px] font-medium text-[#00b89e]">
-                      ${ing.bestPrice.toFixed(2)}
-                    </p>
-                    {ing.bestStore && (
-                      <p className="text-[10px] text-[#aaa]">{ing.bestStore}</p>
-                    )}
-                  </>
-                ) : null}
-              </div>
+              {/* Right: pantry badge */}
+              {ing.inPantry && (
+                <span className="text-[9px] bg-[#f0fdf9] dark:bg-[#1a2e2a] text-[#0a7a62] dark:text-[#6ee7c7] border border-[#b2f0e4] dark:border-[#1e4a3a] rounded-[4px] px-[5px] py-[1px] flex-shrink-0">
+                  In pantry
+                </span>
+              )}
             </button>
           );
         })}

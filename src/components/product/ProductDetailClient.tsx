@@ -165,7 +165,7 @@ export default function ProductDetailClient({
   ].filter(Boolean);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0f1416]">
+    <div className="bg-white dark:bg-[#0f1416]">
       {/* Hero */}
       <div className="relative h-[180px] bg-[#f7f7f7] dark:bg-[#242b2e] flex items-center justify-center flex-shrink-0">
         {product.imageUrl ? (
@@ -213,7 +213,7 @@ export default function ProductDetailClient({
       </div>
 
       {/* Scrollable body */}
-      <div className="pb-28">
+      <div className="pb-4">
         {/* Product header */}
         <div className="px-4 py-3.5 border-b border-[#f0f0f0] dark:border-[#1e2528]">
           <h1 className="text-[17px] font-medium text-[#111] dark:text-[#e0e0e0] mb-1.5">
@@ -264,31 +264,6 @@ export default function ProductDetailClient({
               isBest={sp.chain === product.bestStore && sp.price !== null}
             />
           ))}
-        </div>
-
-        {/* Price history placeholder */}
-        <p className="text-[13px] font-medium text-[#111] dark:text-[#e0e0e0] px-4 pt-2 pb-2.5">
-          Price history
-        </p>
-        <div className="mx-4 mb-4 bg-[#fafffe] dark:bg-[#1a2e2a] border border-[#e8fdf7] dark:border-[#1e4a3a] rounded-xl p-4 flex flex-col items-center gap-2">
-          <div className="w-10 h-10 rounded-xl bg-[#f0fdf9] dark:bg-[#1e3a30] flex items-center justify-center mb-1">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path
-                d="M3 14L7 9L10 12L14 7L17 10"
-                stroke="#00b89e"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-          <p className="text-[13px] font-medium text-[#00b89e]">
-            Price history coming soon
-          </p>
-          <p className="text-[11px] text-[#aaa] text-center leading-relaxed">
-            Once Sentinel has been tracking this product, you'll see price
-            trends here.
-          </p>
         </div>
 
         {/* Add to list */}

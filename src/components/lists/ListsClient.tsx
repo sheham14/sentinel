@@ -611,7 +611,7 @@ export default function ListsClient({
 
   if (!activeList && lists.length === 0) {
     return (
-      <div className="min-h-screen bg-white dark:bg-[#0f1416] flex flex-col items-center justify-center px-8 text-center pb-24">
+      <div className="h-[calc(100dvh-72px)] bg-white dark:bg-[#0f1416] flex flex-col items-center justify-center px-8 text-center pb-24">
         <div className="w-14 h-14 rounded-[18px] bg-[#f0fdf9] dark:bg-[#1a2e2a] flex items-center justify-center mb-4">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <rect
@@ -649,7 +649,7 @@ export default function ListsClient({
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0f1416] flex flex-col">
+    <div className="h-[calc(100dvh-72px)] bg-white dark:bg-[#0f1416] flex flex-col">
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 pt-4 pb-2 flex-shrink-0">
         {activeList ? (
