@@ -15,7 +15,7 @@ const NAV_ITEMS = [
   { href: "/lists", label: "Lists", Icon: ClipboardList, exact: false },
   { href: "/pantry", label: "Pantry", Icon: Refrigerator, exact: false },
   { href: "/recipes", label: "Recipes", Icon: Utensils, exact: false },
-  { href: "/ai", label: "AI Chef", Icon: Sparkles, exact: false },
+  { href: "/ai", label: "Clove", Icon: Sparkles, exact: false },
 ];
 
 export default function BottomNav() {

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthenticatedUser } from "@/lib/auth-utils";
 import Anthropic from "@anthropic-ai/sdk";
@@ -63,7 +63,7 @@ function buildSystemPrompt(opts: {
   } = opts;
 
   const sections: string[] = [
-    `You are AI Chef, a personal cooking assistant built into Sentinel. You know what groceries cost at local stores right now and your job is to help people eat well within their budget.
+    `You are Clove, a personal cooking assistant built into Panion. You know what groceries cost at local stores right now and your job is to help people eat well within their budget.
 
 Tone and style:
 - Talk like a knowledgeable friend who cooks well. Warm, direct, no filler.
@@ -406,7 +406,7 @@ export async function POST(
           remainingToday: DAILY_LIMIT - usageCount - 1,
         });
       } catch (err) {
-        console.error("[AI Chef] Stream error:", err);
+        console.error("[Clove] Stream error:", err);
         send({
           type: "error",
           message: "Something went wrong. Please try again.",

@@ -220,7 +220,10 @@ function SidebarItem({
           <>
             <div
               className="fixed inset-0 z-40"
-              onClick={(e) => { e.stopPropagation(); setMenuOpen(false); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setMenuOpen(false);
+              }}
             />
             <div className="absolute right-0 top-7 z-50 w-[120px] bg-white dark:bg-[#1e2528] border border-[#ebebeb] dark:border-[#2e3538] rounded-[10px] shadow-lg overflow-hidden">
               <button
@@ -233,16 +236,31 @@ function SidebarItem({
                 className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-[#333] dark:text-[#ccc] hover:bg-[#f5f5f5] dark:hover:bg-[#242b2e] transition-colors"
               >
                 <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-                  <path d="M7 1L10 4L3.5 10.5H1V8L7 1Z" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round" />
+                  <path
+                    d="M7 1L10 4L3.5 10.5H1V8L7 1Z"
+                    stroke="currentColor"
+                    strokeWidth="1.1"
+                    strokeLinejoin="round"
+                  />
                 </svg>
                 Rename
               </button>
               <button
-                onClick={(e) => { e.stopPropagation(); setMenuOpen(false); onDelete(e); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setMenuOpen(false);
+                  onDelete(e);
+                }}
                 className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-[#ef4444] hover:bg-[#fef2f2] dark:hover:bg-[#3a1a1a] transition-colors"
               >
                 <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-                  <path d="M1.5 3h8M4 3V2h3v1M2.5 3l.5 6.5h5L9 3" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="M1.5 3h8M4 3V2h3v1M2.5 3l.5 6.5h5L9 3"
+                    stroke="currentColor"
+                    strokeWidth="1.1"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
                 Delete
               </button>
@@ -275,15 +293,33 @@ function CopyButton({ text }: { text: string }) {
       {copied ? (
         <>
           <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-            <path d="M2 5.5L4.5 8L9 3" stroke="#00b89e" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+              d="M2 5.5L4.5 8L9 3"
+              stroke="#00b89e"
+              strokeWidth="1.3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
           <span className="text-[#00b89e]">Copied</span>
         </>
       ) : (
         <>
           <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-            <rect x="1" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1"/>
-            <path d="M3 3V2C3 1.4 3.4 1 4 1H9C9.6 1 10 1.4 10 2V7C10 7.6 9.6 8 9 8H8" stroke="currentColor" strokeWidth="1"/>
+            <rect
+              x="1"
+              y="3"
+              width="7"
+              height="7"
+              rx="1"
+              stroke="currentColor"
+              strokeWidth="1"
+            />
+            <path
+              d="M3 3V2C3 1.4 3.4 1 4 1H9C9.6 1 10 1.4 10 2V7C10 7.6 9.6 8 9 8H8"
+              stroke="currentColor"
+              strokeWidth="1"
+            />
           </svg>
           Copy
         </>
@@ -498,7 +534,7 @@ export default function AIChatClient() {
       } catch (err: unknown) {
         const raw = err instanceof Error ? err.message : "";
         const msg = raw.toLowerCase().includes("overloaded")
-          ? "AI Chef is busy right now — please try again in a moment."
+          ? "Clove is busy right now — please try again in a moment."
           : "Something went wrong. Please try again.";
         setMessages((prev) => [
           ...prev,
@@ -561,9 +597,7 @@ export default function AIChatClient() {
   };
 
   const renameSession = async (id: string, title: string) => {
-    setSessions((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, title } : s)),
-    );
+    setSessions((prev) => prev.map((s) => (s.id === id ? { ...s, title } : s)));
     if (id === currentSessionId) {
       setRenameDraft(title);
     }
@@ -621,7 +655,7 @@ export default function AIChatClient() {
   // Current session display title (strip emoji prefix for header)
   const currentSession = sessions.find((s) => s.id === currentSessionId);
   const rawTitle = currentSession?.title ?? null;
-  let headerTitle = "AI Chef";
+  let headerTitle = "Clove";
   if (rawTitle) {
     const chars = [...rawTitle];
     const firstCP = chars[0]?.codePointAt(0) ?? 0;
@@ -801,7 +835,7 @@ export default function AIChatClient() {
             /* ── Empty state ── */
             <div className="flex flex-col items-center justify-center h-full pb-4">
               <div className="w-[52px] h-[52px] rounded-[18px] bg-[#00E5C3] flex items-center justify-center mb-3 text-[22px]">
-                👨‍🍳
+                🌿
               </div>
               <p className="text-[16px] font-medium text-[#111] dark:text-[#e0e0e0] mb-1.5">
                 What are we cooking today?
@@ -840,7 +874,7 @@ export default function AIChatClient() {
                   /* AI bubble */
                   <div key={msg.id} className="flex gap-2 items-start">
                     <div className="w-7 h-7 rounded-[9px] bg-[#00E5C3] flex-shrink-0 mt-0.5 flex items-center justify-center text-[13px]">
-                      👨‍🍳
+                      🌿
                     </div>
                     <div className="min-w-0">
                       <div className="bg-[#f7f7f7] dark:bg-[#1e2528] px-4 py-2.5 rounded-[16px_16px_16px_4px] max-w-[85%]">
@@ -905,7 +939,7 @@ export default function AIChatClient() {
               {streamingText && (
                 <div className="flex gap-2 items-start">
                   <div className="w-7 h-7 rounded-[9px] bg-[#00E5C3] flex-shrink-0 mt-0.5 flex items-center justify-center text-[13px]">
-                    👨‍🍳
+                    🌿
                   </div>
                   <div className="bg-[#f7f7f7] dark:bg-[#1e2528] px-4 py-2.5 rounded-[16px_16px_16px_4px] max-w-[85%]">
                     <MarkdownText text={streamingText} />
@@ -918,7 +952,7 @@ export default function AIChatClient() {
               {isStreaming && !streamingText && (
                 <div className="flex gap-2 items-start">
                   <div className="w-7 h-7 rounded-[9px] bg-[#00E5C3] flex-shrink-0 mt-0.5 flex items-center justify-center text-[13px]">
-                    👨‍🍳
+                    🌿
                   </div>
                   <div className="bg-[#f7f7f7] dark:bg-[#1e2528] px-4 py-3.5 rounded-[16px_16px_16px_4px] flex gap-1 items-center">
                     {[0, 150, 300].map((delay) => (
@@ -950,7 +984,7 @@ export default function AIChatClient() {
                   sendMessage();
                 }
               }}
-              placeholder="Ask AI Chef anything…"
+              placeholder="Ask Clove anything…"
               rows={1}
               style={{ resize: "none" }}
               className="flex-1 bg-transparent border-none outline-none text-[13px] text-[#111] dark:text-[#e0e0e0] placeholder-[#bbb] max-h-[80px] leading-relaxed"
@@ -984,7 +1018,7 @@ export default function AIChatClient() {
             </p>
           )}
           <p className="text-[10px] text-[#999] dark:text-[#555] text-center mt-1 pb-1">
-            AI Chef can make mistakes. Always double-check information.
+            Clove is AI and can make mistakes. Always double-check information.
           </p>
         </div>
       </div>

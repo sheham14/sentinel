@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 export default function PrivacyPage() {
@@ -61,7 +61,7 @@ export default function PrivacyPage() {
           <li>Grocery lists and pantry items you create</li>
           <li>Price reports you submit</li>
           <li>
-            AI Chef conversations, including your messages and the responses
+            Clove conversations, including your messages and the responses
             generated
           </li>
           <li>
@@ -94,7 +94,7 @@ export default function PrivacyPage() {
             lists, pantry tracking
           </li>
           <li>
-            To personalise AI Chef responses with your pantry, preferred stores,
+            To personalise Clove responses with your pantry, preferred stores,
             dietary restrictions, and budget
           </li>
           <li>
@@ -111,7 +111,7 @@ export default function PrivacyPage() {
             <span className="font-medium text-[#333] dark:text-[#ccc]">
               Anthropic:
             </span>{" "}
-            your AI Chef messages are sent to Anthropic&apos;s API to generate
+            your Clove messages are sent to Anthropic&apos;s API to generate
             responses.{" "}
             <a
               href="https://www.anthropic.com/privacy"
@@ -168,7 +168,7 @@ export default function PrivacyPage() {
             If you request deletion, your account is anonymised within 30 days
           </li>
           <li>
-            AI Chef conversations are kept indefinitely until you delete them
+            Clove conversations are kept indefinitely until you delete them
           </li>
           <li>Price reports are kept to improve data accuracy</li>
         </ul>

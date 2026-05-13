@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { signIn } from "next-auth/react";
 import Link from "next/link";
@@ -111,7 +111,7 @@ export default function SignInPage() {
             ))}
           </div>
           <p className="text-[11px] text-[#bbb] leading-relaxed">
-            Sign in to unlock watchlists, alerts, grocery lists, AI Chef, and
+            Sign in to unlock watchlists, alerts, grocery lists, Clove, and
             your pantry.
           </p>
         </div>
