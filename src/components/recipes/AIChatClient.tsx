@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
   useState,
@@ -496,7 +496,10 @@ export default function AIChatClient() {
           }
         }
       } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : "Something went wrong";
+        const raw = err instanceof Error ? err.message : "";
+        const msg = raw.toLowerCase().includes("overloaded")
+          ? "AI Chef is busy right now — please try again in a moment."
+          : "Something went wrong. Please try again.";
         setMessages((prev) => [
           ...prev,
           {

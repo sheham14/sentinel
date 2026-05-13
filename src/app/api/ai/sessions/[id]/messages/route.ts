@@ -321,6 +321,10 @@ export async function POST(
   const client = new Anthropic();
   const enc = new TextEncoder();
 
+  function delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
   const stream = new ReadableStream({
     async start(controller) {
       const send = (data: object) => {
@@ -330,15 +334,34 @@ export async function POST(
       try {
         let fullText = "";
 
-        const anthropicStream = client.messages.stream({
-          model: session.model ?? "claude-haiku-4-5-20251001",
-          max_tokens: 1500,
-          system: systemPrompt,
-          messages: history.map((m) => ({
-            role: m.role as "user" | "assistant",
-            content: m.content,
-          })),
-        });
+        const MAX_RETRIES = 2;
+        let anthropicStream;
+
+        for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+          try {
+            anthropicStream = client.messages.stream({
+              model: session.model ?? "claude-haiku-4-5-20251001",
+              max_tokens: 1500,
+              system: systemPrompt,
+              messages: history.map((m) => ({
+                role: m.role as "user" | "assistant",
+                content: m.content,
+              })),
+            });
+            break;
+          } catch (err: unknown) {
+            const isOverloaded =
+              (err as { error?: { type?: string } })?.error?.type ===
+              "overloaded_error";
+            if (isOverloaded && attempt < MAX_RETRIES) {
+              await delay(1000 * (attempt + 1));
+              continue;
+            }
+            throw err;
+          }
+        }
+
+        if (!anthropicStream) throw new Error("Failed to initialize stream");
 
         for await (const event of anthropicStream) {
           if (
