@@ -254,6 +254,44 @@ function SidebarItem({
   );
 }
 
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard not available
+    }
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#f4f4f4] dark:bg-[#242b2e] rounded-[8px] text-[11px] font-medium text-[#888] hover:text-[#555] dark:hover:text-[#ccc] transition-colors"
+    >
+      {copied ? (
+        <>
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+            <path d="M2 5.5L4.5 8L9 3" stroke="#00b89e" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span className="text-[#00b89e]">Copied</span>
+        </>
+      ) : (
+        <>
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+            <rect x="1" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1"/>
+            <path d="M3 3V2C3 1.4 3.4 1 4 1H9C9.6 1 10 1.4 10 2V7C10 7.6 9.6 8 9 8H8" stroke="currentColor" strokeWidth="1"/>
+          </svg>
+          Copy
+        </>
+      )}
+    </button>
+  );
+}
+
 function containsRecipe(text: string): boolean {
   return /^Here's the recipe:/m.test(text);
 }
@@ -805,54 +843,56 @@ export default function AIChatClient() {
                       <div className="bg-[#f7f7f7] dark:bg-[#1e2528] px-4 py-2.5 rounded-[16px_16px_16px_4px] max-w-[85%]">
                         <MarkdownText text={msg.content} />
                       </div>
-                      {/* Save recipe button */}
-                      {containsRecipe(msg.content) &&
-                        (savedMessageIds.has(msg.id) ? (
-                          <span className="mt-1.5 inline-flex items-center gap-1 text-[11px] text-[#00b89e] font-medium">
-                            <svg
-                              width="11"
-                              height="11"
-                              viewBox="0 0 11 11"
-                              fill="none"
+                      <div className="flex items-center gap-2 mt-1.5">
+                        <CopyButton text={msg.content} />
+                        {containsRecipe(msg.content) &&
+                          (savedMessageIds.has(msg.id) ? (
+                            <span className="inline-flex items-center gap-1 text-[11px] text-[#00b89e] font-medium">
+                              <svg
+                                width="11"
+                                height="11"
+                                viewBox="0 0 11 11"
+                                fill="none"
+                              >
+                                <path
+                                  d="M2 5.5L4.5 8L9 3"
+                                  stroke="#00b89e"
+                                  strokeWidth="1.3"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                              Saved to your recipes
+                            </span>
+                          ) : (
+                            <button
+                              onClick={() => saveRecipe(msg.id, msg.content)}
+                              disabled={savingMessageId === msg.id}
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#f0fdf9] dark:bg-[#1a2e2a] border border-[#b2f0e4] dark:border-[#2a5a4a] rounded-[8px] text-[11px] font-medium text-[#0a7a62] dark:text-[#00b89e] hover:bg-[#e0faf4] transition-colors disabled:opacity-50"
                             >
-                              <path
-                                d="M2 5.5L4.5 8L9 3"
-                                stroke="#00b89e"
-                                strokeWidth="1.3"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                            Saved to your recipes
-                          </span>
-                        ) : (
-                          <button
-                            onClick={() => saveRecipe(msg.id, msg.content)}
-                            disabled={savingMessageId === msg.id}
-                            className="mt-1.5 inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#f0fdf9] dark:bg-[#1a2e2a] border border-[#b2f0e4] dark:border-[#2a5a4a] rounded-[8px] text-[11px] font-medium text-[#0a7a62] dark:text-[#00b89e] hover:bg-[#e0faf4] transition-colors disabled:opacity-50"
-                          >
-                            {savingMessageId === msg.id ? (
-                              "Saving…"
-                            ) : (
-                              <>
-                                <svg
-                                  width="11"
-                                  height="11"
-                                  viewBox="0 0 11 11"
-                                  fill="none"
-                                >
-                                  <path
-                                    d="M2 1h7a1 1 0 011 1v8l-4-2-4 2V2a1 1 0 011-1z"
-                                    stroke="currentColor"
-                                    strokeWidth="1"
-                                    strokeLinejoin="round"
-                                  />
-                                </svg>
-                                Save recipe
-                              </>
-                            )}
-                          </button>
-                        ))}
+                              {savingMessageId === msg.id ? (
+                                "Saving…"
+                              ) : (
+                                <>
+                                  <svg
+                                    width="11"
+                                    height="11"
+                                    viewBox="0 0 11 11"
+                                    fill="none"
+                                  >
+                                    <path
+                                      d="M2 1h7a1 1 0 011 1v8l-4-2-4 2V2a1 1 0 011-1z"
+                                      stroke="currentColor"
+                                      strokeWidth="1"
+                                      strokeLinejoin="round"
+                                    />
+                                  </svg>
+                                  Save recipe
+                                </>
+                              )}
+                            </button>
+                          ))}
+                      </div>
                     </div>
                   </div>
                 ),

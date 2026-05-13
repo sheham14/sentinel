@@ -643,6 +643,7 @@ model PriceReport {
     reportedPrice         Decimal                        @map("reported_price") @db.Decimal(10, 2)
     currentDbPrice        Decimal?                       @map("current_db_price") @db.Decimal(10, 2)
     photoUrl              String?                        @map("photo_url")
+    notes                 String?                        @db.VarChar(500)
     seenAt                DateTime                       @map("seen_at")
     status                PriceReportStatus              @default(pending)
     verificationMethod    PriceReportVerificationMethod? @map("verification_method")

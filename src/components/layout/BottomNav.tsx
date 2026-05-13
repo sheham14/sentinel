@@ -15,7 +15,7 @@ const NAV_ITEMS = [
   { href: "/lists", label: "Lists", Icon: ClipboardList, exact: false },
   { href: "/pantry", label: "Pantry", Icon: Refrigerator, exact: false },
   { href: "/recipes", label: "Recipes", Icon: Utensils, exact: false },
-  { href: "/recipes/ai", label: "AI Chef", Icon: Sparkles, exact: false },
+  { href: "/ai", label: "AI Chef", Icon: Sparkles, exact: false },
 ];
 
 export default function BottomNav() {
@@ -44,7 +44,7 @@ export default function BottomNav() {
             key={href}
             href={href}
             className={[
-              "flex flex-col items-center gap-[3px] text-[10px] font-medium transition-colors min-w-[52px]",
+              "flex flex-col items-center gap-[3px] py-4 text-[10px] font-medium transition-colors min-w-[52px]",
               active
                 ? "text-[#00b89e]"
                 : "text-[#bbb] dark:text-[#444] hover:text-[#00b89e] dark:hover:text-[#00b89e]",

@@ -1,35 +1,21 @@
 import NextAuth from "next-auth";
-import Google from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import type { Adapter } from "next-auth/adapters";
 import { prisma } from "@/lib/prisma";
-
-console.log("AUTH_SECRET:", process.env.AUTH_SECRET);
+import { authConfig } from "./auth.config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  secret: process.env.AUTH_SECRET,
+  ...authConfig,
   adapter: PrismaAdapter(prisma) as Adapter,
-  providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
-  ],
   callbacks: {
     session({ session, user }) {
       session.user.id = user.id;
+      session.user.onboardingCompleted = user.onboardingCompleted ?? false;
       return session;
     },
   },
-  pages: {
-    signIn: "/signin",
-  },
   events: {
-    signIn(message) {
-      console.log("SIGNIN EVENT:", message);
-    },
     async createUser({ user }) {
-      console.log("CREATE USER EVENT:", user);
       try {
         const systemRecipes = await prisma.recipe.findMany({
           where: { userId: null, isActive: true },
@@ -62,23 +48,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             }),
           ),
         );
-        console.log(
-          `✅ Copied ${systemRecipes.length} system recipes to new user ${user.id}`,
-        );
       } catch (err) {
         console.error("Failed to copy system recipes:", err);
       }
-    },
-  },
-  logger: {
-    error(error) {
-      console.error("AUTH ERROR:", error);
-    },
-    warn(code) {
-      console.warn("AUTH WARN:", code);
-    },
-    debug(code, metadata) {
-      console.log("AUTH DEBUG:", code, metadata);
     },
   },
 });

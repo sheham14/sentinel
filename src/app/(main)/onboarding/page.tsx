@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Check, X, ChevronRight } from "lucide-react";
 
 // ──────────────────────────────────────────────
@@ -337,7 +338,7 @@ export default function OnboardingPage() {
           You're all set
         </h1>
         <p className="text-[14px] text-[#888] leading-relaxed mb-8 max-w-[260px]">
-          Sentinel is tracking prices across your stores. Here's what you can
+          Panion is tracking prices across your stores. Here&apos;s what you can
           do:
         </p>
 
@@ -369,6 +370,12 @@ export default function OnboardingPage() {
         >
           ← Back
         </button>
+        <p className="text-[11px] text-[#aaa] text-center">
+          By continuing you agree to our{" "}
+          <Link href="/privacy" className="text-[#00b89e]">
+            Privacy Policy
+          </Link>
+        </p>
       </div>
     </div>
   );

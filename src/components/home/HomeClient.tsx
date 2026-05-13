@@ -212,7 +212,9 @@ function ProductCard({
       <div
         className={[
           "bg-white dark:bg-[#1e2528] border rounded-[14px] overflow-hidden",
-          selected ? "border-[#00E5C3]" : "border-[#ebebeb] dark:border-[#2e3538]",
+          selected
+            ? "border-[#00E5C3]"
+            : "border-[#ebebeb] dark:border-[#2e3538]",
         ].join(" ")}
       >
         {/* Image */}
@@ -241,7 +243,11 @@ function ProductCard({
                 ].join(" ")}
               >
                 {selected && (
-                  <Check size={10} className="text-[#004d40]" strokeWidth={2.5} />
+                  <Check
+                    size={10}
+                    className="text-[#004d40]"
+                    strokeWidth={2.5}
+                  />
                 )}
               </button>
             )}
@@ -422,7 +428,7 @@ export default function HomeClient({
   const [activeChain, setActiveChain] = useState<string | null>(null);
   const [headerVisible, setHeaderVisible] = useState(true);
   const [gridView, setGridView] = useState(
-    () => localStorage.getItem("watchlist_grid_view") === "true",
+    () => typeof window !== "undefined" && localStorage.getItem("watchlist_grid_view") === "true",
   );
   const [selectMode, setSelectMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -456,7 +462,6 @@ export default function HomeClient({
   const visibleItems = activeChain
     ? items.filter((item) => item.prices[activeChain] != null)
     : items;
-
 
   const initials = userName
     ? userName
@@ -557,20 +562,21 @@ export default function HomeClient({
         ].join(" ")}
       >
         <div className="flex items-center gap-2.5 px-4 pt-4 pb-2">
-          <div className="w-[34px] h-[34px] rounded-full bg-[#e0faf4] dark:bg-[#1a2e2a] flex items-center justify-center flex-shrink-0 overflow-hidden">
-            {userImage ? (
-              <img
-                src={userImage}
-                alt={userName ?? ""}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <span className="text-[12px] font-medium text-[#0a7a62]">
-                {initials}
-              </span>
-            )}
-          </div>
-
+          <Link href="/profile-settings">
+            <div className="w-[34px] h-[34px] rounded-full bg-[#e0faf4] dark:bg-[#1a2e2a] flex items-center justify-center flex-shrink-0 overflow-hidden">
+              {userImage ? (
+                <img
+                  src={userImage}
+                  alt={userName ?? ""}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="text-[12px] font-medium text-[#0a7a62]">
+                  {initials}
+                </span>
+              )}
+            </div>
+          </Link>
           <Link
             href="/search"
             className="flex-1 h-[38px] bg-[#f4f4f4] dark:bg-[#242b2e] rounded-xl flex items-center px-2.5 gap-2"
@@ -589,7 +595,11 @@ export default function HomeClient({
             href="/alerts"
             className="relative w-[34px] h-[34px] rounded-full bg-[#f4f4f4] dark:bg-[#242b2e] flex items-center justify-center flex-shrink-0"
           >
-            <Bell size={16} strokeWidth={1.5} className="text-[#888] dark:text-[#aaa]" />
+            <Bell
+              size={16}
+              strokeWidth={1.5}
+              className="text-[#888] dark:text-[#aaa]"
+            />
             {hasUnreadAlerts && (
               <span className="absolute top-0.5 right-0.5 w-2 h-2 rounded-full bg-[#ff5252] border-[1.5px] border-white dark:border-[#0f1416]" />
             )}
@@ -634,7 +644,6 @@ export default function HomeClient({
 
       {/* ── Scrollable content ── */}
       <div className="pt-2">
-
         {/* Price tracking header */}
         <div className="flex items-center justify-between px-4 mb-2">
           <p className="text-[11px] font-medium text-[#aaa] dark:text-[#555] tracking-[0.8px] uppercase">
@@ -649,9 +658,7 @@ export default function HomeClient({
                   localStorage.setItem("watchlist_grid_view", String(next));
                 }}
                 className={
-                  gridView
-                    ? "text-[#00b89e]"
-                    : "text-[#aaa] dark:text-[#555]"
+                  gridView ? "text-[#00b89e]" : "text-[#aaa] dark:text-[#555]"
                 }
               >
                 {gridView ? (

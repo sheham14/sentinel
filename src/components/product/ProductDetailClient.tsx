@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Bell, BellOff, Plus, Flag } from "lucide-react";
 import AddToListSheet from "@/components/search/AddToListSheet";
+import ReportPriceSheet from "@/components/product/ReportPriceSheet";
 
 // ── Types ──────────────────────────────────────
 
@@ -143,6 +144,7 @@ export default function ProductDetailClient({
   const router = useRouter();
   const [isWatched, setIsWatched] = useState(product.isWatched);
   const [showAddToList, setShowAddToList] = useState(false);
+  const [showReportSheet, setShowReportSheet] = useState(false);
 
   async function handleToggleWatch() {
     if (!isLoggedIn) {
@@ -280,7 +282,10 @@ export default function ProductDetailClient({
         </div>
 
         {/* Report price */}
-        <button className="w-full text-center text-[11px] text-[#bbb] py-2 mb-4">
+        <button
+          onClick={() => isLoggedIn ? setShowReportSheet(true) : router.push("/signin")}
+          className="w-full text-center text-[11px] text-[#bbb] py-2 mb-4"
+        >
           Price looks wrong? <span className="text-[#00b89e]">Report it</span>
         </button>
 
@@ -334,6 +339,20 @@ export default function ProductDetailClient({
           productId={product.id}
           productName={product.name}
           onClose={() => setShowAddToList(false)}
+        />
+      )}
+
+      {/* Report price sheet */}
+      {showReportSheet && (
+        <ReportPriceSheet
+          productId={product.id}
+          storePrices={product.storePrices}
+          defaultStoreId={
+            product.storePrices.find((sp) => sp.chain === product.bestStore)?.storeId ??
+            product.storePrices[0]?.storeId ??
+            ""
+          }
+          onClose={() => setShowReportSheet(false)}
         />
       )}
     </div>

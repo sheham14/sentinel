@@ -473,6 +473,7 @@ export const PriceReportScalarFieldEnum = {
   reportedPrice: 'reportedPrice',
   currentDbPrice: 'currentDbPrice',
   photoUrl: 'photoUrl',
+  notes: 'notes',
   seenAt: 'seenAt',
   status: 'status',
   verificationMethod: 'verificationMethod',

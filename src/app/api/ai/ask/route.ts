@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
   const pantryItems = await prisma.pantryItem.findMany({
     where: { userId: user.id },
     select: { name: true, quantity: true, unit: true },
-    take: 50, // cap pantry items sent to AI
+    take: 50,
   });
 
   // Fetch current prices for context — cap at 100 to control input tokens
@@ -189,7 +189,6 @@ Suggest 2-3 recipes that fit the user's request and budget. For each recipe:
       ? message.content[0].text
       : "No response from AI.";
 
-  // Sanity check response length
   if (answer.length > 10000) {
     return NextResponse.json(
       { error: "AI response was unexpected. Please try again." },

@@ -43,6 +43,7 @@ export type PriceReportMinAggregateOutputType = {
   reportedPrice: runtime.Decimal | null
   currentDbPrice: runtime.Decimal | null
   photoUrl: string | null
+  notes: string | null
   seenAt: Date | null
   status: $Enums.PriceReportStatus | null
   verificationMethod: $Enums.PriceReportVerificationMethod | null
@@ -59,6 +60,7 @@ export type PriceReportMaxAggregateOutputType = {
   reportedPrice: runtime.Decimal | null
   currentDbPrice: runtime.Decimal | null
   photoUrl: string | null
+  notes: string | null
   seenAt: Date | null
   status: $Enums.PriceReportStatus | null
   verificationMethod: $Enums.PriceReportVerificationMethod | null
@@ -75,6 +77,7 @@ export type PriceReportCountAggregateOutputType = {
   reportedPrice: number
   currentDbPrice: number
   photoUrl: number
+  notes: number
   seenAt: number
   status: number
   verificationMethod: number
@@ -103,6 +106,7 @@ export type PriceReportMinAggregateInputType = {
   reportedPrice?: true
   currentDbPrice?: true
   photoUrl?: true
+  notes?: true
   seenAt?: true
   status?: true
   verificationMethod?: true
@@ -119,6 +123,7 @@ export type PriceReportMaxAggregateInputType = {
   reportedPrice?: true
   currentDbPrice?: true
   photoUrl?: true
+  notes?: true
   seenAt?: true
   status?: true
   verificationMethod?: true
@@ -135,6 +140,7 @@ export type PriceReportCountAggregateInputType = {
   reportedPrice?: true
   currentDbPrice?: true
   photoUrl?: true
+  notes?: true
   seenAt?: true
   status?: true
   verificationMethod?: true
@@ -238,6 +244,7 @@ export type PriceReportGroupByOutputType = {
   reportedPrice: runtime.Decimal
   currentDbPrice: runtime.Decimal | null
   photoUrl: string | null
+  notes: string | null
   seenAt: Date
   status: $Enums.PriceReportStatus
   verificationMethod: $Enums.PriceReportVerificationMethod | null
@@ -277,6 +284,7 @@ export type PriceReportWhereInput = {
   reportedPrice?: Prisma.DecimalFilter<"PriceReport"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.DecimalNullableFilter<"PriceReport"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.StringNullableFilter<"PriceReport"> | string | null
+  notes?: Prisma.StringNullableFilter<"PriceReport"> | string | null
   seenAt?: Prisma.DateTimeFilter<"PriceReport"> | Date | string
   status?: Prisma.EnumPriceReportStatusFilter<"PriceReport"> | $Enums.PriceReportStatus
   verificationMethod?: Prisma.EnumPriceReportVerificationMethodNullableFilter<"PriceReport"> | $Enums.PriceReportVerificationMethod | null
@@ -297,6 +305,7 @@ export type PriceReportOrderByWithRelationInput = {
   reportedPrice?: Prisma.SortOrder
   currentDbPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   seenAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   verificationMethod?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -320,6 +329,7 @@ export type PriceReportWhereUniqueInput = Prisma.AtLeast<{
   reportedPrice?: Prisma.DecimalFilter<"PriceReport"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.DecimalNullableFilter<"PriceReport"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.StringNullableFilter<"PriceReport"> | string | null
+  notes?: Prisma.StringNullableFilter<"PriceReport"> | string | null
   seenAt?: Prisma.DateTimeFilter<"PriceReport"> | Date | string
   status?: Prisma.EnumPriceReportStatusFilter<"PriceReport"> | $Enums.PriceReportStatus
   verificationMethod?: Prisma.EnumPriceReportVerificationMethodNullableFilter<"PriceReport"> | $Enums.PriceReportVerificationMethod | null
@@ -340,6 +350,7 @@ export type PriceReportOrderByWithAggregationInput = {
   reportedPrice?: Prisma.SortOrder
   currentDbPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   seenAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   verificationMethod?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -364,6 +375,7 @@ export type PriceReportScalarWhereWithAggregatesInput = {
   reportedPrice?: Prisma.DecimalWithAggregatesFilter<"PriceReport"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.DecimalNullableWithAggregatesFilter<"PriceReport"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.StringNullableWithAggregatesFilter<"PriceReport"> | string | null
+  notes?: Prisma.StringNullableWithAggregatesFilter<"PriceReport"> | string | null
   seenAt?: Prisma.DateTimeWithAggregatesFilter<"PriceReport"> | Date | string
   status?: Prisma.EnumPriceReportStatusWithAggregatesFilter<"PriceReport"> | $Enums.PriceReportStatus
   verificationMethod?: Prisma.EnumPriceReportVerificationMethodNullableWithAggregatesFilter<"PriceReport"> | $Enums.PriceReportVerificationMethod | null
@@ -378,6 +390,7 @@ export type PriceReportCreateInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -397,6 +410,7 @@ export type PriceReportUncheckedCreateInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -412,6 +426,7 @@ export type PriceReportUpdateInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -431,6 +446,7 @@ export type PriceReportUncheckedUpdateInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -448,6 +464,7 @@ export type PriceReportCreateManyInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -462,6 +479,7 @@ export type PriceReportUpdateManyMutationInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -477,6 +495,7 @@ export type PriceReportUncheckedUpdateManyInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -508,6 +527,7 @@ export type PriceReportCountOrderByAggregateInput = {
   reportedPrice?: Prisma.SortOrder
   currentDbPrice?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   seenAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   verificationMethod?: Prisma.SortOrder
@@ -529,6 +549,7 @@ export type PriceReportMaxOrderByAggregateInput = {
   reportedPrice?: Prisma.SortOrder
   currentDbPrice?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   seenAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   verificationMethod?: Prisma.SortOrder
@@ -545,6 +566,7 @@ export type PriceReportMinOrderByAggregateInput = {
   reportedPrice?: Prisma.SortOrder
   currentDbPrice?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   seenAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   verificationMethod?: Prisma.SortOrder
@@ -714,6 +736,7 @@ export type PriceReportCreateWithoutReporterInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -731,6 +754,7 @@ export type PriceReportUncheckedCreateWithoutReporterInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -777,6 +801,7 @@ export type PriceReportScalarWhereInput = {
   reportedPrice?: Prisma.DecimalFilter<"PriceReport"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.DecimalNullableFilter<"PriceReport"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.StringNullableFilter<"PriceReport"> | string | null
+  notes?: Prisma.StringNullableFilter<"PriceReport"> | string | null
   seenAt?: Prisma.DateTimeFilter<"PriceReport"> | Date | string
   status?: Prisma.EnumPriceReportStatusFilter<"PriceReport"> | $Enums.PriceReportStatus
   verificationMethod?: Prisma.EnumPriceReportVerificationMethodNullableFilter<"PriceReport"> | $Enums.PriceReportVerificationMethod | null
@@ -791,6 +816,7 @@ export type PriceReportCreateWithoutStoreProductInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -808,6 +834,7 @@ export type PriceReportUncheckedCreateWithoutStoreProductInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -849,6 +876,7 @@ export type PriceReportCreateWithoutCorroboratedByInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -867,6 +895,7 @@ export type PriceReportUncheckedCreateWithoutCorroboratedByInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -886,6 +915,7 @@ export type PriceReportCreateWithoutCorroboratingReportInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -904,6 +934,7 @@ export type PriceReportUncheckedCreateWithoutCorroboratingReportInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -939,6 +970,7 @@ export type PriceReportUpdateWithoutCorroboratedByInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -957,6 +989,7 @@ export type PriceReportUncheckedUpdateWithoutCorroboratedByInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -988,6 +1021,7 @@ export type PriceReportCreateManyReporterInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -1002,6 +1036,7 @@ export type PriceReportUpdateWithoutReporterInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -1019,6 +1054,7 @@ export type PriceReportUncheckedUpdateWithoutReporterInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -1035,6 +1071,7 @@ export type PriceReportUncheckedUpdateManyWithoutReporterInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -1050,6 +1087,7 @@ export type PriceReportCreateManyStoreProductInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -1064,6 +1102,7 @@ export type PriceReportUpdateWithoutStoreProductInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -1081,6 +1120,7 @@ export type PriceReportUncheckedUpdateWithoutStoreProductInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -1097,6 +1137,7 @@ export type PriceReportUncheckedUpdateManyWithoutStoreProductInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -1113,6 +1154,7 @@ export type PriceReportCreateManyCorroboratingReportInput = {
   reportedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: string | null
+  notes?: string | null
   seenAt: Date | string
   status?: $Enums.PriceReportStatus
   verificationMethod?: $Enums.PriceReportVerificationMethod | null
@@ -1126,6 +1168,7 @@ export type PriceReportUpdateWithoutCorroboratingReportInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -1144,6 +1187,7 @@ export type PriceReportUncheckedUpdateWithoutCorroboratingReportInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -1160,6 +1204,7 @@ export type PriceReportUncheckedUpdateManyWithoutCorroboratingReportInput = {
   reportedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentDbPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   seenAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumPriceReportStatusFieldUpdateOperationsInput | $Enums.PriceReportStatus
   verificationMethod?: Prisma.NullableEnumPriceReportVerificationMethodFieldUpdateOperationsInput | $Enums.PriceReportVerificationMethod | null
@@ -1206,6 +1251,7 @@ export type PriceReportSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   reportedPrice?: boolean
   currentDbPrice?: boolean
   photoUrl?: boolean
+  notes?: boolean
   seenAt?: boolean
   status?: boolean
   verificationMethod?: boolean
@@ -1227,6 +1273,7 @@ export type PriceReportSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   reportedPrice?: boolean
   currentDbPrice?: boolean
   photoUrl?: boolean
+  notes?: boolean
   seenAt?: boolean
   status?: boolean
   verificationMethod?: boolean
@@ -1246,6 +1293,7 @@ export type PriceReportSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   reportedPrice?: boolean
   currentDbPrice?: boolean
   photoUrl?: boolean
+  notes?: boolean
   seenAt?: boolean
   status?: boolean
   verificationMethod?: boolean
@@ -1265,6 +1313,7 @@ export type PriceReportSelectScalar = {
   reportedPrice?: boolean
   currentDbPrice?: boolean
   photoUrl?: boolean
+  notes?: boolean
   seenAt?: boolean
   status?: boolean
   verificationMethod?: boolean
@@ -1274,7 +1323,7 @@ export type PriceReportSelectScalar = {
   createdAt?: boolean
 }
 
-export type PriceReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "storeProductId" | "reportedBy" | "reportedPrice" | "currentDbPrice" | "photoUrl" | "seenAt" | "status" | "verificationMethod" | "corroboratingReportId" | "reviewedAt" | "reviewedBy" | "createdAt", ExtArgs["result"]["priceReport"]>
+export type PriceReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "storeProductId" | "reportedBy" | "reportedPrice" | "currentDbPrice" | "photoUrl" | "notes" | "seenAt" | "status" | "verificationMethod" | "corroboratingReportId" | "reviewedAt" | "reviewedBy" | "createdAt", ExtArgs["result"]["priceReport"]>
 export type PriceReportInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   storeProduct?: boolean | Prisma.StoreProductDefaultArgs<ExtArgs>
   reporter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1308,6 +1357,7 @@ export type $PriceReportPayload<ExtArgs extends runtime.Types.Extensions.Interna
     reportedPrice: runtime.Decimal
     currentDbPrice: runtime.Decimal | null
     photoUrl: string | null
+    notes: string | null
     seenAt: Date
     status: $Enums.PriceReportStatus
     verificationMethod: $Enums.PriceReportVerificationMethod | null
@@ -1748,6 +1798,7 @@ export interface PriceReportFieldRefs {
   readonly reportedPrice: Prisma.FieldRef<"PriceReport", 'Decimal'>
   readonly currentDbPrice: Prisma.FieldRef<"PriceReport", 'Decimal'>
   readonly photoUrl: Prisma.FieldRef<"PriceReport", 'String'>
+  readonly notes: Prisma.FieldRef<"PriceReport", 'String'>
   readonly seenAt: Prisma.FieldRef<"PriceReport", 'DateTime'>
   readonly status: Prisma.FieldRef<"PriceReport", 'PriceReportStatus'>
   readonly verificationMethod: Prisma.FieldRef<"PriceReport", 'PriceReportVerificationMethod'>
